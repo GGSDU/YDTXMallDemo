@@ -27,6 +27,7 @@
     float originY = 80;
     float gap = 20;
     int count = 375 / (gap + size.width);
+    // commit test
     for (int i = 0; i < 10; i ++) {
         int x = i / count;
         int y = i % count;
