@@ -12,25 +12,16 @@
 
 @interface CartListCell ()
 
-@property (nonatomic,retain) UIView *mainView;
-@property (nonatomic,retain) UIImageView *infoImageView;
-@property (nonatomic,retain) UILabel *label;
-@property (nonatomic,retain) UILabel *detailLabel;
-@property (nonatomic,retain) UILabel *priceLabel;
-@property (nonatomic,retain) SXAdjustNumberView *adjustNumberView;
+@property (nonatomic,strong) UIView *mainView;
+@property (nonatomic,strong) UIImageView *infoImageView;
+@property (nonatomic,strong) UILabel *label;
+@property (nonatomic,strong) UILabel *detailLabel;
+@property (nonatomic,strong) UILabel *priceLabel;
+@property (nonatomic,strong) SXAdjustNumberView *adjustNumberView;
 
 @end
 
 @implementation CartListCell
-
-- (void)dealloc
-{
-    if (_productModel) {
-        [_productModel release];
-    }
-    
-    [super dealloc];
-}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -68,7 +59,6 @@
         _mainView = [[UIView alloc] init];
         _mainView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_mainView];
-        [_mainView release];
         [_mainView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
         }];
@@ -80,7 +70,6 @@
         [_cellSelectButton setImage:[UIImage imageNamed:@"Cart_CellStatusButton_Selected"] forState:UIControlStateSelected];
         [_cellSelectButton addTarget:self action:@selector(cellStatusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.mainView addSubview:_cellSelectButton];
-        [_cellSelectButton release];
         [_cellSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.centerY.equalTo(self.mainView.mas_centerY);
@@ -94,11 +83,11 @@
     
     if (_adjustNumberView == nil) {
         _adjustNumberView = [[SXAdjustNumberView alloc] init];
+        __weak typeof(self) weakSelf = self;
         _adjustNumberView.updateNumberBlock = ^(int number) {
-            self.productModel.number = number;
+            weakSelf.productModel.number = number;
         };
         [self.mainView addSubview:_adjustNumberView];
-        [_adjustNumberView release];
         [_adjustNumberView mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.top.equalTo(self.detailLabel.mas_bottom).offset(12);
@@ -112,7 +101,7 @@
 #pragma mark - getter/setter
 - (void)setProductModel:(ProductModel *)productModel
 {
-    _productModel = [productModel retain];
+    _productModel = productModel;
     
     [self.infoImageView sd_setImageWithURL:[NSURL URLWithString:productModel.infoImageURL] placeholderImage:[UIImage imageNamed:@"Image"]];
     self.label.text = productModel.infoName;
@@ -127,7 +116,6 @@
         _infoImageView = [[UIImageView alloc] init];
      
         [self.mainView addSubview:_infoImageView];
-        [_infoImageView release];
         
         [_infoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             
@@ -149,7 +137,6 @@
         _label.textColor = RGB(58, 58, 58);
         _label.numberOfLines = 2;
         [self.mainView addSubview:_label];
-        [_label release];
         
         [_label mas_makeConstraints:^(MASConstraintMaker *make) {
             
@@ -171,7 +158,6 @@
         _detailLabel.adjustsFontSizeToFitWidth = YES;
         _detailLabel.textColor = RGB(183, 183, 183);
         [self.mainView addSubview:_detailLabel];
-        [_detailLabel release];
         [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
            
             make.top.equalTo(self.label.mas_bottom).offset(15);
@@ -194,7 +180,6 @@
         _priceLabel.textAlignment = NSTextAlignmentRight;
         _priceLabel.textColor = RGB(238, 69, 66);
         [self.mainView addSubview:_priceLabel];
-        [_priceLabel release];
         [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.top.equalTo(self.mainView.mas_top).offset(22);

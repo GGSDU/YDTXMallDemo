@@ -17,41 +17,17 @@ static NSString *completeString = @"完成";
 
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,CartCellOperationViewDelegate,CartListCellDelegate>
 
-@property (nonatomic,retain) NSMutableArray *productModelmArray;
-@property (nonatomic,retain) UITableView *tableView;
-@property (nonatomic,retain) CartCellOperationView *cartCellOperationView;
+@property (nonatomic,strong) NSMutableArray *productModelmArray;
+@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) CartCellOperationView *cartCellOperationView;
 
-@property (nonatomic,retain) NSMutableDictionary *operateCellIndexPathDic;
+@property (nonatomic,strong) NSMutableDictionary *operateCellIndexPathDic;
 
-@property (nonatomic,retain) UIButton *tempButton;
+@property (nonatomic,strong) UIButton *tempButton;
 
 @end
 
 @implementation CartViewController
-
-- (void)dealloc
-{
-    if (_productModelmArray) {
-        [_productModelmArray removeAllObjects];
-        [_productModelmArray release];
-        _productModelmArray = nil;
-    }
-    
-    if (_operateCellIndexPathDic) {
-        [_operateCellIndexPathDic removeAllObjects];
-        [_operateCellIndexPathDic release];
-        _operateCellIndexPathDic = nil;
-    }
-    
-    if (_productModelArray) {
-        [_productModelArray release];
-        _productModelArray = nil;
-    }
-    
-    [self removeKeyboardNotification];
-    
-    [super dealloc];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -65,6 +41,11 @@ static NSString *completeString = @"完成";
     [self creatUI];
     
     [self addKeyboardNotification];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self removeKeyboardNotification];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -235,7 +216,7 @@ static NSString *completeString = @"完成";
         NSInteger i = [index integerValue];
         [mutableArray addObject:self.productModelmArray[i]];
     }
-    return [mutableArray autorelease];
+    return mutableArray;
 }
 
 - (NSMutableArray *)getCurrentSelectedCellIndexArray
@@ -247,7 +228,7 @@ static NSString *completeString = @"完成";
             [mutableArray addObject:key];
         }
     }
-    return [mutableArray autorelease];
+    return mutableArray;
 }
 
 - (void)setOperateCellIndexPathDicAllObject:(BOOL)selected{
@@ -288,7 +269,7 @@ static NSString *completeString = @"完成";
 
 - (void)setProductModelArray:(NSArray *)productModelArray
 {
-    _productModelArray = [productModelArray retain];
+    _productModelArray = productModelArray;
     
     
     [self.productModelmArray removeAllObjects];
@@ -310,7 +291,6 @@ static NSString *completeString = @"完成";
     _cartCellOperationView = [[CartCellOperationView alloc] init];
     _cartCellOperationView.delegate = self;
     [self.view addSubview:_cartCellOperationView];
-    [_cartCellOperationView release];
     [_cartCellOperationView mas_updateConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.view.mas_left).offset(0);
@@ -326,7 +306,6 @@ static NSString *completeString = @"完成";
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    [_tableView release];
     [self.view sendSubviewToBack:_tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
  
@@ -346,7 +325,6 @@ static NSString *completeString = @"完成";
 {
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithTitle:editString style:UIBarButtonItemStylePlain target:self action:@selector(startEdit:)];
     self.navigationItem.rightBarButtonItem = rightBarButton;
-    [rightBarButton release];
 }
 
 #pragma mark - keyboard Notification
@@ -371,7 +349,6 @@ static NSString *completeString = @"完成";
     button.alpha = 0.2;
     [button addTarget:self action:@selector(resignFirstResponder:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    [button release];
     _tempButton = button;
 }
 
@@ -389,7 +366,6 @@ static NSString *completeString = @"完成";
     button.alpha = 0.2;
     [button addTarget:self action:@selector(resignFirstResponder:) forControlEvents:UIControlEventTouchUpInside];
     [window addSubview:button];
-    [button release];
     _tempButton = button;
 }
 
