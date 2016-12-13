@@ -12,11 +12,11 @@
 
 @interface SXAdjustNumberView ()<UITextFieldDelegate>
 
-@property (nonatomic,retain) UIButton *increaseButton;
-@property (nonatomic,retain) UIButton *decreaseButton;
-@property (nonatomic,retain) UITextField *numberTextField;
+@property (nonatomic,strong) UIButton *increaseButton;
+@property (nonatomic,strong) UIButton *decreaseButton;
+@property (nonatomic,strong) UITextField *numberTextField;
 
-@property (nonatomic,retain) UIButton *tempButton;
+@property (nonatomic,strong) UIButton *tempButton;
 
 @end
 
@@ -98,7 +98,6 @@
     [_decreaseButton setImage:[UIImage imageNamed:@"Cart_Decrease_Disabled"] forState:UIControlStateDisabled];
     [_decreaseButton addTarget:self action:@selector(decreaseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_decreaseButton];
-    [_decreaseButton release];
     [_decreaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(0);
         make.left.equalTo(self.mas_left).offset(0);
@@ -110,7 +109,6 @@
     [_increaseButton setImage:[UIImage imageNamed:@"Cart_Increase"] forState:UIControlStateNormal];
     [_increaseButton addTarget:self action:@selector(increaseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_increaseButton];
-    [_increaseButton release];
     [_increaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.mas_top).offset(0);
@@ -129,7 +127,6 @@
     _numberTextField.keyboardType = UIKeyboardTypeNumberPad;
     _numberTextField.delegate = self;
     [self addSubview:_numberTextField];
-    [_numberTextField release];
     [_numberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.mas_top).offset(0);

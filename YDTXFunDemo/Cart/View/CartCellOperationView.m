@@ -10,9 +10,9 @@
 
 @interface CartCellOperationView ()
 
-@property (nonatomic,retain) UIButton *allChooseButton;
-@property (nonatomic,retain) UILabel *totalPriceLabel;
-@property (nonatomic,retain) UIButton *operationButton;
+@property (nonatomic,strong) UIButton *allChooseButton;
+@property (nonatomic,strong) UILabel *totalPriceLabel;
+@property (nonatomic,strong) UIButton *operationButton;
 
 
 @end
@@ -90,7 +90,6 @@
     [_allChooseButton setImage:[UIImage imageNamed:@"Cart_CellStatusButton_Selected"] forState:UIControlStateSelected];
     [_allChooseButton addTarget:self action:@selector(allChooseButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_allChooseButton];
-    [_allChooseButton release];
     [_allChooseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(self.mas_centerY).offset(0);
@@ -105,7 +104,6 @@
     allChooseLabel.textColor = RGB(56, 56, 56);
     allChooseLabel.text = @"全选";
     [self addSubview:allChooseLabel];
-    [allChooseLabel release];
     [allChooseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(_allChooseButton).offset(0);
@@ -126,7 +124,6 @@
     _totalPriceLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:_totalPriceLabel];
     [self updateTotalPrice:defaultPrice];
-    [_totalPriceLabel release];
     [_totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_allChooseButton).offset(0);
         make.left.greaterThanOrEqualTo(allChooseLabel.mas_right);
@@ -141,7 +138,6 @@
     [_operationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_operationButton addTarget:self action:@selector(operationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_operationButton];
-    [_operationButton release];
     [_operationButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(0);
         make.bottom.equalTo(self.mas_bottom).offset(0);

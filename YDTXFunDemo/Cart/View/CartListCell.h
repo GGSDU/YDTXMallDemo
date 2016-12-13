@@ -20,11 +20,11 @@
 
 @property (nonatomic,assign) id<CartListCellDelegate>delegate;
 
-@property (nonatomic,retain) ProductModel *productModel;
+@property (nonatomic,strong) ProductModel *productModel;
 
 @property (nonatomic,assign) int productNumber;
 
-@property (nonatomic,retain) UIButton *cellSelectButton;
+@property (nonatomic,strong) UIButton *cellSelectButton;
 
 - (void)updateCellStatusButtonSelected:(BOOL)selected;
 
