@@ -39,7 +39,9 @@
 		042197991DFE8A010061175F /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197841DFE8A010061175F /* UIScrollView+MJRefresh.m */; };
 		0421979A1DFE8A010061175F /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197861DFE8A010061175F /* UIView+MJExtension.m */; };
 		2E5D5996E8C9297B98A083BD /* libPods-YDTXFunDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C97CBB76D0A0615FB76094 /* libPods-YDTXFunDemo.a */; };
+		750F293F1DFFAACD00AAF278 /* NetWorkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F293E1DFFAACD00AAF278 /* NetWorkService.m */; };
 		752417C01DF9474000123517 /* Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 752417BF1DF9474000123517 /* Image.png */; };
+		756EE9551DFFC45200D1B89D /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 756EE9541DFFC45200D1B89D /* libAFNetworking.a */; };
 		757A7E051DF6843300399B10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 757A7E041DF6843300399B10 /* main.m */; };
 		757A7E081DF6843300399B10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 757A7E071DF6843300399B10 /* AppDelegate.m */; };
 		757A7E0B1DF6843300399B10 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757A7E0A1DF6843300399B10 /* ViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -173,8 +175,11 @@
 		042197851DFE8A010061175F /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		042197861DFE8A010061175F /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		6F11A696BDE87B332E0CFF15 /* Pods-YDTXFunDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YDTXFunDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YDTXFunDemo/Pods-YDTXFunDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		750F293D1DFFAACD00AAF278 /* NetWorkService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkService.h; sourceTree = "<group>"; };
+		750F293E1DFFAACD00AAF278 /* NetWorkService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkService.m; sourceTree = "<group>"; };
 		752417401DF8FD0100123517 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		752417BF1DF9474000123517 /* Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Image.png; sourceTree = "<group>"; };
+		756EE9541DFFC45200D1B89D /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../../../../Library/Developer/Xcode/DerivedData/YDTXFunDemo-azrmjlmzytcvnjbxbpwiodjhtxjt/Build/Products/Debug-iphonesimulator/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		757A7E001DF6843300399B10 /* YDTXFunDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YDTXFunDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		757A7E041DF6843300399B10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		757A7E061DF6843300399B10 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -280,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				756EE9551DFFC45200D1B89D /* libAFNetworking.a in Frameworks */,
 				2E5D5996E8C9297B98A083BD /* libPods-YDTXFunDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +481,7 @@
 		2BD8542BA1972E659741F877 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				756EE9541DFFC45200D1B89D /* libAFNetworking.a */,
 				E5C97CBB76D0A0615FB76094 /* libPods-YDTXFunDemo.a */,
 			);
 			name = Frameworks;
@@ -552,6 +559,8 @@
 		757A7E3B1DF687E600399B10 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
+				750F293D1DFFAACD00AAF278 /* NetWorkService.h */,
+				750F293E1DFFAACD00AAF278 /* NetWorkService.m */,
 				75B7F7E51DF6BD5C008F72A5 /* SXPublicTool.h */,
 				75B7F7E61DF6BD5C008F72A5 /* SXPublicTool.m */,
 				757A7E3F1DF687F800399B10 /* ProductModel.h */,
@@ -899,6 +908,7 @@
 				75903E881DFE676B005ABC88 /* SDWebImageCompat.m in Sources */,
 				0421978B1DFE8A010061175F /* MJRefreshHeader.m in Sources */,
 				75903E8D1DFE676B005ABC88 /* SDWebImagePrefetcher.m in Sources */,
+				750F293F1DFFAACD00AAF278 /* NetWorkService.m in Sources */,
 				0421978F1DFE8A010061175F /* MJRefreshBackGifFooter.m in Sources */,
 				75903E921DFE676B005ABC88 /* UIImageView+WebCache.m in Sources */,
 				042197891DFE8A010061175F /* MJRefreshComponent.m in Sources */,

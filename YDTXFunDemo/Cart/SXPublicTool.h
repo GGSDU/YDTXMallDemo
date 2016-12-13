@@ -15,25 +15,36 @@
 
 + (UIWindow *)keyWindow;
 
-
+#pragma mark - tip
+/**
+ Show a UIAlertController on the windows.rootViewController
+ 
+ @param title           The tip title.
+ @param message         The tip message.
+ @param cancelTitle     The title on cancel action.
+ @param cancelHandler   A block object to be executed when you clicked the cancel action.
+ @param confirmTitle    The title on confirm action.
+ @param confirmHandler  A block object to be executed when you clicked the confirm action.
+ */
 + (void)showAlertControllerWithTitle:(nullable NSString *)title
                             meassage:(nullable NSString *)message
                          cancelTitle:(nullable NSString *)cancelTitle
-                       cancelHandler:(nullable void (^)(UIAlertAction * _Nonnull action))cancelHandler
+                       cancelHandler:(nullable void (^)(UIAlertAction * _Nullable action))cancelHandler
                         confirmTitle:(nullable NSString *)confirmTitle
-                      confirmHandler:(nullable void (^)(UIAlertAction * _Nonnull action))confirmHandler;
+                      confirmHandler:(nullable void (^)(UIAlertAction * _Nullable action))confirmHandler;
 
 
-+ (void)addKeyboardWillShowNotificationObserver:(id)observer selector:(SEL)aSelector object:(nullable id)anObject;
-+ (void)removeKeyboardWillShowNotificationObserver:(id)observer object:(nullable id)anObject;
+#pragma mark - keyboard notification
++ (void)addKeyboardWillShowNotificationObserver:(nonnull id)observer selector:(nonnull SEL)aSelector object:(nullable id)anObject;
++ (void)removeKeyboardWillShowNotificationObserver:(nonnull id)observer object:(nullable id)anObject;
 
 
-+ (void)addKeyboardDidShowNotificationObserver:(id)observer selector:(SEL)aSelector object:(nullable id)anObject;
-+ (void)removeKeyboardDidShowNotificationObserver:(id)observer object:(nullable id)anObject;
++ (void)addKeyboardDidShowNotificationObserver:(nonnull id)observer selector:(nonnull SEL)aSelector object:(nullable id)anObject;
++ (void)removeKeyboardDidShowNotificationObserver:(nonnull id)observer object:(nullable id)anObject;
 
 
-+ (void)addKeyboardWillHideNotificationObserver:(id)observer selector:(SEL)aSelector object:(nullable id)anObject;
-+ (void)removeKeyboardWillHideNotificationObserver:(id)observer object:(nullable id)anObject;
++ (void)addKeyboardWillHideNotificationObserver:(nonnull id)observer selector:(nonnull SEL)aSelector object:(nullable id)anObject;
++ (void)removeKeyboardWillHideNotificationObserver:(nonnull id)observer object:(nullable id)anObject;
 
 
 @end
