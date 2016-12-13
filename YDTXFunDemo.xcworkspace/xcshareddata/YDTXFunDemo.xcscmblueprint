@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++E163CC9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++59AA357" : 9223372036854775807,
+    "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++3FBB9DC" : 9223372036854775807,
+    "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++E163CC9" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "97ABEDDD-2A1B-487C-AAC6-F5A90952C3B3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++59AA357" : "",
+    "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++3FBB9DC" : "",
+    "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++E163CC9" : "ShopMarketDemoForYDTX\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "YDTXFunDemo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "YDTXFunDemo.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iOSFM\/ShopMarketDemoForYDTX.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++3FBB9DC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iOSFM\/ShopMarketDemoForYDTX",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++59AA357"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iOSFM\/ShopMarketDemoForYDTX.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0C4EEF7C50156980C0C7C66CAF02CF4482411D7F+++E163CC9"
+    }
+  ]
+}
