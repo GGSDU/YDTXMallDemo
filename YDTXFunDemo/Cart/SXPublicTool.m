@@ -16,6 +16,26 @@
     return [UIApplication sharedApplication].keyWindow;
 }
 
+#pragma mark - tip
++ (void)showAlertControllerWithTitle:(NSString *)title
+                            meassage:(NSString *)message
+                         cancelTitle:(NSString *)cancelTitle
+                       cancelHandler:(void (^)(UIAlertAction * _Nullable))cancelHandler
+                        confirmTitle:(NSString *)confirmTitle
+                      confirmHandler:(void (^)(UIAlertAction * _Nullable))confirmHandler
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    //cancel
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:cancelHandler];
+    [alert addAction:cancelAction];
+    //confirm
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmTitle style:UIAlertActionStyleDefault handler:confirmHandler];
+    [alert addAction:confirmAction];
+    //present
+    UIWindow *window = [SXPublicTool keyWindow];
+    [window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - NSNotificationCenter
 /**
  *  NSNotificationCenter
