@@ -13,7 +13,6 @@
 @interface CartListCell ()
 
 @property (nonatomic,retain) UIView *mainView;
-@property (nonatomic,retain) UIButton *cellSelectButton;
 @property (nonatomic,retain) UIImageView *infoImageView;
 @property (nonatomic,retain) UILabel *label;
 @property (nonatomic,retain) UILabel *detailLabel;

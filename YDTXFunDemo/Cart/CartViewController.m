@@ -21,7 +21,7 @@ static NSString *completeString = @"完成";
 @property (nonatomic,retain) UITableView *tableView;
 @property (nonatomic,retain) CartCellOperationView *cartCellOperationView;
 
-@property (nonatomic,retain) NSMutableArray *prePayList;
+@property (nonatomic,retain) NSMutableDictionary *operateCellIndexPathDic;
 
 @property (nonatomic,retain) UIButton *tempButton;
 
@@ -37,10 +37,10 @@ static NSString *completeString = @"完成";
         _productModelmArray = nil;
     }
     
-    if (_prePayList) {
-        [_prePayList removeAllObjects];
-        [_prePayList release];
-        _prePayList = nil;
+    if (_operateCellIndexPathDic) {
+        [_operateCellIndexPathDic removeAllObjects];
+        [_operateCellIndexPathDic release];
+        _operateCellIndexPathDic = nil;
     }
     
     if (_productModelArray) {
@@ -94,15 +94,13 @@ static NSString *completeString = @"完成";
 {
     NSLog(@"here to do something after selecte all choose button");
     [self setALLCellSelectedStatus:allChooseButton.selected];
-    
-    if (allChooseButton.selected) {
-        [self.prePayList addObjectsFromArray:self.productModelmArray];
-        NSLog(@"all choose %@",self.prePayList);
+    if (cartCellOperationView.allChooseButtonSelectedStatus) {
+        [self setOperateCellIndexPathDicAllObject:YES];
+//        NSLog(@"all choose %@",self.operateCellIndexPathDic);
     } else {
-        [self.prePayList removeAllObjects];
-        NSLog(@"dis all choose%@",self.prePayList);
+        [self setOperateCellIndexPathDicAllObject:NO];
+//        NSLog(@"dis all choose%@",self.operateCellIndexPathDic);
     }
-    
 }
 
 - (void)cartCellOperationView:(CartCellOperationView *)cartCellOperationView didSelectedSettleAccountButton:(UIButton *)settleAccountButton
@@ -114,12 +112,32 @@ static NSString *completeString = @"完成";
 - (void)cartCellOperationView:(CartCellOperationView *)cartCellOperationView didSelectedDeleteListButton:(UIButton *)deleteListButton
 {
     NSLog(@"here to delete list");
+    NSArray *selectCellArray = [self getCurrentSelectedArray];
+    
+    NSLog(@"%@",selectCellArray);
 }
 
 #pragma mark - CartListCellDelegate
 - (void)cartListCell:(CartListCell *)cartListCell didSelectedCell:(ProductModel *)productModel
 {
-    NSLog(@"%d",productModel.number);
+    NSLog(@"click selected cell ******************");
+    /** 这里的逻辑暂时定为
+      *  1.cell选中状态时，将模型加入数组中
+      *  2.cell非选中状态时，将模型从数组中移除
+      */
+    BOOL cellSelected = cartListCell.cellSelectButton.selected;
+    NSNumber *object = [NSNumber numberWithBool:cellSelected];
+    
+    NSLog(@"*** cellSelected      *** %@",object);
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cartListCell];
+    NSNumber *key = [NSNumber numberWithInteger:indexPath.section];
+    NSLog(@"*** indexPath.row     *** %ld",indexPath.row);
+    NSLog(@"*** indexPath.section *** %ld",indexPath.section);
+    
+    [self.operateCellIndexPathDic setObject:object forKey:key];
+    
+    NSLog(@"%@",self.operateCellIndexPathDic);
 }
 
 #pragma mark - tableVeiw delegate & datasource
@@ -137,7 +155,9 @@ static NSString *completeString = @"完成";
     
     ProductModel *productModel = (ProductModel *)self.productModelArray[indexPath.section];
     cartListCell.productModel = productModel;
-    [cartListCell updateCellStatusButtonSelected:_cartCellOperationView.allChooseButtonSelectedStatus];
+    
+    NSNumber *boolObject = [self.operateCellIndexPathDic objectForKey:[NSNumber numberWithInteger:indexPath.section]];
+    [cartListCell updateCellStatusButtonSelected:boolObject.boolValue];
     
     
     return cartListCell;
@@ -174,12 +194,40 @@ static NSString *completeString = @"完成";
 }
 
 #pragma mark - getter/setter
-- (NSMutableArray *)prePayList
+- (NSMutableArray *)getCurrentSelectedArray
 {
-    if (_prePayList == nil) {
-        _prePayList = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+    for (id key in self.operateCellIndexPathDic.allKeys) {
+        NSNumber *boolObject = [self.operateCellIndexPathDic objectForKey:key];
+        if (boolObject.boolValue) {
+            [mutableArray addObject:key];
+        }
     }
-    return _prePayList;
+    return [mutableArray autorelease];
+}
+
+- (void)setOperateCellIndexPathDicAllObject:(BOOL)selected{
+    
+    NSNumber *object = [NSNumber numberWithBool:selected];
+    for (id key in self.operateCellIndexPathDic.allKeys) {
+        
+        [self.operateCellIndexPathDic setObject:object forKey:key];
+    }
+}
+
+- (NSMutableDictionary *)operateCellIndexPathDic
+{
+    if (_operateCellIndexPathDic == nil) {
+        _operateCellIndexPathDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+        
+        NSNumber *object = [NSNumber numberWithBool:NO];
+        for (NSInteger i = 0; i < _productModelmArray.count; i++) {
+            NSNumber *key = [NSNumber numberWithInteger:i];
+            [self.operateCellIndexPathDic setObject:object forKey:key];
+        }
+        
+    }
+    return _operateCellIndexPathDic;
 }
 
 - (NSMutableArray *)productModelmArray
@@ -202,8 +250,9 @@ static NSString *completeString = @"完成";
 #pragma mark - private methods
 - (void)setALLCellSelectedStatus:(BOOL)selected
 {
-    for (UITableViewCell *cell in self.tableView.visibleCells) {
-        CartListCell *cartListCell = (CartListCell *)cell;
+    for (int i = 0; i < self.tableView.visibleCells.count; i++) {
+        // 1.update current visible cells‘s view（not all cell）
+        CartListCell *cartListCell = (CartListCell *)self.tableView.visibleCells[i];
         [cartListCell updateCellStatusButtonSelected:selected];
     }
 }

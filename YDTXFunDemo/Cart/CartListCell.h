@@ -24,6 +24,8 @@
 
 @property (nonatomic,assign) int productNumber;
 
+@property (nonatomic,retain) UIButton *cellSelectButton;
+
 - (void)updateCellStatusButtonSelected:(BOOL)selected;
 
 @end
