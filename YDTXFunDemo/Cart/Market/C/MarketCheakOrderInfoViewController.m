@@ -8,6 +8,7 @@
 
 #import "MarketCheakOrderInfoViewController.h"
 #import "MarketCheckOrderCell.h"
+#import "PayWayView.h"
 @interface MarketCheakOrderInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic)UITableView *tableView;
@@ -44,7 +45,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
     
     //缩进
-//    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     
     //配置tableView
     tableView.delegate = self;
@@ -70,7 +71,6 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     //作为tableView的头部
     self.tableView.tableHeaderView = HeaderBaseView;
 
-    
     //收货地址View   //手势
     UIView *addressView = [[UIView alloc]init];
     addressView.backgroundColor = [UIColor whiteColor];
@@ -167,7 +167,9 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
     
 //支付方式
+    PayWayView *payView = [[PayWayView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 90)];
     
+    self.tableView.tableFooterView = payView;
     
 }
 

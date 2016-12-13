@@ -113,6 +113,18 @@
         make.trailing.equalTo(topBaseView).offset(-10);
     }];
     
+    
+//    //分割线
+//    UIView *topBaseViewSeparateLine = [[UIView alloc]init];
+//    topBaseViewSeparateLine.backgroundColor = [UIColor colorForHex:@"e0e0e0"];
+//    [topBaseView addSubview:topBaseViewSeparateLine];
+//    [topBaseViewSeparateLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.equalTo(topBaseView);
+//        make.trailing.equalTo(topBaseView);
+//        make.bottom.equalTo(topBaseView);
+//        make.height.mas_equalTo(1);
+//    }];
+    
 /*
  *底部父View
  *

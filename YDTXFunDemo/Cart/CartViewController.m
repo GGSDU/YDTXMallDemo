@@ -12,6 +12,7 @@
 #import "CartListCell.h"
 #import "ProductModel.h"
 
+#import "NetWorkService.h"
 static NSString *editString = @"编辑";
 static NSString *completeString = @"完成";
 
