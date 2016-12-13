@@ -38,6 +38,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     self.title = @"确认订单";
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
@@ -111,7 +112,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
 //底部结算View
     UIView *toolView = [[UIView alloc]init];
-    toolView.backgroundColor = [UIColor redColor];
+    toolView.backgroundColor = [UIColor whiteColor];
     toolView.layer.borderWidth = 0.5;
     toolView.layer.borderColor = [UIColor grayColor].CGColor;
     [self.view addSubview:toolView];
@@ -127,7 +128,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     UIButton *summitOrderBtn = [[UIButton alloc]init];
     [summitOrderBtn setTitle:@"提交订单" forState:UIControlStateNormal];
     [summitOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [summitOrderBtn setBackgroundColor:[UIColor orangeColor]];
+    [summitOrderBtn setBackgroundColor:[UIColor colorForHex:@"ff5b02"]];
     summitOrderBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [toolView addSubview:summitOrderBtn];
     [summitOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -160,6 +161,14 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
         make.trailing.equalTo(summitOrderBtn.mas_leading).offset(-15);
     }];
     
+    
+    
+
+
+    
+//支付方式
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -182,7 +191,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

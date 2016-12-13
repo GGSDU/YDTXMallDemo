@@ -353,6 +353,30 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
     NSLog(@"-buyItNow-");
     
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [self.view.layer setTransform:[self firstTransform]];
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            
+            [self.view.layer setTransform:[self secondTransform]];
+            //            显示maskView
+            
+            MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
+            self.maskView =maskView;
+            maskView.delegate = self;
+            [[UIApplication sharedApplication].keyWindow addSubview:maskView];
+            
+            
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

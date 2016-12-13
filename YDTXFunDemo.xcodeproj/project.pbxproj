@@ -38,6 +38,7 @@
 		042197981DFE8A010061175F /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197821DFE8A010061175F /* UIScrollView+MJExtension.m */; };
 		042197991DFE8A010061175F /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197841DFE8A010061175F /* UIScrollView+MJRefresh.m */; };
 		0421979A1DFE8A010061175F /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197861DFE8A010061175F /* UIView+MJExtension.m */; };
+		042197DF1DFFC3790061175F /* PayWayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197DE1DFFC3790061175F /* PayWayView.m */; };
 		2E5D5996E8C9297B98A083BD /* libPods-YDTXFunDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C97CBB76D0A0615FB76094 /* libPods-YDTXFunDemo.a */; };
 		752417C01DF9474000123517 /* Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 752417BF1DF9474000123517 /* Image.png */; };
 		757A7E051DF6843300399B10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 757A7E041DF6843300399B10 /* main.m */; };
@@ -172,6 +173,8 @@
 		042197841DFE8A010061175F /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		042197851DFE8A010061175F /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		042197861DFE8A010061175F /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		042197DD1DFFC3790061175F /* PayWayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayWayView.h; sourceTree = "<group>"; };
+		042197DE1DFFC3790061175F /* PayWayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayWayView.m; sourceTree = "<group>"; };
 		6F11A696BDE87B332E0CFF15 /* Pods-YDTXFunDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YDTXFunDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YDTXFunDemo/Pods-YDTXFunDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		752417401DF8FD0100123517 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		752417BF1DF9474000123517 /* Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Image.png; sourceTree = "<group>"; };
@@ -373,6 +376,8 @@
 				042197531DFE891B0061175F /* MarketMaskView.m */,
 				042197541DFE891B0061175F /* PPNumberButton.h */,
 				042197551DFE891B0061175F /* PPNumberButton.m */,
+				042197DD1DFFC3790061175F /* PayWayView.h */,
+				042197DE1DFFC3790061175F /* PayWayView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -922,6 +927,7 @@
 				75903E7D1DFE676B005ABC88 /* MASViewAttribute.m in Sources */,
 				75B7F7E71DF6BD5C008F72A5 /* SXPublicTool.m in Sources */,
 				0421973B1DFE88F70061175F /* UIColor+Hex.m in Sources */,
+				042197DF1DFFC3790061175F /* PayWayView.m in Sources */,
 				0421978D1DFE8A010061175F /* MJRefreshAutoNormalFooter.m in Sources */,
 				75B7F7F21DF8EEFF008F72A5 /* CartCellOperationView.m in Sources */,
 				0421979A1DFE8A010061175F /* UIView+MJExtension.m in Sources */,

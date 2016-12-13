@@ -56,7 +56,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
     
     
-    self.collectionView.frame = CGRectMake(0, 0, YDTXScreenW, YDTXScreenH-64);
+//    self.collectionView.frame = CGRectMake(0, 0, YDTXScreenW, YDTXScreenH-64);
     self.collectionView.collectionViewLayout = flowLayout;
     //设置属性
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];

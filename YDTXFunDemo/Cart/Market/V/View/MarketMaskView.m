@@ -67,6 +67,7 @@
     UIButton *closeBtn = [[UIButton alloc]init];
     [closeBtn setImage:[UIImage imageNamed:@"market_MaskView_closeBtn"] forState:UIControlStateNormal];
     [baseView addSubview:closeBtn];
+    [closeBtn addTarget:self action:@selector(RemoveSelf) forControlEvents:UIControlEventTouchUpInside];
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(baseView).offset(-10);
         make.centerY.equalTo(baseView.mas_top);

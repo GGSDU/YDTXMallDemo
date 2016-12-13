@@ -28,7 +28,7 @@
 
 -(void)setBasic{
 
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
 
 }
@@ -113,7 +113,10 @@
         make.trailing.equalTo(topBaseView).offset(-10);
     }];
     
-//底部父View
+/*
+ *底部父View
+ *
+ */
     UIView *bottomBaseView = [[UIView alloc]init];
     [self.contentView addSubview:bottomBaseView];
     bottomBaseView.backgroundColor = [UIColor whiteColor];
@@ -181,8 +184,11 @@
     /*
      优惠券View
      */
+    //手势
+    UITapGestureRecognizer *discountViewTapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TapDiscountView)];
+    
     UIView *discountView = [[UIView alloc]init];
-    //    buyNumView.backgroundColor = [UIColor redColor];
+    [discountView addGestureRecognizer:discountViewTapGes];
     [bottomBaseView addSubview:discountView];
     [discountView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(buyNumView.mas_bottom);
@@ -247,8 +253,11 @@
     /*
      配送方式View
      */
+    
+    //手势
+        UITapGestureRecognizer *distributeWayViewTapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TapDistributeWayView)];
     UIView *distributeWayView = [[UIView alloc]init];
-    //    buyNumView.backgroundColor = [UIColor redColor];
+    [distributeWayView addGestureRecognizer:distributeWayViewTapGes];
     [bottomBaseView addSubview:distributeWayView];
     [distributeWayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(discountView.mas_bottom);
@@ -328,8 +337,8 @@
     //处理富文本
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:partCountLabel.text];
     [attrStr addAttribute:NSForegroundColorAttributeName
-                    value:[UIColor orangeColor]
-                    range:NSMakeRange(7, partCountLabel.text.length - 7)];
+                    value:[UIColor colorForHex:@"e84a3e"]
+                    range:NSMakeRange(12, partCountLabel.text.length - 12)];
     partCountLabel.attributedText = attrStr;
     
     [partCountView addSubview:partCountLabel];
@@ -347,4 +356,18 @@
     // Configure the view for the selected state
 }
 
+
+#pragma mark --TapGestureMethod
+-(void)TapDiscountView{
+
+    NSLog(@"-TapDiscountView-");
+
+}
+
+-(void)TapDistributeWayView{
+
+    NSLog(@"-TapDistributeWayView-");
+
+
+}
 @end
