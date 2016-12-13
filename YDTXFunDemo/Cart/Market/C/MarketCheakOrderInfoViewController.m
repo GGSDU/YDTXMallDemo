@@ -37,14 +37,13 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     //导航标题
     self.title = @"确认订单";
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
-    self.view.backgroundColor = [UIColor greenColor];
     
     //缩进
-    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     
     //配置tableView
     tableView.delegate = self;
@@ -64,23 +63,37 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
     
 //收货地址  作为tableView的头部
-    UIView *HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 45)];
-    HeaderView.backgroundColor = [UIColor yellowColor];
+    UIView *HeaderBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 65)];
+    HeaderBaseView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
     
     //作为tableView的头部
-    self.tableView.tableHeaderView = HeaderView;
-//    [HeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(YDTXScreenW);
-//        make.height.mas_equalTo(45);
-//    }];
+    self.tableView.tableHeaderView = HeaderBaseView;
+
+    
+    //收货地址View   //手势
+    UIView *addressView = [[UIView alloc]init];
+    addressView.backgroundColor = [UIColor whiteColor];
+    [HeaderBaseView addSubview:addressView];
+    [addressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(HeaderBaseView);
+        make.height.mas_equalTo(45);
+        make.leading.equalTo(HeaderBaseView);
+        make.trailing.equalTo(HeaderBaseView);
+    }];
+    
+    UITapGestureRecognizer *JumpToAddressListGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(JumpToAddressList)];
+    [addressView addGestureRecognizer:JumpToAddressListGes];
+    
+    
+    
     
     //➕imageView
     UIImageView *plusImgView = [[UIImageView alloc]init];
     plusImgView.image =[UIImage imageNamed:@"maket_checkGoods_addAddressbtn"];
-    [HeaderView addSubview:plusImgView];
+    [addressView addSubview:plusImgView];
     [plusImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(HeaderView);
-        make.leading.equalTo(HeaderView).offset(15);
+        make.centerY.equalTo(addressView);
+        make.leading.equalTo(addressView).offset(15);
         
     }];
     
@@ -89,7 +102,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     addNewAddressLabel.text = @"添加新地址";
     addNewAddressLabel.font = [UIFont systemFontOfSize:15];
     addNewAddressLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
-    [HeaderView addSubview:addNewAddressLabel];
+    [addressView addSubview:addNewAddressLabel];
     [addNewAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(plusImgView);
         make.leading.equalTo(plusImgView.mas_trailing).offset(10);
@@ -163,22 +176,18 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
 #pragma mark -TableView delegate Method
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    
-//    return 1;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 2;
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     MarketCheckOrderCell *marketCheckOrderCell = [tableView dequeueReusableCellWithIdentifier:kMarketCheckOrderCellId];
-    
-    
-    
-    
     
     
 
@@ -191,7 +200,14 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    return 130;
+    return 330;
     
+}
+
+#pragma mark --Gesture Method
+-(void)JumpToAddressList{
+
+    NSLog(@"-JumpToAddressList-");
+
 }
 @end
