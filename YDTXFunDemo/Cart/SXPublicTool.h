@@ -16,6 +16,14 @@
 + (UIWindow *)keyWindow;
 
 
++ (void)showAlertControllerWithTitle:(nullable NSString *)title
+                            meassage:(nullable NSString *)message
+                         cancelTitle:(nullable NSString *)cancelTitle
+                       cancelHandler:(nullable void (^)(UIAlertAction * _Nonnull action))cancelHandler
+                        confirmTitle:(nullable NSString *)confirmTitle
+                      confirmHandler:(nullable void (^)(UIAlertAction * _Nonnull action))confirmHandler;
+
+
 + (void)addKeyboardWillShowNotificationObserver:(id)observer selector:(SEL)aSelector object:(nullable id)anObject;
 + (void)removeKeyboardWillShowNotificationObserver:(id)observer object:(nullable id)anObject;
 

@@ -96,9 +96,12 @@ static NSString *completeString = @"完成";
     [self setALLCellSelectedStatus:allChooseButton.selected];
     if (cartCellOperationView.allChooseButtonSelectedStatus) {
         [self setOperateCellIndexPathDicAllObject:YES];
+        float totalPrice = [self getCurrentSelectedCellAllPrice];
+        [cartCellOperationView updateTotalPrice:totalPrice];
 //        NSLog(@"all choose %@",self.operateCellIndexPathDic);
     } else {
         [self setOperateCellIndexPathDicAllObject:NO];
+        [cartCellOperationView updateTotalPrice:0.0f];
 //        NSLog(@"dis all choose%@",self.operateCellIndexPathDic);
     }
 }
@@ -106,15 +109,33 @@ static NSString *completeString = @"完成";
 - (void)cartCellOperationView:(CartCellOperationView *)cartCellOperationView didSelectedSettleAccountButton:(UIButton *)settleAccountButton
 {
     NSLog(@"here to start settle account button");
+    NSArray *selectCellArray = [self getCurrentSelectedCellModelArray];
     
 }
 
 - (void)cartCellOperationView:(CartCellOperationView *)cartCellOperationView didSelectedDeleteListButton:(UIButton *)deleteListButton
 {
     NSLog(@"here to delete list");
-    NSArray *selectCellArray = [self getCurrentSelectedArray];
-    
-    NSLog(@"%@",selectCellArray);
+    [SXPublicTool showAlertControllerWithTitle:nil meassage:@"确定要删除选中的商品吗？" cancelTitle:@"取消" cancelHandler:^(UIAlertAction * _Nonnull action) {
+        
+    } confirmTitle:@"确定" confirmHandler:^(UIAlertAction * _Nonnull action) {
+        NSArray *selectCellArray = [self getCurrentSelectedCellModelArray];
+        
+        //删除数据
+        NSLog(@"%@",self.productModelmArray);
+        [self.productModelmArray removeObjectsInArray:selectCellArray];
+        NSLog(@"%@",self.productModelmArray);
+        [self initOperateCellIndexPathDicData];
+        //更新视图
+        [self.cartCellOperationView updateTotalPrice:0.0f];
+        [self.tableView reloadData];
+        
+        [self setALLCellSelectedStatus:NO];
+
+        
+        //
+        NSLog(@"%@",selectCellArray);
+    }];
 }
 
 #pragma mark - CartListCellDelegate
@@ -138,6 +159,8 @@ static NSString *completeString = @"完成";
     [self.operateCellIndexPathDic setObject:object forKey:key];
     
     NSLog(@"%@",self.operateCellIndexPathDic);
+    float totalPrice = [self getCurrentSelectedCellAllPrice];
+    [self.cartCellOperationView updateTotalPrice:totalPrice];
 }
 
 #pragma mark - tableVeiw delegate & datasource
@@ -153,7 +176,7 @@ static NSString *completeString = @"完成";
 //        }];
     }
     
-    ProductModel *productModel = (ProductModel *)self.productModelArray[indexPath.section];
+    ProductModel *productModel = (ProductModel *)self.productModelmArray[indexPath.section];
     cartListCell.productModel = productModel;
     
     NSNumber *boolObject = [self.operateCellIndexPathDic objectForKey:[NSNumber numberWithInteger:indexPath.section]];
@@ -194,7 +217,28 @@ static NSString *completeString = @"完成";
 }
 
 #pragma mark - getter/setter
-- (NSMutableArray *)getCurrentSelectedArray
+- (float)getCurrentSelectedCellAllPrice
+{
+    float totalPrice = 0.0f;
+    for (ProductModel *productModel in [self getCurrentSelectedCellModelArray]) {
+        totalPrice += productModel.price;
+    }
+    return totalPrice;
+}
+
+//return the productModel array
+- (NSMutableArray *)getCurrentSelectedCellModelArray
+{
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+    NSArray *indexArray = [self getCurrentSelectedCellIndexArray];
+    for (id index in indexArray) {
+        NSInteger i = [index integerValue];
+        [mutableArray addObject:self.productModelmArray[i]];
+    }
+    return [mutableArray autorelease];
+}
+
+- (NSMutableArray *)getCurrentSelectedCellIndexArray
 {
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
     for (id key in self.operateCellIndexPathDic.allKeys) {
@@ -215,17 +259,21 @@ static NSString *completeString = @"完成";
     }
 }
 
+- (void)initOperateCellIndexPathDicData
+{
+    NSNumber *object = [NSNumber numberWithBool:NO];
+    for (NSInteger i = 0; i < _productModelmArray.count; i++) {
+        NSNumber *key = [NSNumber numberWithInteger:i];
+        [self.operateCellIndexPathDic setObject:object forKey:key];
+    }
+}
+
 - (NSMutableDictionary *)operateCellIndexPathDic
 {
     if (_operateCellIndexPathDic == nil) {
         _operateCellIndexPathDic = [[NSMutableDictionary alloc] initWithCapacity:0];
         
-        NSNumber *object = [NSNumber numberWithBool:NO];
-        for (NSInteger i = 0; i < _productModelmArray.count; i++) {
-            NSNumber *key = [NSNumber numberWithInteger:i];
-            [self.operateCellIndexPathDic setObject:object forKey:key];
-        }
-        
+        [self initOperateCellIndexPathDicData];
     }
     return _operateCellIndexPathDic;
 }
