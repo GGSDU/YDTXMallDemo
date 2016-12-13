@@ -11,6 +11,10 @@
 #import "SXAdjustNumberView.h"
 #import "CartViewController.h"
 
+
+//
+#import "MarketListViewController.h"
+#import "MarketCheakOrderInfoViewController.h"
 @interface ViewController ()
 
 @end
@@ -65,6 +69,27 @@
             [self.navigationController pushViewController:cartVC animated:YES];
     
         }
+            break;
+         
+        //商品列表
+        case 6:
+        {
+            MarketListViewController *markListVC = [[MarketListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
+            [self.navigationController pushViewController:markListVC animated:YES];
+        
+        }
+        
+            break;
+        //确认订单
+            case 7:
+        {
+            MarketCheakOrderInfoViewController *marketCheckOrderInfoVC = [MarketCheakOrderInfoViewController new];
+            [self.navigationController pushViewController:marketCheckOrderInfoVC animated:YES];
+        
+        
+        }
+            
+            
             break;
             
         default:
