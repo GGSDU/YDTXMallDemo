@@ -57,13 +57,13 @@
 		0421990F1E02A4C50061175F /* MarketListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197E71DFFE87D0061175F /* MarketListViewController.m */; };
 		2E5D5996E8C9297B98A083BD /* libPods-YDTXFunDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C97CBB76D0A0615FB76094 /* libPods-YDTXFunDemo.a */; };
 		750BE7E11E0288CA009BF466 /* ShopMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7CF1E0288CA009BF466 /* ShopMarketController.m */; };
-		750BE7E21E0288CA009BF466 /* Partner.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7D21E0288CA009BF466 /* Partner.m */; };
-		750BE7E31E0288CA009BF466 /* PartnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7D61E0288CA009BF466 /* PartnerCell.m */; };
 		750BE7E41E0288CA009BF466 /* AutoScrollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7D91E0288CA009BF466 /* AutoScrollerView.m */; };
 		750BE7E51E0288CA009BF466 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7DB1E0288CA009BF466 /* DisplayView.m */; };
 		750BE7E61E0288CA009BF466 /* MZPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7DE1E0288CA009BF466 /* MZPageControl.m */; };
 		750BE7E71E0288CA009BF466 /* MZPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7E01E0288CA009BF466 /* MZPageScrollView.m */; };
 		752417C01DF9474000123517 /* Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 752417BF1DF9474000123517 /* Image.png */; };
+		7553BE441E0304F600B12747 /* Partner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553BE431E0304F600B12747 /* Partner.m */; };
+		7553BE471E03051700B12747 /* PartnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553BE461E03051700B12747 /* PartnerCell.m */; };
 		756EE9551DFFC45200D1B89D /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 756EE9541DFFC45200D1B89D /* libAFNetworking.a */; };
 		756EE9611DFFD6A100D1B89D /* CartCellOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 756EE95C1DFFD6A100D1B89D /* CartCellOperationView.m */; };
 		756EE9621DFFD6A100D1B89D /* CartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 756EE95E1DFFD6A100D1B89D /* CartListCell.m */; };
@@ -202,10 +202,6 @@
 		6F11A696BDE87B332E0CFF15 /* Pods-YDTXFunDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YDTXFunDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YDTXFunDemo/Pods-YDTXFunDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		750BE7CE1E0288CA009BF466 /* ShopMarketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMarketController.h; sourceTree = "<group>"; };
 		750BE7CF1E0288CA009BF466 /* ShopMarketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMarketController.m; sourceTree = "<group>"; };
-		750BE7D11E0288CA009BF466 /* Partner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Partner.h; sourceTree = "<group>"; };
-		750BE7D21E0288CA009BF466 /* Partner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Partner.m; sourceTree = "<group>"; };
-		750BE7D51E0288CA009BF466 /* PartnerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerCell.h; sourceTree = "<group>"; };
-		750BE7D61E0288CA009BF466 /* PartnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerCell.m; sourceTree = "<group>"; };
 		750BE7D81E0288CA009BF466 /* AutoScrollerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoScrollerView.h; sourceTree = "<group>"; };
 		750BE7D91E0288CA009BF466 /* AutoScrollerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoScrollerView.m; sourceTree = "<group>"; };
 		750BE7DA1E0288CA009BF466 /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
@@ -216,6 +212,10 @@
 		750BE7E01E0288CA009BF466 /* MZPageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZPageScrollView.m; sourceTree = "<group>"; };
 		752417401DF8FD0100123517 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		752417BF1DF9474000123517 /* Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Image.png; sourceTree = "<group>"; };
+		7553BE421E0304F600B12747 /* Partner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Partner.h; sourceTree = "<group>"; };
+		7553BE431E0304F600B12747 /* Partner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Partner.m; sourceTree = "<group>"; };
+		7553BE451E03051700B12747 /* PartnerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerCell.h; sourceTree = "<group>"; };
+		7553BE461E03051700B12747 /* PartnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerCell.m; sourceTree = "<group>"; };
 		756EE9541DFFC45200D1B89D /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../../../../Library/Developer/Xcode/DerivedData/YDTXFunDemo-azrmjlmzytcvnjbxbpwiodjhtxjt/Build/Products/Debug-iphonesimulator/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		756EE95B1DFFD6A100D1B89D /* CartCellOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartCellOperationView.h; sourceTree = "<group>"; };
 		756EE95C1DFFD6A100D1B89D /* CartCellOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartCellOperationView.m; sourceTree = "<group>"; };
@@ -559,8 +559,8 @@
 		750BE7D01E0288CA009BF466 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				750BE7D11E0288CA009BF466 /* Partner.h */,
-				750BE7D21E0288CA009BF466 /* Partner.m */,
+				7553BE421E0304F600B12747 /* Partner.h */,
+				7553BE431E0304F600B12747 /* Partner.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -580,8 +580,8 @@
 		750BE7D41E0288CA009BF466 /* AdvertiseCell */ = {
 			isa = PBXGroup;
 			children = (
-				750BE7D51E0288CA009BF466 /* PartnerCell.h */,
-				750BE7D61E0288CA009BF466 /* PartnerCell.m */,
+				7553BE451E03051700B12747 /* PartnerCell.h */,
+				7553BE461E03051700B12747 /* PartnerCell.m */,
 			);
 			path = AdvertiseCell;
 			sourceTree = "<group>";
@@ -991,13 +991,6 @@
 			files = (
 				0421990F1E02A4C50061175F /* MarketListViewController.m in Sources */,
 				750BE7E51E0288CA009BF466 /* DisplayView.m in Sources */,
-				042197911DFE8A010061175F /* MJRefreshBackStateFooter.m in Sources */,
-				750BE7E21E0288CA009BF466 /* Partner.m in Sources */,
-				042198141E00D8550061175F /* PartnerViewController.m in Sources */,
-				042197FF1DFFE87D0061175F /* MarketListViewController.m in Sources */,
-
-				750BE7E21E0288CA009BF466 /* AdvertiseInfo.m in Sources */,
->>>>>>> origin/master
 				750BE7E61E0288CA009BF466 /* MZPageControl.m in Sources */,
 				756EE9611DFFD6A100D1B89D /* CartCellOperationView.m in Sources */,
 				042198BC1E013BEE0061175F /* marketCheckModel.m in Sources */,
@@ -1012,14 +1005,6 @@
 				042199061E029EFA0061175F /* MJRefreshGifHeader.m in Sources */,
 				042198031DFFE87D0061175F /* MarketCheckOrderCell.m in Sources */,
 				042198331E00E64F0061175F /* SDReachability.m in Sources */,
-<<<<<<< HEAD
-				0421978A1DFE8A010061175F /* MJRefreshFooter.m in Sources */,
-				750BE7E31E0288CA009BF466 /* PartnerCell.m in Sources */,
-				75903E7D1DFE676B005ABC88 /* MASViewAttribute.m in Sources */,
-				0421978D1DFE8A010061175F /* MJRefreshAutoNormalFooter.m in Sources */,
-=======
-				750BE7E31E0288CA009BF466 /* AdvertiseCell.m in Sources */,
->>>>>>> origin/master
 				042198251E00E53D0061175F /* SDCycleDispalyView.m in Sources */,
 				042199041E029EFA0061175F /* MJRefreshBackNormalFooter.m in Sources */,
 				042198311E00E64F0061175F /* LoadData.m in Sources */,
@@ -1038,6 +1023,7 @@
 				042199031E029EFA0061175F /* MJRefreshBackGifFooter.m in Sources */,
 				042198FD1E029EFA0061175F /* MJRefreshComponent.m in Sources */,
 				756EE9731DFFD71300D1B89D /* ProductModel.m in Sources */,
+				7553BE471E03051700B12747 /* PartnerCell.m in Sources */,
 				757A7E0B1DF6843300399B10 /* ViewController.m in Sources */,
 				042198061DFFE87D0061175F /* MarketMaskView.m in Sources */,
 				756EE96B1DFFD6E100D1B89D /* SXPublicTool.m in Sources */,
@@ -1058,6 +1044,7 @@
 				0421990E1E029EFA0061175F /* UIView+MJExtension.m in Sources */,
 				042198291E00E53D0061175F /* UIView+Category.m in Sources */,
 				042198FB1E029EFA0061175F /* MJRefreshAutoFooter.m in Sources */,
+				7553BE441E0304F600B12747 /* Partner.m in Sources */,
 				042199021E029EFA0061175F /* MJRefreshAutoStateFooter.m in Sources */,
 				756EE9621DFFD6A100D1B89D /* CartListCell.m in Sources */,
 			);
