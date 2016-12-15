@@ -10,6 +10,7 @@
 
 #import "SXAdjustNumberView.h"
 #import "CartViewController.h"
+#import "ShopMarketController.h"
 
 
 //
@@ -55,6 +56,13 @@
     switch (aSender.tag) {
         case 0:
         {
+            ShopMarketController *smVC = [[ShopMarketController alloc] init];
+            [self.navigationController pushViewController:smVC animated:YES];
+    
+        }
+            break;
+        case 1:
+        {
             NSMutableArray *modelArray = [[NSMutableArray alloc] initWithCapacity:10];
             for (int i = 0; i < 10; i++) {
                 ProductModel *pModel = [[ProductModel alloc] init];
@@ -68,10 +76,8 @@
             CartViewController *cartVC = [[CartViewController alloc] init];
             cartVC.productModelArray = modelArray;
             [self.navigationController pushViewController:cartVC animated:YES];
-    
         }
             break;
-         
         //商品列表
         case 6:
         {
