@@ -10,7 +10,8 @@
 
 #import "MarketDetailCell.h"
 #import "MarketMaskView.h"
-
+#import "CartViewController.h"
+#import "SDCycleDispalyView.h"
 @interface MarketDetailViewController ()<UITableViewDataSource,UITableViewDelegate,reMoveAnimationDelegate>
 
 @property(strong,nonatomic)UITableView *tableView ;
@@ -68,9 +69,9 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     headBaseView.backgroundColor = [UIColor whiteColor];
    tableView.tableHeaderView = headBaseView;
 //轮播
-    UIView *bannerView  =[[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, YDTXScreenW )];
+    SDCycleDispalyView *bannerView  =[[SDCycleDispalyView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, YDTXScreenW )];
     
-    bannerView.backgroundColor = [UIColor greenColor];
+//    bannerView.backgroundColor = [UIColor greenColor];
     
     [headBaseView addSubview:bannerView];
 //商品名Label
@@ -451,6 +452,8 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 -(void)JumpToCartVC{
 
     NSLog(@"JumpToCartVC");
+    CartViewController *cartVC = [CartViewController new];
+    [self.navigationController pushViewController:cartVC animated:YES];
     
 }
 
@@ -484,13 +487,8 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
-       
-        
-        //同时进行 感觉更丝滑
         [self.view.layer setTransform:[self firstTransform]];
-        
-        
-        
+       
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{

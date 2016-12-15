@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    yuGan = 1,         //鱼竿
+    yuGou = 3,         //鱼钩
+    yuXian = 10,       //鱼线
+    erLiao = 13,       //饵料
+    peiJian = 14,      //配件
+    xieFu = 15,        //鞋服
+    fuPiao = 16,       //浮漂
+    zhuangBei = 18,    //装备
+} classListType;
+
 @interface MarketListViewController : UICollectionViewController
+
+@property(assign,nonatomic)classListType classlistType;
 
 @end

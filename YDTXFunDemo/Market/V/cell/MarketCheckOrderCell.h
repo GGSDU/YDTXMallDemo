@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "marketCheckModel.h"
 @interface MarketCheckOrderCell : UITableViewCell
 
+@property(strong,nonatomic)marketCheckModel *marketCheckModel;
+
+@property(assign,nonatomic)float totalPrice;
 @end

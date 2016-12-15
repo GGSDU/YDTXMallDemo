@@ -11,7 +11,7 @@
 
 #define RGB(r,g,b) [UIColor colorWithRed:(r) * 1.00f / 255 green:(g) * 1.00f / 255 blue:(b) * 1.00f / 255 alpha:1.00]
 
-@interface SXPublicTool : NSObject
+@interface SXPublicTool : NSObject 
 
 + (UIWindow *)keyWindow;
 

@@ -10,4 +10,7 @@
 
 @interface MarketCheakOrderInfoViewController : UIViewController
 
+
+
+-(void)updateCheckVCWithDataArr :(NSArray *)DataArr;
 @end

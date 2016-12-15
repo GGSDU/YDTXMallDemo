@@ -24,12 +24,8 @@ static NetWorkService *instance = nil;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];
     });
+    
     return instance;
-}
-
-- (instancetype)init
-{
-    return [NetWorkService shareInstance];
 }
 
 - (AFHTTPSessionManager *)httpSessionManager

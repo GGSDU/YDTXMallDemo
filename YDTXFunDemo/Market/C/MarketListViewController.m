@@ -9,9 +9,10 @@
 #import "MarketListViewController.h"
 #import "markeListCell.h"
 #import "MarketDetailViewController.h"
+
 @interface MarketListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-
+@property (nonatomic,strong) NetWorkService *netService;
 
 @end
 
@@ -22,6 +23,10 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _netService = [NetWorkService shareInstance];
+    
+    NSLog(@"%@",_netService);
     
     [self setBasic];
     [self setupRefresh];
@@ -60,9 +65,10 @@ static NSString * const kmarketListCellId = @"marketListCell";
     self.collectionView.collectionViewLayout = flowLayout;
     //设置属性
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
+//    self.collectionView.backgroundColor = [UIColor redColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.contentInset = UIEdgeInsetsMake(45, 0, 0, 0);
+    self.collectionView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     // 是否显示垂直方向指示标, 继承于UIScrollView, 他的方法可以调用
 //    self.collectionView.showsVerticalScrollIndicator = NO;
     
@@ -102,38 +108,10 @@ static NSString * const kmarketListCellId = @"marketListCell";
 }
 
 
-#pragma mark -Deal Data Method
-
-
-//下拉刷新
--(void)loadNewData{
-
-      [self.collectionView.mj_header endRefreshing];
-    NSLog(@"下拉刷新");
-
-}
-
-//上啦加载
--(void)loadMoreData{
-  [self.collectionView.mj_footer endRefreshing];
-    NSLog(@"上啦加载");
-
-}
-
 
 
 
 #pragma mark <UICollectionViewDataSource>
-
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//#warning Incomplete implementation, return the number of sections
-//    return 2;
-//}
-
-
-
-
-
 
 // 设置每个分区返回多少item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -171,37 +149,64 @@ static NSString * const kmarketListCellId = @"marketListCell";
 }
 
 
-
-#pragma mark <UICollectionViewDelegate>
-
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+#pragma mark --- Set/Get
+-(void)setClasslistType:(classListType)classlistType{
+   
+    
+    
+   
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
+#pragma mark ---load Data Method
+
+
+
+//下拉刷新
+-(void)loadNewData{
+    /*
+     * page，id（分类的id）
+     */
+    
+    NSLog(@"下拉刷新");
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@"1" forKey:@"page"];
+    [params setObject:@"13" forKey:@"id"];
+//    params[@"page"] = @1;
+//    params[@"id"] = @(13);
+    
+    NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
+//    NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList/id/1/page/1";
+    
+//    NSString *appendUrl = url stringByAppendingString:@"?page"
+
+    NSLog(@"请求前");
+    [self.netService GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+        NSLog(@"请求中。。。");
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"列表数据=》：%@",responseObject);
+        
+        [self.collectionView.mj_header endRefreshing];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    
+        NSLog(@"请求失败");
+        
+        
+    }];
+    NSLog(@"请求后");
+    
 }
 
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
+//上啦加载
+-(void)loadMoreData{
+    [self.collectionView.mj_footer endRefreshing];
+    NSLog(@"上啦加载");
+    
 }
-*/
+
+
 
 @end

@@ -343,7 +343,7 @@
     UILabel *partCountLabel = [[UILabel alloc]init];
     partCountLabel.backgroundColor = [UIColor whiteColor];
     partCountLabel.font = [UIFont systemFontOfSize:15];
-    partCountLabel.text = @"共1件商品    小计：¥108";
+    partCountLabel.text = @"共x件商品    小计：¥xxx";
     partCountLabel.textAlignment = NSTextAlignmentRight;
     
     //处理富文本
@@ -362,10 +362,12 @@
     
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+#pragma mark --setModel
+-(void)setMarketCheckModel:(marketCheckModel *)marketCheckModel{
+    _marketCheckModel = marketCheckModel;
+    
+    _totalPrice += marketCheckModel.price;
 
-    // Configure the view for the selected state
 }
 
 

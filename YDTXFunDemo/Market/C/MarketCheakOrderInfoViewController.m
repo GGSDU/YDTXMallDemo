@@ -9,6 +9,7 @@
 #import "MarketCheakOrderInfoViewController.h"
 #import "MarketCheckOrderCell.h"
 #import "PayWayView.h"
+
 @interface MarketCheakOrderInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic)UITableView *tableView;
@@ -40,6 +41,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
@@ -130,6 +132,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     [summitOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [summitOrderBtn setBackgroundColor:[UIColor colorForHex:@"ff5b02"]];
     summitOrderBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [summitOrderBtn addTarget:self action:@selector(summitOrder) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:summitOrderBtn];
     [summitOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(toolView);
@@ -169,6 +172,8 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 //支付方式
     PayWayView *payView = [[PayWayView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 90)];
     
+    
+    
     self.tableView.tableFooterView = payView;
     
 }
@@ -181,8 +186,27 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 //提交订单
 -(void)summitOrder{
 
-
     NSLog(@"提交订单");
+    
+    PayWayView *payWayView = (PayWayView *)self.tableView.tableFooterView;
+    
+    if (payWayView.payType == isAliPay) {
+        
+        NSLog(@"-AliPay-");
+    }else if (payWayView.payType == isWePay){
+    
+        NSLog(@"-WePay-");
+    }else{
+    
+        NSLog(@"未选择支付方式");
+       
+        SVProgressHUD.minimumDismissTimeInterval = 1.0f;
+        SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+        [SVProgressHUD showErrorWithStatus:@"请选择支付方式"];
+    
+    }
+    
+    
 }
 
 #pragma mark -TableView delegate Method
@@ -213,6 +237,14 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
     return 330;
     
+}
+
+#pragma mark -- Deal Data Method
+
+-(void)updateCheckVCWithDataArr:(NSArray *)DataArr{
+
+
+
 }
 
 #pragma mark --Gesture Method

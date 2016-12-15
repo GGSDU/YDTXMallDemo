@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    
+    isAliPay = 1,
+    isWePay = 2,
+    userNoChoose = 9
+    
+}MarketPayType;
+
+
 @interface PayWayView : UIView
+
+
+//提供给外部使用  枚举
+@property (assign, nonatomic) MarketPayType payType;
+
 
 @end

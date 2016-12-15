@@ -15,6 +15,7 @@
 //
 #import "MarketListViewController.h"
 #import "MarketCheakOrderInfoViewController.h"
+#import "PartnerViewController.h"
 @interface ViewController ()
 
 @end
@@ -88,8 +89,13 @@
         
         
         }
-            
-            
+            break;
+        //合伙人
+            case 8:
+        {
+            PartnerViewController *partnerVC = [PartnerViewController new];
+            [self.navigationController pushViewController:partnerVC animated:YES];
+        }
             break;
             
         default:
@@ -101,6 +107,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
 
 
 @end
