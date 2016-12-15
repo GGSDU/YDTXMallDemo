@@ -8,7 +8,6 @@
 
 #import "AutoScrollerView.h"
 
-#import "AdvertiseInfo.h"
 #import "MZPageControl.h"
 
 #define MZPAGECONTROL_HEIGHT 12.5

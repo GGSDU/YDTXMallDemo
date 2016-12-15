@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class AdvertiseCell;
+@class PartnerCell;
 
-@protocol AdvertiseCellDelegate <NSObject>
+@protocol PartnerCellDelegate <NSObject>
 
-- (void)advertiseCell:(AdvertiseCell *)advertiseCell didSelectedAtIndex:(NSInteger)index;
+- (void)advertiseCell:(PartnerCell *)advertiseCell didSelectedAtIndex:(NSInteger)index;
 
 @end
 
-@interface AdvertiseCell : UITableViewCell
+@interface PartnerCell : UITableViewCell
 
-@property (nonatomic, assign) id<AdvertiseCellDelegate>delegate;
+@property (nonatomic, assign) id<PartnerCellDelegate>delegate;
 @property (nonatomic, strong) NSArray *advertiseArray;
 
 - (void)createAutoScrollerView;

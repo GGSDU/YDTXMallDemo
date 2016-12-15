@@ -6,21 +6,21 @@
 //  Copyright © 2016年 Webcity. All rights reserved.
 //
 
-#import "AdvertiseCell.h"
+#import "PartnerCell.h"
 
 #import "AutoScrollerView.h"
-#import "AdvertiseInfo.h"
+#import "Partner.h"
 
 #define AUTOSCROLL_TIME 5.0f
 
-@interface AdvertiseCell ()<AutoScrollViewDataSource,AutoScrollViewDelegate>
+@interface PartnerCell ()<AutoScrollViewDataSource,AutoScrollViewDelegate>
 {
     AutoScrollerView *_pageScrollView;
     NSTimer *_timer;
 }
 @end
 
-@implementation AdvertiseCell   
+@implementation PartnerCell   
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -54,7 +54,7 @@
 {
     NSMutableArray * array = [[NSMutableArray alloc] init];
     
-    for (AdvertiseInfo * info in _advertiseArray) {
+    for (Partner * info in _advertiseArray) {
         
         [array addObject:info.advertiseUrl];
     }

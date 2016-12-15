@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 Webcity. All rights reserved.
 //
 
-#import "AdvertiseInfo.h"
+#import "Partner.h"
 
-@implementation AdvertiseInfo
+@implementation Partner
 - (id)valueForUndefinedKey:(NSString *)key{
    return nil;
 }

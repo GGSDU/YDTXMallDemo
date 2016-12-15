@@ -58,9 +58,7 @@
 }
 
 - (void)willRemoveSubview:(UIView *)subview
-{
-//    [self.pageScrollView removeGestureRecognizer:_singletap];
-    
+{    
     [super willRemoveSubview:subview];
 }
 
@@ -72,8 +70,6 @@
     
     [self reloadPageData];
  
-//    timerCount = 0;
-//    timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
 }
 
 - (void)setPageIndicatorTintImage:(UIImage *)aPageIndicatorTintImage
@@ -192,37 +188,6 @@
 #pragma mark - private methods
 
 
-//- (void)scrollTimer{
-//
-//    NSLog(@"------ fire ----- ");
-//    if (!_scrollViewAnimationEnd) {
-//        return;
-//        
-//    }
-////    timerCount ++;
-////
-////    if (timerCount == pageCount) {
-////        timerCount = 0;
-////    }
-////    
-////    [self.pageScrollView scrollRectToVisible:CGRectMake(timerCount * self.pageScrollView.frame.size.width, 0, self.pageScrollView.frame.size.width, self.pageScrollView.frame.size.height) animated:YES];
-//    
-//
-//    
-//    int pageNumber = (int)fabs(_pageScrollView.contentOffset.x /_pageScrollView.frame.size.width)+1;
-//    if (pageNumber == pageCount) {
-//        pageNumber = 0;
-//    }
-//    [self.pageScrollView scrollRectToVisible:CGRectMake(pageNumber * self.pageScrollView.frame.size.width, 0, self.pageScrollView.frame.size.width, self.pageScrollView.frame.size.height) animated:YES];
-//    [self.mzPageControl setCurrentPage:pageNumber];
-//    
-//    if (dataSource && [dataSource respondsToSelector:@selector(pageScrollView:cellForRowAtIndex:tag:)]) {
-//        [dataSource pageScrollView:self cellForRowAtIndex:(int)pageNumber tag:pageNumber + PAGESCROLL_SUBVIEW_TAG];
-//    }
-//    
-//}
-
-
 
 /** 获取页数 */
 - (NSInteger)getPageCount
@@ -244,11 +209,5 @@
     }
     return view;
 }
-
-//- (void)autoScroller
-//{
-//    [self scrollTimer];
-//}
-
 
 @end
