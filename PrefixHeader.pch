@@ -13,9 +13,9 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 
-#import "Masonry.h"
+
 #import "SXPublicTool.h"
-#import "UIImageView+WebCache.h"
+
 #import "ProductModel.h"
 
 
@@ -23,9 +23,15 @@
 
 #import "NetWorkService.h"
 #import "UIColor+Hex.h"
+
+#import <Masonry.h>
+//#import <MJRefresh.h>
 #import "MJRefresh.h"
 #import <SVProgressHUD.h>
 #import "UIView+Category.h"
+#import <UIImageView+WebCache.h>
+#import <MJExtension.h>
+
 #define YDTXScreenW [UIScreen mainScreen].bounds.size.width
 
 #define YDTXScreenH [UIScreen mainScreen].bounds.size.height

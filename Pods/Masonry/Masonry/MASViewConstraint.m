@@ -120,8 +120,6 @@ static char kInstalledConstraintsKey;
 }
 
 - (void)setSecondViewAttribute:(id)secondViewAttribute {
-    
-    NSAssert(secondViewAttribute != nil, @"%@",secondViewAttribute);
     if ([secondViewAttribute isKindOfClass:NSValue.class]) {
         [self setLayoutConstantWithValue:secondViewAttribute];
     } else if ([secondViewAttribute isKindOfClass:MAS_VIEW.class]) {
