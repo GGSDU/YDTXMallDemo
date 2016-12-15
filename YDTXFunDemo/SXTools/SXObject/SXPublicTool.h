@@ -15,6 +15,12 @@
 
 + (UIWindow *)keyWindow;
 
++ (NSURL *)getResURLBySplitjointResURLString:(NSString *)splitjointResURLString;
+
+
+#pragma mark - image
++ (UIImage *)placeholderImageWithFrame:(CGRect)aFrame iconSide:(float)aIconSide;
+
 #pragma mark - tip
 /**
  Show a UIAlertController on the windows.rootViewController

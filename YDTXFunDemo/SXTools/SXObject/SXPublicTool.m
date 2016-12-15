@@ -8,12 +8,55 @@
 
 #import "SXPublicTool.h"
 
+#define BASE_URL @"http://3d.webcity3d.com:9090/Yuefang/data/Yuefang/YueFangDataSource/"
+
+
 @implementation SXPublicTool
 
 #pragma mark - 
 + (UIWindow *)keyWindow
 {
     return [UIApplication sharedApplication].keyWindow;
+}
+
+/** 根据基地址和拼接的url获取资源的URL */
++ (NSURL *)getResURLBySplitjointResURLString:(NSString *)splitjointResURLString
+{
+    NSString *resURLString = [BASE_URL stringByAppendingString:splitjointResURLString];
+    
+    NSURL *resURL = [NSURL URLWithString:resURLString];
+    
+    return resURL;
+}
+
+#pragma mark - image
++ (UIImage *)placeholderImageWithFrame:(CGRect)aFrame iconSide:(float)aIconSide
+{
+    UIView *view = [[UIView alloc] initWithFrame:aFrame];
+    view.backgroundColor = [UIColor whiteColor];
+    view.layer.borderColor = [UIColor grayColor].CGColor;
+    view.layer.borderWidth = 0.2;
+    
+    UIImage *loadingImage = [[UIImage imageNamed:@"loading_icon.png"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((aFrame.size.width - aIconSide) / 2, (aFrame.size.height - aIconSide) / 2, aIconSide, aIconSide)];
+    imageView.image = loadingImage;
+    [view addSubview:imageView];
+    
+    return [SXPublicTool imageFromView:view];
+}
+
+//获得屏幕图像
++ (UIImage *)imageFromView: (UIView *) theView
+{
+    
+    //   UIGraphicsBeginImageContext(theView.frame.size);
+    UIGraphicsBeginImageContextWithOptions(theView.frame.size, NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [theView.layer renderInContext:context];
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return theImage;
 }
 
 #pragma mark - tip

@@ -117,14 +117,15 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 // 设置每个分区返回多少item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.marketListDataArr.count;
+//    return self.marketListDataArr.count;
+    return 3;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     markeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmarketListCellId forIndexPath:indexPath];
-    marketListModel *model = self.marketListDataArr[indexPath.row];
-    cell.markeListModel = model;
+//    marketListModel *model = self.marketListDataArr[indexPath.row];
+//    cell.markeListModel = model;
     
     
     return cell;
@@ -188,7 +189,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
         NSLog(@"列表数据=》：%@",responseObject[@"data"]);
         if ([responseObject[@"status"] integerValue] == 200) {
             
-            self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+//            self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             
             
         }
