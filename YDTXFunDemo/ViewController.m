@@ -16,7 +16,7 @@
 //
 #import "MarketListViewController.h"
 #import "MarketCheakOrderInfoViewController.h"
-#import "PartnerViewController.h"
+//#import "PartnerViewController.h"
 @interface ViewController ()
 
 @end
@@ -99,8 +99,8 @@
         //合伙人
             case 8:
         {
-            PartnerViewController *partnerVC = [PartnerViewController new];
-            [self.navigationController pushViewController:partnerVC animated:YES];
+//            PartnerViewController *partnerVC = [PartnerViewController new];
+//            [self.navigationController pushViewController:partnerVC animated:YES];
         }
             break;
             

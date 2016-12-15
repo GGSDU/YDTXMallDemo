@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "marketListModel.h"
 
 @interface markeListCell : UICollectionViewCell
+
+@property(strong,nonatomic)marketListModel *markeListModel;
+
 
 @end

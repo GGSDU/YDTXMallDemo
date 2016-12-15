@@ -66,6 +66,13 @@
                 <constraint firstItem="jdn-AV-gwa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="hs1-Ki-WzW"/>
             </constraints>
             <size key="customSize" width="228" height="345"/>
+            <connections>
+                <outlet property="goodsImgView" destination="7u4-eq-9vW" id="8Au-4t-UjL"/>
+                <outlet property="nameLabel" destination="Q9m-hg-ZbP" id="Bhj-pQ-M8C"/>
+                <outlet property="payLabel" destination="dOE-DR-Wnz" id="dCd-I9-mST"/>
+                <outlet property="priceLabel" destination="jdn-AV-gwa" id="IVU-WT-cqd"/>
+                <outlet property="total_numLabel" destination="J4U-uq-CJA" id="F1C-tV-yjZ"/>
+            </connections>
             <point key="canvasLocation" x="123" y="201.5"/>
         </collectionViewCell>
     </objects>

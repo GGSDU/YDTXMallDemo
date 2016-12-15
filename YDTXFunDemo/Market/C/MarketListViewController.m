@@ -9,24 +9,26 @@
 #import "MarketListViewController.h"
 #import "markeListCell.h"
 #import "MarketDetailViewController.h"
-
+#import "marketListModel.h"
 @interface MarketListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic,strong) NetWorkService *netService;
+@property(strong,nonatomic)NSMutableArray *marketListDataArr;
 
 @end
 
 @implementation MarketListViewController
 
 static NSString * const kmarketListCellId = @"marketListCell";
-
+//lazy
+-(NSMutableArray *)marketListDataArr{
+    if (!_marketListDataArr) {
+        _marketListDataArr = [NSMutableArray array];
+    }
+    return _marketListDataArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _netService = [NetWorkService shareInstance];
-    
-    NSLog(@"%@",_netService);
     
     [self setBasic];
     [self setupRefresh];
@@ -115,18 +117,15 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 // 设置每个分区返回多少item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 3 ;
+//    return self.marketListDataArr.count;
+    return 3;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    
-    
-    
     markeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmarketListCellId forIndexPath:indexPath];
-    
-//    cell.backgroundColor = [UIColor redColor];
+//    marketListModel *model = self.marketListDataArr[indexPath.row];
+//    cell.markeListModel = model;
     
     
     return cell;
@@ -180,13 +179,21 @@ static NSString * const kmarketListCellId = @"marketListCell";
 //    NSString *appendUrl = url stringByAppendingString:@"?page"
 
     NSLog(@"请求前");
-    [self.netService GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSLog(@"%@",[NetWorkService shareInstance]);
+    [[NetWorkService shareInstance] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
         
         NSLog(@"请求中。。。");
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSLog(@"列表数据=》：%@",responseObject);
+        NSLog(@"列表数据=》：%@",responseObject[@"data"]);
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+//            self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            
+            
+        }
+        
         
         [self.collectionView.mj_header endRefreshing];
         
@@ -194,7 +201,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
         NSLog(@"请求失败");
         
-        
+        [self.collectionView.mj_header endRefreshing];
     }];
     NSLog(@"请求后");
     
