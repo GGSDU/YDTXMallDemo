@@ -124,9 +124,9 @@ static NSString * const kmarketListCellId = @"marketListCell";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     markeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmarketListCellId forIndexPath:indexPath];
-//    marketListModel *model = self.marketListDataArr[indexPath.row];
-//    cell.markeListModel = model;
-    
+    marketListModel *model = self.marketListDataArr[indexPath.row];
+    cell.markeListModel = model;
+//
     
     return cell;
 }
@@ -189,7 +189,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
         NSLog(@"列表数据=》：%@",responseObject[@"data"]);
         if ([responseObject[@"status"] integerValue] == 200) {
             
-//            self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             
             
         }

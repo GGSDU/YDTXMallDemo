@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <AFNetworking.h>
-
 @interface NetWorkService : NSObject
 
 + (instancetype)shareInstance;
