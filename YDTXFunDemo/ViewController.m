@@ -12,6 +12,8 @@
 #import "CartViewController.h"
 #import "ShopMarketController.h"
 
+#import "MeViewController.h"
+
 
 //
 #import "MarketListViewController.h"
@@ -78,6 +80,16 @@
             [self.navigationController pushViewController:cartVC animated:YES];
         }
             break;
+            
+        case 5:
+        {
+            MeViewController *meVc = [[MeViewController alloc]init];
+            [self.navigationController pushViewController:meVc animated:YES];
+        }
+            
+            break;
+ 
+            
         //商品列表
         case 6:
         {
