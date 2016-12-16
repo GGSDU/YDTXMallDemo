@@ -32,6 +32,8 @@
 #import "UIColor+Hex.h"
 #import "UIView+Category.h"
 
+#define StandardBackgroundColor RGB(238, 238, 238)
+
 #define YDTXScreenW [UIScreen mainScreen].bounds.size.width
 
 #define YDTXScreenH [UIScreen mainScreen].bounds.size.height

@@ -14,6 +14,8 @@
 @property (nonatomic,copy) NSString *infoName;
 @property (nonatomic,copy) NSString *modelType;
 @property (nonatomic,assign) float price;
+@property (nonatomic,assign) float vipPrice;
+@property (nonatomic,assign) int saleNumber;
 @property (nonatomic,assign) int number;
 
 
