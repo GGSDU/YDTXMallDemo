@@ -167,10 +167,18 @@ static NSString *watchMoreIdentifier = @"watchMore";
 // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.section > 2 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
-//        ProductHeaderReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier forIndexPath:indexPath];
-//        return header;
-//    }
+    if (kind == UICollectionElementKindSectionHeader) {
+     
+        if (indexPath.section > 2 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+            ProductHeaderReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier forIndexPath:indexPath];
+            NSString *key = self.productBriefDicSortedKeyArray[indexPath.section - SectionAddCount + 1];
+            NSLog(@"%@",key);
+            header.label.text = key;
+            NSLog(@"%@",NSStringFromCGRect(header.label.frame));
+            return header;
+        }
+        
+    }
     return nil;
 }
 
@@ -229,11 +237,15 @@ static NSString *watchMoreIdentifier = @"watchMore";
     return 0;
 }
 
-///** 每个头标题大小 */
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-//    return CGSizeZero;
-//}
-//
+/** 每个头标题大小 */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    if (section > 2 && section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+        return CGSizeMake(collectionView.frame.size.width, 45);
+    }
+    return CGSizeZero;
+}
+
 ///** 每个脚标题大小 */
 //- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
 //    return CGSizeZero;

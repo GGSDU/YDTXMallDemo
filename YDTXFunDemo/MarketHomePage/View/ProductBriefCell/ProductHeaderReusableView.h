@@ -10,4 +10,6 @@
 
 @interface ProductHeaderReusableView : UICollectionReusableView
 
+@property (nonatomic,strong) UILabel *label;
+
 @end
