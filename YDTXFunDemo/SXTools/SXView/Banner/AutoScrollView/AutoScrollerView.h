@@ -13,8 +13,6 @@
 
 - (NSMutableArray *)pageScrollView:(AutoScrollerView *)pageScrollView;
 
-
-
 @end
 
 @protocol AutoScrollViewDelegate <NSObject>
@@ -29,13 +27,9 @@
 @property (nonatomic, assign) id<AutoScrollViewDelegate> delegate;
 // 设置正常状态点按钮的图片
 - (void)setPageIndicatorTintImage:(UIImage *)aPageIndicatorTintImage;
-
 // 设置高亮状态点按钮图片
 - (void)setCurrentPageIndicatorImage:(UIImage *)aCurrentPageIndicatorImage;
-
 - (void)initSubViews;
-
-
 - (void)begainAutoScroll:(NSTimer *)timer;
 
 @end

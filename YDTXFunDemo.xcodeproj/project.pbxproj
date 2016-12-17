@@ -1717,8 +1717,8 @@
 		757F31FA1E03D61F004D259C /* Banner */ = {
 			isa = PBXGroup;
 			children = (
-				757F31FB1E03D61F004D259C /* AutoScrollView */,
 				757F31FE1E03D61F004D259C /* Banner */,
+				757F31FB1E03D61F004D259C /* AutoScrollView */,
 				757F32011E03D61F004D259C /* MZPageControl */,
 			);
 			path = Banner;

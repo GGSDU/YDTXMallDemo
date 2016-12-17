@@ -93,10 +93,6 @@
 
 }
 
-
-
-
-
 #pragma mark - 设置默认显示图片
 -(void)setDefaultImage{
    CGSize scrollViewSize = self.frame.size;

@@ -28,21 +28,14 @@
 @end
 
 @implementation MZPageScrollView
-@synthesize delegate;
-@synthesize dataSource;
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         
         _scrollViewAnimationEnd = YES;
-        
         [self addSubview:self.pageScrollView];
         [self addSubview:self.mzPageControl];
-        
-        
-        
     }
     return self;
 }
@@ -66,7 +59,7 @@
 
 - (void)setDataSource:(id<MZPageScrollViewDataSource>)aDataSource
 {
-    dataSource = aDataSource;
+    _dataSource = aDataSource;
     
     [self reloadPageData];
  
@@ -122,8 +115,8 @@
     
 //    NSLog(@"index %d",index);
     
-    if (delegate && [delegate respondsToSelector:@selector(pageScrollView:didSelectedIndex:)]) {
-        [delegate pageScrollView:self didSelectedIndex:index];
+    if (_delegate && [_delegate respondsToSelector:@selector(pageScrollView:didSelectedIndex:)]) {
+        [_delegate pageScrollView:self didSelectedIndex:index];
     }
 }
 
@@ -153,8 +146,8 @@
     
     [self.mzPageControl setCurrentPage:pageNumber];
 
-    if (dataSource && [dataSource respondsToSelector:@selector(pageScrollView:cellForRowAtIndex:tag:)]) {
-        [dataSource pageScrollView:self cellForRowAtIndex:pageNumber tag:pageNumber + PAGESCROLL_SUBVIEW_TAG];
+    if (_dataSource && [_dataSource respondsToSelector:@selector(pageScrollView:cellForRowAtIndex:tag:)]) {
+        [_dataSource pageScrollView:self cellForRowAtIndex:pageNumber tag:pageNumber + PAGESCROLL_SUBVIEW_TAG];
     }
 }
 
@@ -193,8 +186,8 @@
 - (NSInteger)getPageCount
 {
     NSInteger pageCounts = 0;
-    if (dataSource && [dataSource respondsToSelector:@selector(pageScrollView:)]) {
-        pageCounts = [dataSource pageScrollView:self];
+    if (_dataSource && [_dataSource respondsToSelector:@selector(pageScrollView:)]) {
+        pageCounts = [_dataSource pageScrollView:self];
     }
     return pageCounts;
 }
@@ -204,8 +197,8 @@
 {
     UIView *view = nil;
     
-    if (dataSource && [dataSource respondsToSelector:@selector(pageScrollView:cellForRowAtIndex:tag:)]) {
-        view = [dataSource pageScrollView:self cellForRowAtIndex:aIndex tag:PAGESCROLL_SUBVIEW_TAG + aIndex];
+    if (_dataSource && [_dataSource respondsToSelector:@selector(pageScrollView:cellForRowAtIndex:tag:)]) {
+        view = [_dataSource pageScrollView:self cellForRowAtIndex:aIndex tag:PAGESCROLL_SUBVIEW_TAG + aIndex];
     }
     return view;
 }
