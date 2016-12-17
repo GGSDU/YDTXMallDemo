@@ -176,6 +176,10 @@
 		755B4AC41E059FB4009EEA64 /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B4ABA1E059FB4009EEA64 /* FMDatabase+FTS3.m */; };
 		755B4AC51E059FB4009EEA64 /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B4ABC1E059FB4009EEA64 /* FMTokenizers.m */; };
 		755B4AC61E059FB4009EEA64 /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B4AC01E059FB4009EEA64 /* FMDatabase+InMemoryOnDiskIO.m */; };
+		755B4ACB1E05A6E5009EEA64 /* Cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755B4AC91E05A6E5009EEA64 /* Cart@2x.png */; };
+		755B4ACC1E05A6E5009EEA64 /* Cart@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755B4ACA1E05A6E5009EEA64 /* Cart@3x.png */; };
+		755B4ACF1E05A9FD009EEA64 /* NavigationBackImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755B4ACD1E05A9FD009EEA64 /* NavigationBackImage@2x.png */; };
+		755B4AD01E05A9FD009EEA64 /* NavigationBackImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755B4ACE1E05A9FD009EEA64 /* NavigationBackImage@3x.png */; };
 		756EE9611DFFD6A100D1B89D /* CartCellOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 756EE95C1DFFD6A100D1B89D /* CartCellOperationView.m */; };
 		756EE9621DFFD6A100D1B89D /* CartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 756EE95E1DFFD6A100D1B89D /* CartListCell.m */; };
 		756EE96A1DFFD6E100D1B89D /* NetWorkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 756EE9671DFFD6E100D1B89D /* NetWorkService.m */; };
@@ -564,6 +568,10 @@
 		755B4ABD1E059FB4009EEA64 /* fts3_tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fts3_tokenizer.h; sourceTree = "<group>"; };
 		755B4ABF1E059FB4009EEA64 /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
 		755B4AC01E059FB4009EEA64 /* FMDatabase+InMemoryOnDiskIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+InMemoryOnDiskIO.m"; sourceTree = "<group>"; };
+		755B4AC91E05A6E5009EEA64 /* Cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart@2x.png"; sourceTree = "<group>"; };
+		755B4ACA1E05A6E5009EEA64 /* Cart@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart@3x.png"; sourceTree = "<group>"; };
+		755B4ACD1E05A9FD009EEA64 /* NavigationBackImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBackImage@2x.png"; sourceTree = "<group>"; };
+		755B4ACE1E05A9FD009EEA64 /* NavigationBackImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBackImage@3x.png"; sourceTree = "<group>"; };
 		756EE9541DFFC45200D1B89D /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../../../../Library/Developer/Xcode/DerivedData/YDTXFunDemo-azrmjlmzytcvnjbxbpwiodjhtxjt/Build/Products/Debug-iphonesimulator/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		756EE95B1DFFD6A100D1B89D /* CartCellOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartCellOperationView.h; sourceTree = "<group>"; };
 		756EE95C1DFFD6A100D1B89D /* CartCellOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartCellOperationView.m; sourceTree = "<group>"; };
@@ -1736,6 +1744,10 @@
 			children = (
 				757F31F81E03C6FA004D259C /* Category.plist */,
 				752417BF1DF9474000123517 /* Image.png */,
+				755B4ACD1E05A9FD009EEA64 /* NavigationBackImage@2x.png */,
+				755B4ACE1E05A9FD009EEA64 /* NavigationBackImage@3x.png */,
+				755B4AC91E05A6E5009EEA64 /* Cart@2x.png */,
+				755B4ACA1E05A6E5009EEA64 /* Cart@3x.png */,
 				757A7E4D1DF6B13F00399B10 /* Cart_CellStatusButton_Normal@2x.png */,
 				757A7E4E1DF6B13F00399B10 /* Cart_CellStatusButton_Normal@3x.png */,
 				757A7E4F1DF6B13F00399B10 /* Cart_CellStatusButton_Selected@2x.png */,
@@ -1970,8 +1982,11 @@
 				75B7F7EF1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png in Resources */,
 				50CE5AE61E03B60200EAB012 /* SGLocationPickerSheetView.xib in Resources */,
 				75B7F7EE1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png in Resources */,
+				755B4ACB1E05A6E5009EEA64 /* Cart@2x.png in Resources */,
+				755B4AD01E05A9FD009EEA64 /* NavigationBackImage@3x.png in Resources */,
 				75B7F7ED1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png in Resources */,
 				757A7E131DF6843300399B10 /* LaunchScreen.storyboard in Resources */,
+				755B4ACF1E05A9FD009EEA64 /* NavigationBackImage@2x.png in Resources */,
 				757A7E551DF6B13F00399B10 /* Cart_CellStatusButton_Normal@2x.png in Resources */,
 				04853FD21E03852200D90459 /* LICENSE.txt in Resources */,
 				04853FAB1E03852200D90459 /* LICENSE in Resources */,
@@ -1991,6 +2006,7 @@
 				042199091E029EFA0061175F /* MJRefresh.bundle in Resources */,
 				752417C01DF9474000123517 /* Image.png in Resources */,
 				04853FD61E03852200D90459 /* SVProgressHUD.bundle in Resources */,
+				755B4ACC1E05A6E5009EEA64 /* Cart@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

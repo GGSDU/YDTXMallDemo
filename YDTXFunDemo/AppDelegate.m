@@ -18,9 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     ViewController *rootViewController = [[ViewController alloc] init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    
+    [nc.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBackImage"] forBarMetrics:UIBarMetricsDefault];
+    nc.navigationBar.translucent = YES;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = nc;

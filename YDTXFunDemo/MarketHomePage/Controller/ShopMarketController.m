@@ -44,8 +44,11 @@ static NSString *watchMoreIdentifier = @"watchMore";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initData];
+
+    [self customNavigationItem];
     
     [self creatUI];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,7 +59,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
 #pragma mark - BannerCellDelegate
 - (void)bannerCell:(BannerCell *)bannerCell didSelectedAtIndex:(NSInteger)index
 {
-    NSLog(@"%@",bannerCell.bannerArray[index]);
+    NSLog(@"%@",self.bannerArray[index]);
 }
 
 
@@ -78,8 +81,32 @@ static NSString *watchMoreIdentifier = @"watchMore";
     NSLog(@"%@",self.productBriefDicSortedKeyArray);
 }
 
+#pragma mark - navigationItem event
+- (void)searchBarItemClicked:(UIBarButtonItem *)aSender
+{
+    NSLog(@"点击了搜索");
+}
+
+- (void)cartBarItemClicked:(UIBarButtonItem *)aSender{
+    NSLog(@"点击了购物车");
+}
 
 #pragma mark - creatUI
+- (void)customNavigationItem
+{
+    self.title = @"商城";
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    
+    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchBarItemClicked:)];
+    self.navigationItem.leftBarButtonItem = searchBarItem;
+    
+    UIImage *cartImage = [[UIImage imageNamed:@"Cart"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIBarButtonItem *cartBarItem = [[UIBarButtonItem alloc] initWithImage:cartImage style:UIBarButtonItemStylePlain target:self action:@selector(cartBarItemClicked:)];
+    self.navigationItem.rightBarButtonItem = cartBarItem;
+}
+
 - (void)creatUI{
     
     float originY = 64;
