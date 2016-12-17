@@ -23,9 +23,9 @@
 
 @implementation Banner
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         
         
@@ -53,13 +53,7 @@
 
 - (NSMutableArray *)pageScrollView:(AutoScrollerView *)pageScrollView
 {
-    NSMutableArray * array = [[NSMutableArray alloc] init];
-    
-    for (BannerModel * info in _bannerArray) {
-        
-        [array addObject:info.advertiseUrl];
-    }
-    return array;
+    return [_bannerArray mutableCopy];
 }
 
 #pragma mark - AutoScrollViewDelegate
@@ -76,13 +70,5 @@
     
     [_pageScrollView begainAutoScroll:timer];
 }
-//
-///*
-//// Only override drawRect: if you perform custom drawing.
-//// An empty implementation adversely affects performance during animation.
-//- (void)drawRect:(CGRect)rect {
-//    // Drawing code
-//}
-//*/
 
 @end

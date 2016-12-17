@@ -26,7 +26,6 @@
         if (_banner == nil) {
             
             _banner = [[Banner alloc] initWithFrame:self.bounds];
-            _banner.backgroundColor = [UIColor yellowColor];
             _banner.delegate = self;
             [self addSubview:_banner];
         }
@@ -38,7 +37,19 @@
 #pragma mark - BannerDelegate
 - (void)banner:(Banner *)banner didSelectedAtIndex:(NSInteger)index
 {
-    
+    if (_delegate && [_delegate respondsToSelector:@selector(bannerCell:didSelectedAtIndex:)]) {
+        [_delegate bannerCell:self didSelectedAtIndex:index];
+    }
+}
+
+- (void)setBannerArray:(NSArray *)bannerArray
+{
+    _banner.bannerArray = bannerArray;
+}
+
+- (void)createAutoScrollerView
+{
+    [_banner createAutoScrollerView];
 }
 
 @end

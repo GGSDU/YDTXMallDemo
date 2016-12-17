@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Banner</key>
+	<array>
+		<string>https://img.alicdn.com/tps/TB12v.vOFXXXXc8apXXXXXXXXXX-520-280.jpg</string>
+		<string>https://aecpm.alicdn.com/simba/img/TB130G0NFXXXXXLapXXSutbFXXX.jpg</string>
+		<string>https://img.alicdn.com/simba/img/TB1rUHRNXXXXXbIapXXSutbFXXX.jpg</string>
+	</array>
 	<key>Category</key>
 	<array>
 		<string>鱼竿</string>
@@ -13,7 +19,6 @@
 		<string>配件</string>
 		<string>装备</string>
 	</array>
-
 	<key>ProductBrief</key>
 	<dict>
 		<key>default</key>
@@ -41,7 +46,7 @@
 				<string>400.00</string>
 				<key>saleNumber</key>
 				<string>50</string>
-			</dict>		
+			</dict>
 			<dict>
 				<key>imageUrl</key>
 				<string>https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/TB1d3ZVOFXXXXbYXXXXXXXXXXXX_!!0-item_pic.jpg_360x360Q90.jpg</string>
@@ -67,7 +72,6 @@
 				<string>50</string>
 			</dict>
 		</array>
-
 		<key>鱼竿推荐</key>
 		<array>
 			<dict>
@@ -93,7 +97,7 @@
 				<string>400.00</string>
 				<key>saleNumber</key>
 				<string>50</string>
-			</dict>		
+			</dict>
 			<dict>
 				<key>imageUrl</key>
 				<string>https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/TB1d3ZVOFXXXXbYXXXXXXXXXXXX_!!0-item_pic.jpg_360x360Q90.jpg</string>
@@ -120,6 +124,5 @@
 			</dict>
 		</array>
 	</dict>
-
 </dict>
 </plist>

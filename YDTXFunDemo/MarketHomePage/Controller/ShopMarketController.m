@@ -22,10 +22,9 @@ static NSString *briefIdentifier = @"brief";
 static NSString *productHeaderIdentifier = @"head";
 static NSString *watchMoreIdentifier = @"watchMore";
 
-@interface ShopMarketController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>;
+@interface ShopMarketController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,BannerCellDelegate>;
 
 @property (nonatomic,strong) UICollectionView *collectionView;
-
 
 @property (nonatomic,strong) NSMutableArray *bannerArray;
 
@@ -54,12 +53,21 @@ static NSString *watchMoreIdentifier = @"watchMore";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - BannerCellDelegate
+- (void)bannerCell:(BannerCell *)bannerCell didSelectedAtIndex:(NSInteger)index
+{
+    NSLog(@"%@",bannerCell.bannerArray[index]);
+}
+
+
+
 #pragma mark - init data
 - (void)initData{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Category" ofType:@"plist"];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
     
-    
+    self.bannerArray = [[NSMutableArray alloc] initWithArray:dic[@"Banner"]];
+
     self.categoryArray = [[NSMutableArray alloc] initWithArray:dic[@"Category"]];
     
     self.productBriefDic = [[NSMutableDictionary alloc] initWithDictionary:dic[@"ProductBrief"]];
@@ -90,6 +98,17 @@ static NSString *watchMoreIdentifier = @"watchMore";
     [_collectionView registerClass:[ProductHeaderReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        //点击了分类的cell
+        NSLog(@"%@",self.categoryArray[indexPath.row]);
+    } else if (indexPath.section > 1 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+        //点击了商品
+        NSLog(@"点击了商品");
+    }
+}
+
 #pragma mark - UICollectionViewDataSource
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -98,6 +117,10 @@ static NSString *watchMoreIdentifier = @"watchMore";
     if (indexPath.section == 0) {
         
         BannerCell *bannerCell = [collectionView dequeueReusableCellWithReuseIdentifier:bannerIdentifier forIndexPath:indexPath];
+        bannerCell.delegate = self;
+        bannerCell.bannerArray = self.bannerArray;
+        [bannerCell createAutoScrollerView];
+        
         cell = bannerCell;
         
     } else if (indexPath.section == 1) {
@@ -111,7 +134,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
         WatchMoreCell *watchMoreCell = [collectionView dequeueReusableCellWithReuseIdentifier:watchMoreIdentifier forIndexPath:indexPath];
         watchMoreCell.watchMoreHandler = ^(UIButton *aSender) {
-            
+            NSLog(@"点击了更多");
         };
         
         cell = watchMoreCell;

@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class BannerCell;
+
+@protocol BannerCellDelegate <NSObject>
+
+- (void)bannerCell:(BannerCell *)bannerCell didSelectedAtIndex:(NSInteger)index;
+
+
+@end
+
 @interface BannerCell : UICollectionViewCell
+
+@property (nonatomic,assign) id<BannerCellDelegate>delegate;
+
+@property (nonatomic,strong) NSArray *bannerArray;
+
+- (void)createAutoScrollerView;
 
 @end
