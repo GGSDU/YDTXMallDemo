@@ -17,36 +17,18 @@
 @end
 
 @implementation MZPageControl
-
-@synthesize numberOfPages;          // default is 0
-@synthesize currentPage;            // default is 0. value pinned to 0..numberOfPages-1
-
-@synthesize hidesForSinglePage;          // hide the the indicator if there is only one page. default is NO
-
-@synthesize defersCurrentPageDisplay;    // if set, clicking to a new page won't update the currently displayed page until -updateCurrentPageDisplay is called. default is NO
-
-@synthesize pageDotAlignment;
-
-@synthesize pageIndicatorTintImage;
-@synthesize currentPageIndicatorImage;
-
-@synthesize currentPageIndicatorTintColor;
-@synthesize pageIndicatorTintColor;
-
-@synthesize delegate;
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         
-        numberOfPages = 0;
-        currentPage = 0;
-        hidesForSinglePage = NO;
-        defersCurrentPageDisplay = NO;
-        pageDotAlignment = MZPageDotAlignmentCenter;
-        pageIndicatorTintColor = RGB(159, 176, 202);
-        currentPageIndicatorTintColor = [UIColor whiteColor];// 159 176 202
+        _numberOfPages = 0;
+        _currentPage = 0;
+        _hidesForSinglePage = NO;
+        _defersCurrentPageDisplay = NO;
+        _pageDotAlignment = MZPageDotAlignmentCenter;
+        _pageIndicatorTintColor = RGB(159, 176, 202);
+        _currentPageIndicatorTintColor = [UIColor whiteColor];// 159 176 202
         
     }
     return self;
@@ -56,13 +38,13 @@
 {
     self = [super init];
     if (self) {
-        numberOfPages = 0;
-        currentPage = 0;
-        hidesForSinglePage = NO;
-        defersCurrentPageDisplay = NO;
-        pageDotAlignment = MZPageDotAlignmentCenter;
-        pageIndicatorTintColor = RGB(159, 176, 202);
-        currentPageIndicatorTintColor = [UIColor whiteColor];// 159 176 202
+        _numberOfPages = 0;
+        _currentPage = 0;
+        _hidesForSinglePage = NO;
+        _defersCurrentPageDisplay = NO;
+        _pageDotAlignment = MZPageDotAlignmentCenter;
+        _pageIndicatorTintColor = RGB(159, 176, 202);
+        _currentPageIndicatorTintColor = [UIColor whiteColor];// 159 176 202
         
     }
     return self;
@@ -78,17 +60,17 @@
         
         int i = (int)subImagView.tag - MZPAGEDOT_TAG;
         
-        if (pageIndicatorTintImage && currentPageIndicatorImage) {
+        if (_pageIndicatorTintImage && _currentPageIndicatorImage) {
             [subImagView setBackgroundColor:[UIColor clearColor]];
             
             subImagView.layer.masksToBounds = NO;
-            UIImage *tempImage = currentPage == i ? currentPageIndicatorImage : pageIndicatorTintImage;
+            UIImage *tempImage = _currentPage == i ? _currentPageIndicatorImage : _pageIndicatorTintImage;
             [subImagView setImage:tempImage];
         } else {
             
             [subImagView setImage:nil];
             
-            UIColor *tempColor = currentPage == i ? currentPageIndicatorTintColor : pageIndicatorTintColor;
+            UIColor *tempColor = _currentPage == i ? _currentPageIndicatorTintColor : _pageIndicatorTintColor;
             
             subImagView.backgroundColor = tempColor;
             subImagView.layer.masksToBounds = YES;
@@ -115,13 +97,13 @@
         
         if (CGRectContainsPoint(subImageView.frame, currentPoint)) {
             
-            currentPage = subImageView.tag - MZPAGEDOT_TAG;
+            _currentPage = subImageView.tag - MZPAGEDOT_TAG;
             
             [self updateCurrentPageDisplay];
             
-            if (delegate && [delegate respondsToSelector:@selector(pageControl:didSelectedPageIndex:)]) {
+            if (_delegate && [_delegate respondsToSelector:@selector(pageControl:didSelectedPageIndex:)]) {
                 
-                [delegate pageControl:self didSelectedPageIndex:currentPage];
+                [_delegate pageControl:self didSelectedPageIndex:_currentPage];
             }
             break;
         }
@@ -136,7 +118,7 @@
 // 设置正常状态点按钮的图片
 - (void)setPageIndicatorTintImage:(UIImage *)aPageIndicatorTintImage
 {
-    pageIndicatorTintImage = aPageIndicatorTintImage;
+    _pageIndicatorTintImage = aPageIndicatorTintImage;
     
     [self updateDotPageImage];
 }
@@ -144,14 +126,14 @@
 // 设置高亮状态点按钮图片
 - (void)setCurrentPageIndicatorImage:(UIImage *)aCurrentPageIndicatorImage
 {
-    currentPageIndicatorImage = aCurrentPageIndicatorImage;
+    _currentPageIndicatorImage = aCurrentPageIndicatorImage;
     
     [self updateDotPageImage];
 }
 
 - (void)setPageIndicatorTintColor:(UIColor *)aPageIndicatorTintColor
 {
-    pageIndicatorTintColor = aPageIndicatorTintColor;
+    _pageIndicatorTintColor = aPageIndicatorTintColor;
     
     [self updateDotPageColor];
 
@@ -159,7 +141,7 @@
 
 - (void)setCurrentPageIndicatorTintColor:(UIColor *)aCurrentPageIndicatorTintColor
 {
-    currentPageIndicatorTintColor = aCurrentPageIndicatorTintColor;
+    _currentPageIndicatorTintColor = aCurrentPageIndicatorTintColor;
     
     [self updateDotPageColor];
 }
@@ -167,10 +149,10 @@
 
 - (void)setNumberOfPages:(NSInteger)aNumberOfPages
 {
-    numberOfPages = aNumberOfPages;
+    _numberOfPages = aNumberOfPages;
     
     // 如果这里不重置currentPage的话，会出现currentPage>=numberOfPage的情况出现，已经超出了最初设定currentPage的范围
-    currentPage = 0;
+    _currentPage = 0;
     
     // 开始加载SubView
     [self loadPageSubView];
@@ -178,16 +160,16 @@
 
 - (void)setCurrentPage:(NSInteger)aCurrentPage
 {
-    currentPage = aCurrentPage;
+    _currentPage = aCurrentPage;
     
     [self checkUpdateCurrPageDisplay];
 }
 
 - (void)setHidesForSinglePage:(BOOL)aHidesForSinglePage
 {
-    hidesForSinglePage = aHidesForSinglePage;
+    _hidesForSinglePage = aHidesForSinglePage;
     
-    if (numberOfPages != 1) return;
+    if (_numberOfPages != 1) return;
     
     UIImageView *imageView = (UIImageView *)[self viewWithTag:0];
     imageView.hidden = aHidesForSinglePage;
@@ -200,7 +182,7 @@
 
 - (void)loadPageSubView
 {
-    if (numberOfPages <= 0) return;
+    if (_numberOfPages <= 0) return;
     
     
     NSArray *subViews = [NSArray arrayWithArray:self.subviews];
@@ -208,25 +190,25 @@
         [subImagView removeFromSuperview];
     }
     
-    float dotAndSpWidth = numberOfPages * DOT_RADIUS + DOT_SP * (numberOfPages - 1);
+    float dotAndSpWidth = _numberOfPages * DOT_RADIUS + DOT_SP * (_numberOfPages - 1);
     
-    float firstDotX = [self getFirstDotXByPageAlignment:pageDotAlignment width:dotAndSpWidth];
+    float firstDotX = [self getFirstDotXByPageAlignment:_pageDotAlignment width:dotAndSpWidth];
     float dotY = (self.bounds.size.height - DOT_RADIUS) / 2;
     
-    for (int i = 0; i < numberOfPages; i++) {
+    for (int i = 0; i < _numberOfPages; i++) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(firstDotX + (DOT_RADIUS + DOT_SP) * i, dotY, DOT_RADIUS, DOT_RADIUS)];
         imageView.tag = i + MZPAGEDOT_TAG;
         [self addSubview:imageView];
         
     
-        if (pageIndicatorTintImage && currentPageIndicatorImage) {
+        if (_pageIndicatorTintImage && _currentPageIndicatorImage) {
     
-            UIImage *tempImage = currentPage == i ? currentPageIndicatorImage : pageIndicatorTintImage;
+            UIImage *tempImage = _currentPage == i ? _currentPageIndicatorImage : _pageIndicatorTintImage;
             [imageView setImage:tempImage];
         } else {
             
-            UIColor *tempColor = currentPage == i ? currentPageIndicatorTintColor : pageIndicatorTintColor;
+            UIColor *tempColor = _currentPage == i ? _currentPageIndicatorTintColor : _pageIndicatorTintColor;
             
             imageView.backgroundColor = tempColor;
             imageView.layer.masksToBounds = YES;
@@ -234,7 +216,7 @@
         }
         
         //  如果hidesForSinglePage为true,则隐藏imageview
-        if (numberOfPages == 1 && hidesForSinglePage) {
+        if (_numberOfPages == 1 && _hidesForSinglePage) {
             imageView.hidden = YES;
         }
         
@@ -243,7 +225,7 @@
 
 - (void)checkUpdateCurrPageDisplay
 {
-    if (defersCurrentPageDisplay) return;
+    if (_defersCurrentPageDisplay) return;
     
     [self updateCurrentPageDisplay];
 }
@@ -275,14 +257,14 @@
 /** 根据默认的图片更新圆点图片视图 */
 - (void)updateDotPageImage
 {
-    if (!pageIndicatorTintImage || !currentPageIndicatorImage) return;
+    if (!_pageIndicatorTintImage || !_currentPageIndicatorImage) return;
     
     NSArray *subViews = [NSArray arrayWithArray:self.subviews];
     for (UIImageView *subImageView in subViews) {
         
-        BOOL isCurrPageView =  currentPage == (subImageView.tag - MZPAGEDOT_TAG);
+        BOOL isCurrPageView =  _currentPage == (subImageView.tag - MZPAGEDOT_TAG);
         
-        UIImage *pageImage = isCurrPageView ? currentPageIndicatorImage : pageIndicatorTintImage;
+        UIImage *pageImage = isCurrPageView ? _currentPageIndicatorImage : _pageIndicatorTintImage;
         subImageView.backgroundColor = [UIColor clearColor];
         subImageView.layer.masksToBounds = NO;
         [subImageView setImage:pageImage];
@@ -292,15 +274,15 @@
 /** 根据默认的颜色更新圆点图片视图 */
 - (void)updateDotPageColor
 {
-    if (!pageIndicatorTintColor || !currentPageIndicatorTintColor) return;
+    if (!_pageIndicatorTintColor || !_currentPageIndicatorTintColor) return;
 
     
     NSArray *subViews = [NSArray arrayWithArray:self.subviews];
     for (UIImageView *subImageView in subViews) {
         
-        BOOL isCurrPageView = currentPage == (subImageView.tag - MZPAGEDOT_TAG);
+        BOOL isCurrPageView = _currentPage == (subImageView.tag - MZPAGEDOT_TAG);
         
-        UIColor *pageColor = isCurrPageView ? currentPageIndicatorTintColor : pageIndicatorTintColor;
+        UIColor *pageColor = isCurrPageView ? _currentPageIndicatorTintColor : _pageIndicatorTintColor;
         
         [subImageView setImage:nil];
         

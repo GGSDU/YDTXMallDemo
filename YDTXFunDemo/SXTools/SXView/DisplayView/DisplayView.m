@@ -16,6 +16,15 @@
 #pragma mark - view
 @implementation DisplayView
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
 - (void)setDisplayModel:(DisplayModel *)displayModel
 {
     if (_displayModel == nil) {

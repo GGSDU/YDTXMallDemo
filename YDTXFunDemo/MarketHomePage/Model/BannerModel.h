@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Partner : NSObject
+@interface BannerModel : NSObject
 
 @property (nonatomic,assign) int adType;
 @property (nonatomic,assign) int advertiseId;

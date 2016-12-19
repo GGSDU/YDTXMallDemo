@@ -24,25 +24,8 @@ typedef enum  {
 
 @interface MZPageControl : UIView
 {
-    
 @private
-    
     float _offset;
-    
-//    NSInteger       _currentPage;
-//    NSInteger       _displayedPage;
-    
-    BOOL hidesForSinglePage;
-    BOOL defersCurrentPageDisplay;
-    
-//    MZPageDotAlignment _pageDotAlignment;
-    
-    UIImage* pageIndicatorTintImage;
-    UIImage* currentPageIndicatorImage;
-    
-    UIColor *pageIndicatorTintColor;
-    UIColor *currentPageIndicatorTintColor;
-    
 }
 
 @property(nonatomic) NSInteger numberOfPages;          // default is 0

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 Webcity. All rights reserved.
 //
 
-#import "Partner.h"
+#import "BannerModel.h"
 
-@implementation Partner
+@implementation BannerModel
 - (id)valueForUndefinedKey:(NSString *)key{
    return nil;
 }

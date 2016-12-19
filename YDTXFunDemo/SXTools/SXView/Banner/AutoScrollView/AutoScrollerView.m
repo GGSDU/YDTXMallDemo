@@ -76,28 +76,22 @@
 
 - (void)addScrollView{
 
-   _scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+   _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    //设置分页
+    _scrollView.pagingEnabled = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.contentSize = CGSizeMake((_imageCount + 2) * self.frame.size.width, self.frame.size.height) ;
+    //设置当前显示的位置为中间图片
+    [_scrollView setContentOffset:CGPointMake(self.frame.size.width, 0) animated:NO];
+    _scrollView.delegate = self;
    [self addSubview:_scrollView];
-   //设置代理
-   _scrollView.delegate=self;
-   //设置contentSize
-   _scrollView.contentSize=CGSizeMake((_imageCount + 2) * self.frame.size.width, self.frame.size.height) ;
-   //设置当前显示的位置为中间图片
-   [_scrollView setContentOffset:CGPointMake(self.frame.size.width, 0) animated:NO];
-   //设置分页
-   _scrollView.pagingEnabled=YES;
-   //去掉滚动条
-   _scrollView.showsHorizontalScrollIndicator=NO;
-
+   
+   
 
    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewTap)];
    [_scrollView addGestureRecognizer:tapGesture];
 
 }
-
-
-
-
 
 #pragma mark - 设置默认显示图片
 -(void)setDefaultImage{
@@ -112,21 +106,19 @@
       NSString *urlString = _advertiseArray[i];
       UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake((i + 1)*scrollViewSize.width, 0, scrollViewSize.width, scrollViewSize.height)];
 
-      UIImage *defaultImage = [SXPublicTool placeholderImageWithFrame:imageView.frame iconSide:100.0f];
-       [imageView sd_setImageWithURL:[SXPublicTool getResURLBySplitjointResURLString:urlString] placeholderImage:defaultImage options:0 completed:nil];
+       [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:nil options:0 completed:nil];
        [_scrollView addSubview:imageView];
    }
 
    UIImageView * firstImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, scrollViewSize.width, scrollViewSize.height)];
    NSString *firstAdvertiseInfoUrl = _advertiseArray[_advertiseArray.count - 1];
-   UIImage * defaultImage = [SXPublicTool placeholderImageWithFrame:firstImageView.frame iconSide:100];
-    [firstImageView sd_setImageWithURL:[SXPublicTool getResURLBySplitjointResURLString:firstAdvertiseInfoUrl] placeholderImage:defaultImage options:0 completed:nil];
+    [firstImageView sd_setImageWithURL:[NSURL URLWithString:firstAdvertiseInfoUrl] placeholderImage:nil options:0 completed:nil];
    [_scrollView addSubview:firstImageView];
    
 
    UIImageView *lastImageView = [[UIImageView alloc] initWithFrame:CGRectMake(scrollViewSize.width * (_advertiseArray.count + 1), 0, scrollViewSize.width, scrollViewSize.height)];
    NSString *lastAdvertiseInfoUrl = _advertiseArray[0];
-    [lastImageView sd_setImageWithURL:[SXPublicTool getResURLBySplitjointResURLString:lastAdvertiseInfoUrl] placeholderImage:defaultImage options:0 completed:nil];
+    [lastImageView sd_setImageWithURL:[NSURL URLWithString:lastAdvertiseInfoUrl] placeholderImage:nil options:0 completed:nil];
    [_scrollView addSubview:lastImageView];
 
 
@@ -193,7 +185,6 @@
 
 
 #pragma mark - private method
-
 - (void)scrollPageToIndex:(NSInteger)index{
 
    CGSize viewSize = self.frame.size;
