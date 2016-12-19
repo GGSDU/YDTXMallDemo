@@ -83,6 +83,8 @@
             
         case 5:
         {
+            [aSender setTitle:@"舒通" forState:UIControlStateNormal];
+            
             MeViewController *meVc = [[MeViewController alloc]init];
             [self.navigationController pushViewController:meVc animated:YES];
         }

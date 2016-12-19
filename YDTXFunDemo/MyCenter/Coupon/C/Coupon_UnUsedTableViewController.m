@@ -7,22 +7,59 @@
 //
 
 #import "Coupon_UnUsedTableViewController.h"
+#import "CouponTableViewCell.h"
+
+#import "CouponModel.h"
 
 @interface Coupon_UnUsedTableViewController ()
+@property (strong, nonatomic) NSMutableArray *dataSource;
 
 @end
 
 @implementation Coupon_UnUsedTableViewController
+#pragma mark lazy
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+        
+    }
+    return _dataSource;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView = [[UITableView alloc]initWithFrame:[[UIScreen mainScreen]bounds] style:UITableViewStyleGrouped];
+    [self loadNewData];
+   
 }
+
+- (void)loadNewData {
+    NetWorkService *network = [NetWorkService shareInstance];
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"method"] = @1;
+    params[@"uid"] = @"69";
+    [network GET:[postHttp stringByAppendingString:@"api/goods/couponlist/"] parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"coupon data is :%@",responseObject);
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            CouponModel *model = [[CouponModel alloc]initData:dic];
+            [self.dataSource addObject:model];
+            
+            [self.tableView reloadData];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -33,23 +70,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return self.dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 90*HeightScale;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10*HeightScale;
 }
 
-/*
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.001;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    CouponModel *model = self.dataSource[indexPath.section];
+    
+    static NSString *cellID = @"cellID";
+    CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell) {
+        cell = [[CouponTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID couponModel:model];
+    }
+    
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

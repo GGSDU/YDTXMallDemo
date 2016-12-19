@@ -22,6 +22,9 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier model:(OrderListModel *)model ;
 
+- (void) updataViews:(OrderListModel *)model;
+
+
 @property (nonatomic, assign) id<OrderTableViewCellDelegate>delegate;
 
 
