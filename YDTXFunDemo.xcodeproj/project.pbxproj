@@ -217,6 +217,9 @@
 		75B7F7ED1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7E91DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png */; };
 		75B7F7EE1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7EA1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png */; };
 		75B7F7EF1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7EB1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png */; };
+		75DB99C31E07B91C00E6998B /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */; };
+		75F6966C1E07910C0056BAD2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F6966B1E07910C0056BAD2 /* WebKit.framework */; };
+		75F6966E1E0792730056BAD2 /* URLInterface.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75F6966D1E0792730056BAD2 /* URLInterface.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -636,6 +639,10 @@
 		75B7F7E91DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Disabled@3x.png"; sourceTree = "<group>"; };
 		75B7F7EA1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Normal@2x.png"; sourceTree = "<group>"; };
 		75B7F7EB1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Normal@3x.png"; sourceTree = "<group>"; };
+		75DB99C11E07B91C00E6998B /* UIScrollView+UITouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UITouch.h"; sourceTree = "<group>"; };
+		75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UITouch.m"; sourceTree = "<group>"; };
+		75F6966B1E07910C0056BAD2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		75F6966D1E0792730056BAD2 /* URLInterface.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = URLInterface.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -643,6 +650,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75F6966C1E07910C0056BAD2 /* WebKit.framework in Frameworks */,
 				048540041E077E1500D90459 /* AssetsLibrary.framework in Frameworks */,
 				755B4AB61E059F6F009EEA64 /* libsqlite3.tbd in Frameworks */,
 			);
@@ -1135,6 +1143,7 @@
 		04853FDF1E077C5300D90459 /* SXTools */ = {
 			isa = PBXGroup;
 			children = (
+				75DB99BF1E07B91C00E6998B /* SXCategory */,
 				04853FE01E077C5300D90459 /* SXObject */,
 				04853FE71E077C5300D90459 /* SXView */,
 			);
@@ -1224,6 +1233,7 @@
 		2BD8542BA1972E659741F877 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75F6966B1E07910C0056BAD2 /* WebKit.framework */,
 				048540031E077E1500D90459 /* AssetsLibrary.framework */,
 				755B4AB51E059F6F009EEA64 /* libsqlite3.tbd */,
 			);
@@ -1831,6 +1841,7 @@
 			isa = PBXGroup;
 			children = (
 				757F31F81E03C6FA004D259C /* Category.plist */,
+				75F6966D1E0792730056BAD2 /* URLInterface.plist */,
 				752417BF1DF9474000123517 /* Image.png */,
 				755B4ACD1E05A9FD009EEA64 /* NavigationBackImage@2x.png */,
 				755B4ACE1E05A9FD009EEA64 /* NavigationBackImage@3x.png */,
@@ -1900,6 +1911,23 @@
 				042198CC1E029EFA0061175F /* MJRefresh */,
 			);
 			path = TheThirdPart;
+			sourceTree = "<group>";
+		};
+		75DB99BF1E07B91C00E6998B /* SXCategory */ = {
+			isa = PBXGroup;
+			children = (
+				75DB99C01E07B91C00E6998B /* UIScrollView+UITouch */,
+			);
+			path = SXCategory;
+			sourceTree = "<group>";
+		};
+		75DB99C01E07B91C00E6998B /* UIScrollView+UITouch */ = {
+			isa = PBXGroup;
+			children = (
+				75DB99C11E07B91C00E6998B /* UIScrollView+UITouch.h */,
+				75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */,
+			);
+			path = "UIScrollView+UITouch";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2029,6 +2057,7 @@
 				04853FB61E03852200D90459 /* LICENSE in Resources */,
 				757A7E581DF6B13F00399B10 /* Cart_CellStatusButton_Selected@3x.png in Resources */,
 				757F31F91E03C6FA004D259C /* Category.plist in Resources */,
+				75F6966E1E0792730056BAD2 /* URLInterface.plist in Resources */,
 				757A7E0E1DF6843300399B10 /* Main.storyboard in Resources */,
 				04853FC21E03852200D90459 /* LICENSE in Resources */,
 				75B7F7EC1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png in Resources */,
@@ -2239,6 +2268,7 @@
 				042199021E029EFA0061175F /* MJRefreshAutoStateFooter.m in Sources */,
 				50CE5B131E03B60200EAB012 /* UITableView+HYBCacheHeight.m in Sources */,
 				042199331E03844A0061175F /* ViewController+MASAdditions.m in Sources */,
+				75DB99C31E07B91C00E6998B /* UIScrollView+UITouch.m in Sources */,
 				756EE9621DFFD6A100D1B89D /* CartListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
