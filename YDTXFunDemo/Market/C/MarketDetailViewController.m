@@ -445,7 +445,8 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     marketDetailModel *model = self.marketDetailDataArr[indexPath.row];
     MarketDetailCell *marketDetailCell = [tableView dequeueReusableCellWithIdentifier:kMarketDetialCellId];
-//    marketDetailCell.marketDetailModel = model;
+    marketDetailCell.marketDetailModel = model;
+   
     return marketDetailCell;
 
 }
