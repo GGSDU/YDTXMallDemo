@@ -7,14 +7,26 @@
 //
 
 #import "MarketDetailCell.h"
+#import <WebKit/WebKit.h>
+@interface MarketDetailCell ()<UIWebViewDelegate>
 
-@interface MarketDetailCell ()
 
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
+
+@property(strong,nonatomic)WKWebView *wkWebView;
 
 @end
 
 @implementation MarketDetailCell
+
+-(WKWebView *)wkWebView{
+
+    if (!_wkWebView) {
+        _wkWebView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 500)];
+        _wkWebView.backgroundColor = [UIColor redColor];
+    }
+
+    return _wkWebView;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -26,17 +38,41 @@
 
 -(void)setMarketDetailModel:(marketDetailModel *)marketDetailModel{
     _marketDetailModel = marketDetailModel;
+
+    
+    
+    
+    
+    
+
+//    
+//    WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 500)];
+//    webView.UIDelegate = self;
+//    [self.contentView addSubview:webView];
+//    
+
+    
+    UIWebView *marketDeatilcellWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 500)];
+    marketDeatilcellWebView.scrollView.scrollEnabled = NO;
+    marketDeatilcellWebView.delegate = self;
+    
+    [self.contentView addSubview:marketDeatilcellWebView];
+
+    
+
+    
     
     marketDetailModel.content = [marketDetailModel.content stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
     
     
     NSLog(@"-htmlString-:%@",marketDetailModel.content);
-//
+    NSString *dealSizeStr = [NSString stringWithFormat:@"<head><style>img{max-width:%f !important;}</style></head>",YDTXScreenW];
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@",dealSizeStr,marketDetailModel.content];
+
     
-    NSLog(@"%@",self.webView);
-    NSString *htmlString = marketDetailModel.content;
-//    [self.webView loadHTMLString:htmlString baseURL:nil];
-    NSLog(@"%@",self.webView);
+    
+    [marketDeatilcellWebView loadHTMLString:htmlString baseURL:nil];
+    
     
 
 
@@ -50,48 +86,35 @@
     // Configure the view for the selected state
 }
 
-//- (void)webViewDidFinishLoad:(UIWebView *)webView { //webview 自适应高度
-//    
-//    //定义JS字符串
-//    //适配屏幕大小
-//    
-//    //定义JS字符串
-//    NSString *script = [NSString stringWithFormat: @"var script = document.createElement('script');"
-//                        "script.type = 'text/javascript';"
-//                        "script.text = \"function ResizeImages() { "
-//                        "var myimg;"
-//                        "var maxwidth=%f;" //屏幕宽度
-//                        "for(i=0;i <document.images.length;i++){"
-//                        "myimg = document.images[i];"
-//                        "myimg.height = maxwidth / (myimg.width/myimg.height);"
-//                        "myimg.width = maxwidth-15;"
-//                        "}"
-//                        "}\";"
-//                        "document.getElementsByTagName('p')[0].appendChild(script);",YDTXScreenW];
-//    
-//    //添加JS
-//    [webView stringByEvaluatingJavaScriptFromString:script];
-//    
-//    //添加调用JS执行的语句
-//    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
-//    
-//    
-//    
-//    //调整页面
-//    
-//    
-//  CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] floatValue]+69;
-//    
-//    NSLog(@"!!!!%lf",webViewHeight);
-//    
-//    
-//    
-//    self.webView.frame = CGRectMake(0, 0, YDTXScreenW, webViewHeight);
-//    
-//    [self layoutIfNeeded];
-//  
-//    
-//}
 
+
+
+
+-(void)webViewDidFinishLoad:(UIWebView*)webView{
+    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
+    CGRect newFrame = webView.frame;
+    newFrame.size.height = actualSize.height;
+    webView.frame = newFrame;
+    
+    self.height = newFrame.size.height;
+    
+//    [self layoutIfNeeded];
+    [self updateHeight:newFrame.size.height];
+    
+//    [self updateConstraints];
+    
+}
+
+-(void)updateHeight:(CGFloat)height{
+
+
+    if ([self.delegate respondsToSelector:@selector(updateCellHeightWithHeight:)]) {
+        
+        
+        [self.delegate updateCellHeightWithHeight:height];
+        NSLog(@"---->:%f",height);
+    }
+
+}
 
 @end

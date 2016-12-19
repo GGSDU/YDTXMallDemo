@@ -13,7 +13,7 @@
 #import "CartViewController.h"
 #import "SDCycleDispalyView.h"
 #import "marketDetailModel.h"
-@interface MarketDetailViewController ()<UITableViewDataSource,UITableViewDelegate,reMoveAnimationDelegate>
+@interface MarketDetailViewController ()<UITableViewDataSource,UITableViewDelegate,reMoveAnimationDelegate,marketDetailCellDelegate>
 
 @property(strong,nonatomic)UITableView *tableView ;
 
@@ -29,6 +29,8 @@
 @property(strong,nonatomic)UILabel *stockLabel;              //库存
 @property(strong,nonatomic)UILabel *salesLabel;              //销售量
 
+
+@property(assign,nonatomic)CGFloat cellHeight;
 
 @end
 
@@ -81,6 +83,8 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     //基本设置
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+
     // 注册
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MarketDetailCell class]) bundle:nil] forCellReuseIdentifier:kMarketDetialCellId];
@@ -445,6 +449,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     marketDetailModel *model = self.marketDetailDataArr[indexPath.row];
     MarketDetailCell *marketDetailCell = [tableView dequeueReusableCellWithIdentifier:kMarketDetialCellId];
+    marketDetailCell.delegate = self;
     marketDetailCell.marketDetailModel = model;
    
     return marketDetailCell;
@@ -452,7 +457,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 600;
+    return _cellHeight ? _cellHeight : 1000;
 
 }
 
@@ -622,5 +627,17 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
 
 }
+
+
+#pragma mark --marketDetailCellDelegate
+
+-(void)updateCellHeightWithHeight:(CGFloat)height{
+
+    self.cellHeight = height;
+    
+    
+
+}
+
 
 @end

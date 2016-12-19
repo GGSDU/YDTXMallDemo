@@ -124,6 +124,7 @@
 		048540011E077C5300D90459 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FF61E077C5300D90459 /* DisplayView.m */; };
 		048540021E077C5300D90459 /* SXAdjustNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FF91E077C5300D90459 /* SXAdjustNumberView.m */; };
 		048540041E077E1500D90459 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048540031E077E1500D90459 /* AssetsLibrary.framework */; };
+		048540061E07A2A400D90459 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048540051E07A2A400D90459 /* WebKit.framework */; };
 		50CE5AE31E03B60200EAB012 /* AddDetailMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */; };
 		50CE5AE41E03B60200EAB012 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50CE5A621E03B60200EAB012 /* Address.plist */; };
 		50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A641E03B60200EAB012 /* SGLocationPickerSheetView.m */; };
@@ -467,6 +468,7 @@
 		04853FF81E077C5300D90459 /* SXAdjustNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXAdjustNumberView.h; sourceTree = "<group>"; };
 		04853FF91E077C5300D90459 /* SXAdjustNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXAdjustNumberView.m; sourceTree = "<group>"; };
 		048540031E077E1500D90459 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		048540051E07A2A400D90459 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		50CE5A5E1E03B60200EAB012 /* AddDetailMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageViewController.h; sourceTree = "<group>"; };
 		50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageViewController.m; sourceTree = "<group>"; };
 		50CE5A621E03B60200EAB012 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048540061E07A2A400D90459 /* WebKit.framework in Frameworks */,
 				048540041E077E1500D90459 /* AssetsLibrary.framework in Frameworks */,
 				755B4AB61E059F6F009EEA64 /* libsqlite3.tbd in Frameworks */,
 			);
@@ -1224,6 +1227,7 @@
 		2BD8542BA1972E659741F877 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				048540051E07A2A400D90459 /* WebKit.framework */,
 				048540031E077E1500D90459 /* AssetsLibrary.framework */,
 				755B4AB51E059F6F009EEA64 /* libsqlite3.tbd */,
 			);
