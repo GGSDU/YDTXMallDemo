@@ -267,6 +267,7 @@
 		75B7F7EE1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7EA1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png */; };
 		75B7F7EF1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7EB1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png */; };
 		75DB99C31E07B91C00E6998B /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */; };
+		75DB99C71E08407F00E6998B /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DB99C61E08407F00E6998B /* NSObject+Property.m */; };
 		75F6966C1E07910C0056BAD2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F6966B1E07910C0056BAD2 /* WebKit.framework */; };
 		75F6966E1E0792730056BAD2 /* URLInterface.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75F6966D1E0792730056BAD2 /* URLInterface.plist */; };
 /* End PBXBuildFile section */
@@ -811,6 +812,8 @@
 		75B7F7EB1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Normal@3x.png"; sourceTree = "<group>"; };
 		75DB99C11E07B91C00E6998B /* UIScrollView+UITouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UITouch.h"; sourceTree = "<group>"; };
 		75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UITouch.m"; sourceTree = "<group>"; };
+		75DB99C51E08407F00E6998B /* NSObject+Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
+		75DB99C61E08407F00E6998B /* NSObject+Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Property.m"; sourceTree = "<group>"; };
 		75F6966B1E07910C0056BAD2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		75F6966D1E0792730056BAD2 /* URLInterface.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = URLInterface.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2280,6 +2283,7 @@
 		75DB99BF1E07B91C00E6998B /* SXCategory */ = {
 			isa = PBXGroup;
 			children = (
+				75DB99C41E08407F00E6998B /* NSObject+Property */,
 				75DB99C01E07B91C00E6998B /* UIScrollView+UITouch */,
 			);
 			path = SXCategory;
@@ -2292,6 +2296,15 @@
 				75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */,
 			);
 			path = "UIScrollView+UITouch";
+			sourceTree = "<group>";
+		};
+		75DB99C41E08407F00E6998B /* NSObject+Property */ = {
+			isa = PBXGroup;
+			children = (
+				75DB99C51E08407F00E6998B /* NSObject+Property.h */,
+				75DB99C61E08407F00E6998B /* NSObject+Property.m */,
+			);
+			path = "NSObject+Property";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2586,6 +2599,7 @@
 				04853FD81E03852200D90459 /* SVRadialGradientLayer.m in Sources */,
 				755B4AB31E059DAF009EEA64 /* FMResultSet.m in Sources */,
 				042199001E029EFA0061175F /* MJRefreshAutoGifFooter.m in Sources */,
+				75DB99C71E08407F00E6998B /* NSObject+Property.m in Sources */,
 				756EE9721DFFD71300D1B89D /* CartViewController.m in Sources */,
 				50FC5FB11E07C4C500F62097 /* PHAssetCollection+CTAssetsPickerController.m in Sources */,
 				50FC5FC91E07C4C500F62097 /* CTAssetsViewControllerTransition.m in Sources */,

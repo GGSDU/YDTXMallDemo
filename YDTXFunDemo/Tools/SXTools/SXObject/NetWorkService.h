@@ -16,6 +16,12 @@ typedef enum : NSUInteger {
 } ResponseStatus;
 
 typedef enum : NSUInteger {
+    RequestMethodNone,
+    GET,
+    POST,
+} RequestMethod;
+
+typedef enum : NSUInteger {
     URLModuleKeyTypeShopCategory,
     URLModuleKeyTypeCategoryList,
     URLModuleKeyTypeHomeListAggregatedData,
@@ -35,13 +41,28 @@ typedef enum : NSUInteger {
 
 + (nullable instancetype)shareInstance;
 
-#pragma mark - public methods
-- (NSString *)showMessageWithResponseStatus:(ResponseStatus)aStatus;
+#pragma mark - Project ShopMarket GET/POST methods
+/**
+ * 商品分类
+ */
+- (void)requestForDataByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+;
 
+
+
+#pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
 
-#pragma mark - Project ShopMarket GET/POST methods
+- (NSString *)getRequestURLStringByURLModuleKey:(URLModuleKeyType)urlModuleKey;
 
+- (RequestMethod)getRequestMethodByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+- (NSDictionary *)getRequestParamByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+- (NSDictionary *)getResponseParamByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+#pragma mark - Response Status
+- (NSString *)showMessageWithResponseStatus:(ResponseStatus)aStatus;
 
 #pragma mark - AF GET/POST methods
 - (nullable NSURLSessionDataTask *)GET:(nonnull NSString *)URLString
