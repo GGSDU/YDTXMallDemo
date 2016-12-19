@@ -21,6 +21,9 @@
                     <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GD3-mD-ION">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="05X-U8-JtE"/>
+                        </connections>
                     </webView>
                 </subviews>
                 <constraints>
@@ -30,6 +33,9 @@
                     <constraint firstAttribute="trailing" secondItem="GD3-mD-ION" secondAttribute="trailing" id="J2E-de-CdP"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="webView" destination="GD3-mD-ION" id="uPw-eP-RPF"/>
+            </connections>
             <point key="canvasLocation" x="34" y="236.5"/>
         </tableViewCell>
     </objects>

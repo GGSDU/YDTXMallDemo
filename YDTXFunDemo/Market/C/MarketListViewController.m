@@ -14,6 +14,7 @@
 
 @property(strong,nonatomic)NSMutableArray *marketListDataArr;
 
+@property(assign,nonatomic)NSInteger page;      //做上拉刷新用
 @end
 
 @implementation MarketListViewController
@@ -78,6 +79,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([markeListCell class]) bundle:nil] forCellWithReuseIdentifier:kmarketListCellId];
    
     
+    
     // 添加到视图上
     [self.view addSubview:self.collectionView];
 
@@ -117,8 +119,9 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 // 设置每个分区返回多少item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    return self.marketListDataArr.count;
-    return 3;
+
+
+    return self.marketListDataArr.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -126,7 +129,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     markeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmarketListCellId forIndexPath:indexPath];
     marketListModel *model = self.marketListDataArr[indexPath.row];
     cell.markeListModel = model;
-//
+
     
     return cell;
 }
@@ -140,8 +143,10 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
     NSLog(@"选中了cell");
     //选中cell  跳转到商品详情页
-    MarketDetailViewController *marketDetailVC = [MarketDetailViewController new];
+    marketListModel *model = self.marketListDataArr[indexPath.row];
     
+    MarketDetailViewController *marketDetailVC = [MarketDetailViewController new];
+    marketDetailVC.goods_id = model.ID;
     [self.navigationController pushViewController:marketDetailVC animated:YES];
     
     
@@ -166,33 +171,46 @@ static NSString * const kmarketListCellId = @"marketListCell";
      * page，id（分类的id）
      */
     
+    [self.collectionView.mj_footer resetNoMoreData];
+    self.page = 1;
+    
     NSLog(@"下拉刷新");
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:@"1" forKey:@"page"];
-    [params setObject:@"13" forKey:@"id"];
-//    params[@"page"] = @1;
-//    params[@"id"] = @(13);
+
+    params[@"page"] = @(self.page);
+    params[@"id"] = @(1);
     
     NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
-//    NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList/id/1/page/1";
     
-//    NSString *appendUrl = url stringByAppendingString:@"?page"
-
-    NSLog(@"请求前");
-    NSLog(@"%@",[NetWorkService shareInstance]);
     [[NetWorkService shareInstance] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-        NSLog(@"请求中。。。");
-        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSLog(@"列表数据=》：%@",responseObject[@"data"]);
-        if ([responseObject[@"status"] integerValue] == 200) {
+//        NSLog(@"列表数据=》：%@",responseObject);
+        
+        if ([responseObject[@"status"] integerValue] == 200) {  //成功请求到数据
             
             self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            [self.collectionView reloadData];
+        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             
+            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+            SVProgressHUD.minimumDismissTimeInterval = 1.0;
+            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
             
+        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
+            
+            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+            SVProgressHUD.minimumDismissTimeInterval = 1.0;
+            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
+            
+        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
+            
+            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+            SVProgressHUD.minimumDismissTimeInterval = 1.0;
+            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
         }
+        
+        
         
         
         [self.collectionView.mj_header endRefreshing];
@@ -200,10 +218,12 @@ static NSString * const kmarketListCellId = @"marketListCell";
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     
         NSLog(@"请求失败");
+        SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+        SVProgressHUD.minimumDismissTimeInterval = 1.0;
+        [SVProgressHUD showErrorWithStatus:@"网络跑丢了~"];
         
         [self.collectionView.mj_header endRefreshing];
     }];
-    NSLog(@"请求后");
     
 }
 
@@ -211,6 +231,64 @@ static NSString * const kmarketListCellId = @"marketListCell";
 -(void)loadMoreData{
     [self.collectionView.mj_footer endRefreshing];
     NSLog(@"上啦加载");
+    
+    self.page += 1;
+    NSLog(@"%ld",self.page);
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    params[@"page"] = @(self.page);
+    params[@"id"] = @(1);
+    
+    NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
+    
+    
+    [[NetWorkService shareInstance] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"More MarketList Data-->:%@",responseObject);
+        
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+            [self.marketListDataArr addObjectsFromArray:[marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]]];
+            [self.collectionView reloadData];
+            
+        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
+            
+            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+            SVProgressHUD.minimumDismissTimeInterval = 1.0;
+            [SVProgressHUD showErrorWithStatus:@"没有更多数据了~"];
+            
+            [self.collectionView.mj_footer endRefreshingWithNoMoreData];
+            
+        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
+            
+            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+            SVProgressHUD.minimumDismissTimeInterval = 1.0;
+            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
+            
+        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
+            
+            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+            SVProgressHUD.minimumDismissTimeInterval = 1.0;
+            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
+        }
+        
+         [self.collectionView.mj_header endRefreshing];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        self.page -= 1;
+        
+        SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+        SVProgressHUD.minimumDismissTimeInterval = 1.0;
+        [SVProgressHUD showErrorWithStatus:@"网络跑丢了~"];
+        
+        [self.collectionView.mj_header endRefreshing];
+        
+    }];
+    
+    
     
 }
 

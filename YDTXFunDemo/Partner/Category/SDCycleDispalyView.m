@@ -88,17 +88,17 @@
     pageControl.frame = CGRectMake(YDTXScreenW*0.5 -2*margin, 0, kPageControlWidth, bottomContianerView.frame.size.height);
     
     [bottomContianerView addSubview:pageControl];
-//    
-//    //初始化titleLabel
-//    UILabel *titleLabel = [[UILabel alloc] init];
-//    self.titleLabel = titleLabel;
-//    titleLabel.frame = CGRectMake(0, 0, bottomContianerView.frame.size.width - kPageControlWidth - 2*margin, bottomContianerView.frame.size.height);
-//    titleLabel.textAlignment = NSTextAlignmentLeft;
-//    titleLabel.textColor = [UIColor whiteColor];
-//    titleLabel.backgroundColor = [UIColor darkGrayColor];
-//    titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-//    [bottomContianerView addSubview:titleLabel];
-//    
+    //
+    //    //初始化titleLabel
+    //    UILabel *titleLabel = [[UILabel alloc] init];
+    //    self.titleLabel = titleLabel;
+    //    titleLabel.frame = CGRectMake(0, 0, bottomContianerView.frame.size.width - kPageControlWidth - 2*margin, bottomContianerView.frame.size.height);
+    //    titleLabel.textAlignment = NSTextAlignmentLeft;
+    //    titleLabel.textColor = [UIColor whiteColor];
+    //    titleLabel.backgroundColor = [UIColor darkGrayColor];
+    //    titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    //    [bottomContianerView addSubview:titleLabel];
+    //
 }
 
 #pragma mark UIScrollViewDelegate scrollView开始拖动
@@ -131,20 +131,18 @@
     if (self.imageUrls == nil || self.imageUrls.count == 0 ) return;
     
     NSInteger leftIndex = (self.currentMiddleImageViewIndex - 1 + self.imageUrls.count)%self.imageUrls.count;
-//    [self.leftImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[leftIndex]]];
-[self.leftImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[leftIndex]] placeholderImage:[UIImage imageNamed:@"zwt"]];
-   
-    
-//    self.titleLabel.text = [NSString stringWithFormat:@"   %@", self.titles[self.currentMiddleImageViewIndex]];
-//    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[self.currentMiddleImageViewIndex]]];
+    NSURL *leftURL =[SXPublicTool getImageURLByURLString:self.imageUrls[leftIndex]];
+    [self.leftImageView sd_setImageWithURL:leftURL placeholderImage:[UIImage imageNamed:@"zwt"]];
     
     
-    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[self.currentMiddleImageViewIndex]] placeholderImage:[UIImage imageNamed:@"zwt"]];
+    
+    NSURL *middleURL =[SXPublicTool getImageURLByURLString:self.imageUrls[_currentMiddleImageViewIndex]];
+    [self.middleImageView sd_setImageWithURL:middleURL placeholderImage:[UIImage imageNamed:@"zwt"]];
+    
     
     NSInteger rightIndex = (self.currentMiddleImageViewIndex + 1)%self.imageUrls.count;
-//    [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[rightIndex]]];
-    
-     [self.rightImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[rightIndex]] placeholderImage:[UIImage imageNamed:@"zwt"]];
+    NSURL *rightURL =[SXPublicTool getImageURLByURLString:self.imageUrls[rightIndex]];
+    [self.rightImageView sd_setImageWithURL:rightURL placeholderImage:[UIImage imageNamed:@"zwt"]];
     
     
     self.pageControl.numberOfPages = self.imageUrls.count;

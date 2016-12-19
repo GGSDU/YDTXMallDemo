@@ -29,6 +29,25 @@
     return resURL;
 }
 
++ (NSURL *)getImageURLByURLString:(NSString *)urlString
+{
+    NSString *website = @"test.m.yundiaoke.cn";
+    NSString *imageUrlString = urlString;
+    
+    if ([imageUrlString hasPrefix:website]) {
+        
+        imageUrlString = [NSString stringWithFormat:@"http://%@",imageUrlString];
+    } else {
+        imageUrlString = [NSString stringWithFormat:@"http://%@%@",website,imageUrlString];
+    }
+    
+    NSURL *url = [NSURL URLWithString:imageUrlString];
+    
+//    NSLog(@"fixed ImageUrl %@",imageUrlString);
+    
+    return url;
+}
+
 #pragma mark - image
 + (UIImage *)placeholderImageWithFrame:(CGRect)aFrame iconSide:(float)aIconSide
 {
