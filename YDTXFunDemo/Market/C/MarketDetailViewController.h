@@ -10,4 +10,7 @@
 
 @interface MarketDetailViewController : UIViewController
 
+@property (assign,nonatomic)NSInteger goods_id;
+
+
 @end

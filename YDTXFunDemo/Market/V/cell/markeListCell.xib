@@ -73,7 +73,7 @@
                 <outlet property="priceLabel" destination="jdn-AV-gwa" id="IVU-WT-cqd"/>
                 <outlet property="total_numLabel" destination="J4U-uq-CJA" id="F1C-tV-yjZ"/>
             </connections>
-            <point key="canvasLocation" x="123" y="201.5"/>
+            <point key="canvasLocation" x="-58" y="29"/>
         </collectionViewCell>
     </objects>
 </document>

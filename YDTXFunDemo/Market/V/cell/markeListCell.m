@@ -28,24 +28,25 @@
 }
 
 
+
 -(void)setMarkeListModel:(marketListModel *)markeListModel{
     
     _markeListModel = markeListModel;
     
     //商品图片
-//    [self.goodsImgView sd_setImageWithURL:[NSURL URLWithString:markeListModel.images_url] placeholderImage:[UIImage imageNamed:@"zwt"]];
+    [self.goodsImgView sd_setImageWithURL:[NSURL URLWithString:markeListModel.images_url] placeholderImage:[UIImage imageNamed:@"zwt"]];
     
     //商品名
     self.nameLabel.text = markeListModel.name;
     
     //原价
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%f",markeListModel.price];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",markeListModel.price];
     
     //会员价
-    self.payLabel.text = [NSString stringWithFormat:@"￥%f",markeListModel.pay];
+    self.payLabel.text = [NSString stringWithFormat:@"￥%.2f",markeListModel.pay];
     
     //月销量
-    self.total_numLabel.text = [NSString stringWithFormat:@"%d",markeListModel.total_num];
+    self.total_numLabel.text = [NSString stringWithFormat:@"月销量：%d",markeListModel.total_num];
     
     
 

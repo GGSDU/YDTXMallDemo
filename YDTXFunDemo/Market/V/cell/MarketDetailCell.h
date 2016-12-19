@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "marketDetailModel.h"
+
 
 @interface MarketDetailCell : UITableViewCell
+
+@property(strong,nonatomic)marketDetailModel *marketDetailModel;
+
+
 
 @end

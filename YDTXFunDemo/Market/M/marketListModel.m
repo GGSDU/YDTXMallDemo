@@ -19,4 +19,9 @@
 }
 
 
+-(void)setImages_url:(NSString *)images_url{
+
+    _images_url = [NSString stringWithFormat:@"http://%@",images_url];
+}
+
 @end

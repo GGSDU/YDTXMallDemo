@@ -113,6 +113,7 @@
 		04853FD61E03852200D90459 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04853FA01E03852200D90459 /* SVProgressHUD.bundle */; };
 		04853FD71E03852200D90459 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FA21E03852200D90459 /* SVProgressHUD.m */; };
 		04853FD81E03852200D90459 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FA41E03852200D90459 /* SVRadialGradientLayer.m */; };
+		04853FDB1E03B26000D90459 /* marketDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FDA1E03B26000D90459 /* marketDetailModel.m */; };
 		750BE7E11E0288CA009BF466 /* ShopMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7CF1E0288CA009BF466 /* ShopMarketController.m */; };
 		750BE7E41E0288CA009BF466 /* AutoScrollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7D91E0288CA009BF466 /* AutoScrollerView.m */; };
 		750BE7E51E0288CA009BF466 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7DB1E0288CA009BF466 /* DisplayView.m */; };
@@ -380,6 +381,8 @@
 		04853FA21E03852200D90459 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		04853FA31E03852200D90459 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		04853FA41E03852200D90459 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		04853FD91E03B26000D90459 /* marketDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marketDetailModel.h; sourceTree = "<group>"; };
+		04853FDA1E03B26000D90459 /* marketDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = marketDetailModel.m; sourceTree = "<group>"; };
 		6F11A696BDE87B332E0CFF15 /* Pods-YDTXFunDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YDTXFunDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YDTXFunDemo/Pods-YDTXFunDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		750BE7CE1E0288CA009BF466 /* ShopMarketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMarketController.h; sourceTree = "<group>"; };
 		750BE7CF1E0288CA009BF466 /* ShopMarketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMarketController.m; sourceTree = "<group>"; };
@@ -506,6 +509,8 @@
 			children = (
 				042198BA1E013BEE0061175F /* marketCheckModel.h */,
 				042198BB1E013BEE0061175F /* marketCheckModel.m */,
+				04853FD91E03B26000D90459 /* marketDetailModel.h */,
+				04853FDA1E03B26000D90459 /* marketDetailModel.m */,
 				042198BF1E0282A30061175F /* marketListModel.h */,
 				042198C01E0282A30061175F /* marketListModel.m */,
 			);
@@ -1385,6 +1390,7 @@
 				042198241E00E53D0061175F /* Foundation+Log.m in Sources */,
 				04853FA91E03852200D90459 /* AFURLResponseSerialization.m in Sources */,
 				04853FA51E03852200D90459 /* AFHTTPSessionManager.m in Sources */,
+				04853FDB1E03B26000D90459 /* marketDetailModel.m in Sources */,
 				756EE96A1DFFD6E100D1B89D /* NetWorkService.m in Sources */,
 				042199031E029EFA0061175F /* MJRefreshBackGifFooter.m in Sources */,
 				042198FD1E029EFA0061175F /* MJRefreshComponent.m in Sources */,

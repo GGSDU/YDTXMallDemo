@@ -17,6 +17,8 @@
 
 + (NSURL *)getResURLBySplitjointResURLString:(NSString *)splitjointResURLString;
 
++ (NSURL *)getImageURLByURLString:(NSString *)urlString;
+
 
 #pragma mark - image
 + (UIImage *)placeholderImageWithFrame:(CGRect)aFrame iconSide:(float)aIconSide;
