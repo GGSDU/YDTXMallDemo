@@ -13,6 +13,8 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 // 第三方
+#import "FMDB.h"
+
 #import "UIImageView+WebCache.h"
 
 #import "AFNetworking.h"
@@ -32,10 +34,22 @@
 #import "UIColor+Hex.h"
 #import "UIView+Category.h"
 
+#define StandardBackgroundColor RGB(238, 238, 238)
 
 #define YDTXScreenW [UIScreen mainScreen].bounds.size.width
 
 #define YDTXScreenH [UIScreen mainScreen].bounds.size.height
+
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+//屏幕与PS切图像素的比例
+#define WidthScale ScreenWidth/375
+#define HeightScale ScreenHeight/667
+
+#define postHttp @"http://test.m.yundiaoke.cn/"
+#define testHttp @"http://m.yundiaoke.cn/"
+
+
 #define RandColor RGB(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
 
 #endif /* PrefixHeader_pch */
