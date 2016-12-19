@@ -219,39 +219,62 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
 //        商品信息
-        NSURL *url = [NSURL URLWithString:[@"http://" stringByAppendingString:model.images_url]];
-        [self.orderImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@""]];
-        self.orderImgV.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",url]];
-        self.nameLabel.text =model.goods_name;
-        
-        self.priceLabel.text = model.price;
-        self.numLabel.text = [NSString stringWithFormat:@"￥%@",model.nums];
-        
-        NSLog(@"orderlist model is :%@--%@--%@--%@",model.images_url,model.goods_name,model.status,model.price);
-//      应付金额
-            CGFloat price = 0.0;
-            int num = 0;
-                price += [model.price floatValue];
-                num += [model.nums integerValue];
-              self.payDetailLabel.text = [NSString stringWithFormat:@"共%d件商品  实付:￥%0.2f",num,price];
-//      订单状态
-            [self creatBtnStyle:model.status];
-
-        
-        
-       
-            
+//        NSURL *url = [NSURL URLWithString:[@"http://" stringByAppendingString:model.images_url]];
+//        [self.orderImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@""]];
+//        self.orderImgV.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",url]];
+//        self.nameLabel.text =model.goods_name;
+//        
+//        self.priceLabel.text = model.price;
+//        self.numLabel.text = [NSString stringWithFormat:@"￥%@",model.nums];
+//        
+//        NSLog(@"orderlist model is :%@--%@--%@--%@--%@",model.images_url,model.goods_name,model.status,model.price,model.goods_model_id);
+////      应付金额
+//            CGFloat price = 0.0;
+//            int num = 0;
+//                price += [model.price floatValue];
+//                num += [model.nums integerValue];
+//              self.payDetailLabel.text = [NSString stringWithFormat:@"共%d件商品  实付:￥%0.2f",num,price];
+////      订单状态
+//            [self creatBtnStyle:model.status];
+//        
+//       
+//            
         }
-        
+    
     
 
     return self;
 }
 
+- (void) updataViews:(OrderListModel *)model {
+    //        商品信息
+    NSURL *url = [NSURL URLWithString:[@"http://" stringByAppendingString:model.images_url]];
+    [self.orderImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@""]];
+    self.orderImgV.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",url]];
+    self.nameLabel.text =model.goods_name;
+    
+    self.priceLabel.text = model.price;
+    self.numLabel.text = [NSString stringWithFormat:@"￥%@",model.nums];
+    
+    NSLog(@"orderlist model is :%@--%@--%@--%@--%@",model.images_url,model.goods_name,model.status,model.price,model.goods_model_id);
+    //      应付金额
+    CGFloat price = 0.0;
+    int num = 0;
+    price += [model.price floatValue];
+    num += [model.nums integerValue];
+    self.payDetailLabel.text = [NSString stringWithFormat:@"共%d件商品  实付:￥%0.2f",num,price];
+    //      订单状态
+    [self creatBtnStyle:model.status];
+    
+    NSLog(@"begain style is ===== %@",model.status);
+    
+
+}
+
 #pragma mark 根据类型创建不同的button
 - (void) creatBtnStyle:(NSString *)style {
     //-1为已取消，0为未付款 ，1为已付款， 2为待收货，3为退款，4为加入购物车
-    
+    NSLog(@"after style is ===== %@",style);
     [self.delectBackGroundView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];//删除所有子视图
     
     [self.arr removeAllObjects];
@@ -263,12 +286,13 @@
         
     }   else if ([style isEqualToString:@"0"]) {
         self.orderStatus.text = @"待付款";
-        [self.arr addObjectsFromArray:@[@"取消订单",@"查看物流",@"继续支付"]];
-//        [self.arr addObjectsFromArray:@[@"取消订单",@"继续支付"]];
+//        [self.arr addObjectsFromArray:@[@"取消订单",@"查看物流",@"继续支付"]];
+        [self.arr addObjectsFromArray:@[@"取消订单",@"继续支付"]];
         
     }   else if ([style isEqualToString:@"1"]) {
         self.orderStatus.text = @"已完成";
-        [self.arr addObject:@"删除订单"];
+//        [self.arr addObject:@"删除订单"];
+        [self.arr addObjectsFromArray:@[@"确认收货",@"查看物流",@"退款"]];
         
     }   else if ([style isEqualToString:@"2"]) {
         self.orderStatus.text = @"待收货";

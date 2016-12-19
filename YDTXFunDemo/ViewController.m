@@ -25,8 +25,49 @@
 
 @implementation ViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        NSLog(@"%s",__func__);
+    }
+    return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"%s",__func__);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"%s",__func__);
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"%s",__func__);
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    NSLog(@"%s",__func__);
+}
+
+- (void)setI:(int)i
+{
+    _i = i;
+    NSLog(@"%s",__func__);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"%s",__func__);
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor redColor];
     
@@ -51,6 +92,7 @@
         [jumpButton release];
     }
     
+    
 }
 
 - (void)jumpButtonClick:(UIButton *)aSender
@@ -65,24 +107,14 @@
             break;
         case 1:
         {
-            NSMutableArray *modelArray = [[NSMutableArray alloc] initWithCapacity:10];
-            for (int i = 0; i < 10; i++) {
-                ProductModel *pModel = [[ProductModel alloc] init];
-                pModel.infoImageURL = @"http://avatar.csdn.net/2/2/4/1_story51314.jpg";
-                pModel.infoName = [NSString stringWithFormat:@"infoName %d",i];
-                pModel.modelType = [NSString stringWithFormat:@"model : xx%d",i];
-                pModel.price = i * 1.0f + 100.0f;
-                pModel.number = i + 1;
-                [modelArray addObject:pModel];
-            }
-            CartViewController *cartVC = [[CartViewController alloc] init];
-            cartVC.productModelArray = modelArray;
-            [self.navigationController pushViewController:cartVC animated:YES];
+            
         }
             break;
             
         case 5:
         {
+            [aSender setTitle:@"舒通" forState:UIControlStateNormal];
+            
             MeViewController *meVc = [[MeViewController alloc]init];
             [self.navigationController pushViewController:meVc animated:YES];
         }

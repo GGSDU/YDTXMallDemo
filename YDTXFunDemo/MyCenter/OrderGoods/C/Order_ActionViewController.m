@@ -18,6 +18,8 @@
 
 #import "Order_HeaderTypeView.h"
 
+#import "OrderDrawBackViewController.h"
+
 @interface Order_ActionViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,OrderTableViewCellDelegate,Order_headerTypeViewDelegate>
 
 
@@ -80,7 +82,7 @@
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"userid"] = @"72";
-    
+//    param[@"page"] = @2;
     [self.AFManager GET:[postHttp stringByAppendingString:@"api/goodsOrder/ordermyList/"] parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -147,12 +149,13 @@
      } else {
          OrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
          OrderListModel *model = self.dataSource[indexPath.section-1];
-         
+         NSLog(@"model status is: -- %@",model.status);
          if (!cell) {
              cell = [[OrderTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid model:model];
              cell.delegate = self;
          }
          
+         [cell updataViews:model];
          // Configure the cell...
          
          return cell;
@@ -189,32 +192,7 @@
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
-- (void)typeBtn:(UIButton *)sender {
-    NSInteger index = sender.tag - 10;
-    sender.selected = !sender.selected;
-    switch (index) {
-        case 0:
-            
-            break;
-            
-        case 1:
-            break;
-            
-            
-        case 2:
-            break;
-            
-            
-        case 3:
-            
-            break;
-            
-        default:
-            break;
-            
-    }
-    NSLog(@"clicked typebtn tag is :%ld",(long)index);
-}
+
 
 #pragma orderTableViewCell delegate
 - (void)orderTableViewCell:(OrderTableViewCell *)orderTableViewCell didClickDelectedBtn:(UIButton *)btn tag:(NSInteger)tag{
@@ -224,6 +202,9 @@
         
         [self.navigationController pushViewController:logistics animated:YES];
         
+    } else if ([btn.titleLabel.text isEqualToString:@"退款"]) {
+        OrderDrawBackViewController *drawBackGvc = [[OrderDrawBackViewController alloc]init];
+        [self.navigationController pushViewController:drawBackGvc animated:YES];
     }
     
 }
