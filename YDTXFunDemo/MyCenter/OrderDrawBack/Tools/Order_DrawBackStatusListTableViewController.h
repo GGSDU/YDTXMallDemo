@@ -10,6 +10,6 @@
 
 @interface Order_DrawBackStatusListTableViewController : UIViewController
 
-//@property (nonatomic,assign) CGRect viewFrame;
+@property (nonatomic,assign) CGRect viewFrame;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "Order_DrawBackStatusListTableViewController.h"
 
+#import "UIScrollView+UITouch.h"
+
 @interface Order_DrawBackStatusListTableViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
@@ -25,6 +27,19 @@
 
 @implementation Order_DrawBackStatusListTableViewController
 
+- (void)setViewFrame:(CGRect)viewFrame
+{
+    _viewFrame = CGRectFromString(NSStringFromCGRect(viewFrame));
+    self.view.frame = _viewFrame;
+    NSLog(@"%s",__func__);
+    NSLog(@"%@",NSStringFromCGRect(_viewFrame));
+    NSLog(@"self.view.frame %@",NSStringFromCGRect(self.view.frame));
+    [self creatListView];
+    [self creatView];
+    [self loadNewData];
+
+}
+
 - (UIView *)drawBackStatusBackGroundView {
     if (!_drawBackStatusBackGroundView) {
         _drawBackStatusBackGroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth-20*HeightScale, 40*HeightScale)];
@@ -33,12 +48,12 @@
         self.view.layer.borderColor = [UIColor blueColor].CGColor;
         self.view.layer.borderWidth = 2;
         
-//        [_drawBackStatusBackGroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.mas_equalTo(self.view.mas_top).offset(18*HeightScale);
-//            make.left.mas_equalTo(self.view.mas_left).offset(10*WidthScale);
-//            make.width.mas_equalTo(ScreenWidth-20*WidthScale);
-//            make.height.mas_equalTo(40*HeightScale);
-//        }];
+        [_drawBackStatusBackGroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.view.mas_top).offset(18*HeightScale);
+            make.left.mas_equalTo(self.view.mas_left).offset(10*WidthScale);
+            make.width.mas_equalTo(ScreenWidth-20*WidthScale);
+            make.height.mas_equalTo(40*HeightScale);
+        }];
     }
     return _drawBackStatusBackGroundView;
 }
@@ -61,15 +76,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"%s",__func__);
+    NSLog(@"%@",NSStringFromCGRect(self.viewFrame));
+    
 //    NSLog(@"didload self.viewframe width is %f,height is %f",self.viewFrame.size.width,self.viewFrame.size.height);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self creatListView];
-    [self creatView];
-    [self loadNewData];
+//    [self creatListView];
+//    [self creatView];
+//    [self loadNewData];
 }
 
 - (void) creatListView {
@@ -155,6 +173,10 @@
     
     NSLog(@"here to create button");
     
+    NSLog(@"%s",__func__);
+    NSLog(@"%@",NSStringFromCGRect(statusButton.frame));
+    CGRect rect = [self.view convertRect:statusButton.frame toView:self.view.superview];
+    NSLog(@"%@",NSStringFromCGRect(rect));
     
     self.drawBackStatusBackGroundView.layer.borderColor = [UIColor redColor].CGColor;
     self.drawBackStatusBackGroundView.layer.borderWidth = 2;
