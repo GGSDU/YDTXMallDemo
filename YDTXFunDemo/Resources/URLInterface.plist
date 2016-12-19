@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ResponseStatus</key>
-	<dict>
-		<key>200</key>
-		<string>成功</string>
-		<key>400</key>
-		<string>失败</string>
-		<key>401</key>
-		<string>数据不合法</string>
-		<key>403</key>
-		<string>非法参数</string>
-	</dict>
 	<key>ShopCategory</key>
 	<dict>
 		<key>RequestURL</key>
@@ -69,7 +58,7 @@
 			<string>分类名称</string>
 		</dict>
 	</dict>
-	<key>ShopMarketHomeListAggregatedData</key>
+	<key>HomeListAggregatedData</key>
 	<dict>
 		<key>RequestURL</key>
 		<string>http://test.m.yundiaoke.cn/api/goods/index</string>
@@ -181,9 +170,9 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
@@ -216,9 +205,9 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
@@ -249,9 +238,9 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
@@ -266,8 +255,6 @@
 		<dict>
 			<key>adres_id</key>
 			<string>数据id</string>
-			<key>adres_id</key>
-			<string>数据id</string>
 			<key>user_name</key>
 			<string>收货人名字</string>
 			<key>mobile</key>
@@ -279,16 +266,16 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
 		<key>ResponseParam</key>
 		<dict/>
 	</dict>
-	<key>deleteAddress</key>
+	<key>DeleteAddress</key>
 	<dict>
 		<key>RequestURL</key>
 		<string>http://test.m.yundiaoke.cn/api/user/delAddress</string>

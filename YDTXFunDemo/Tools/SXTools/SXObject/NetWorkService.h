@@ -8,9 +8,40 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    responseSuccessed       = 200,
+    responseFailed          = 400,
+    responseIllegalData     = 401,
+    responseIllegalParam    = 403,
+} ResponseStatus;
+
+typedef enum : NSUInteger {
+    URLModuleKeyTypeShopCategory,
+    URLModuleKeyTypeCategoryList,
+    URLModuleKeyTypeHomeListAggregatedData,
+    URLModuleKeyTypeProductDetail,
+    URLModuleKeyTypeProductDetailModel,
+    URLModuleKeyTypeAddAddress,
+    URLModuleKeyTypeAddressList,
+    URLModuleKeyTypeModifyAddressShowInfo,
+    URLModuleKeyTypeCommitModifyAddress,
+    URLModuleKeyTypeDeleteAddress,
+} URLModuleKeyType;
+
+
 @interface NetWorkService : NSObject
 
-+ (instancetype)shareInstance;
+@property (strong, nonatomic) NSMutableDictionary *urlDictionary;   //URL Dictionary
+
++ (nullable instancetype)shareInstance;
+
+#pragma mark - public methods
+- (NSString *)showMessageWithResponseStatus:(ResponseStatus)aStatus;
+
+- (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+#pragma mark - Project ShopMarket GET/POST methods
+
 
 #pragma mark - AF GET/POST methods
 - (nullable NSURLSessionDataTask *)GET:(nonnull NSString *)URLString
@@ -31,8 +62,5 @@
                       progress:(nullable void (^)(NSProgress * _Nonnull))uploadProgress
                        success:(nullable void (^)(NSURLSessionDataTask * _Nonnull task, id _Nonnull responseObject))success
                        failure:(nullable void (^)(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error))failure;
-
-#pragma mark - private GET/POST methods
-
 
 @end
