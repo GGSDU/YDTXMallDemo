@@ -92,6 +92,7 @@
         [jumpButton release];
     }
     
+    
 }
 
 - (void)jumpButtonClick:(UIButton *)aSender
@@ -106,19 +107,7 @@
             break;
         case 1:
         {
-            NSMutableArray *modelArray = [[NSMutableArray alloc] initWithCapacity:10];
-            for (int i = 0; i < 10; i++) {
-                ProductModel *pModel = [[ProductModel alloc] init];
-                pModel.infoImageURL = @"http://avatar.csdn.net/2/2/4/1_story51314.jpg";
-                pModel.infoName = [NSString stringWithFormat:@"infoName %d",i];
-                pModel.modelType = [NSString stringWithFormat:@"model : xx%d",i];
-                pModel.price = i * 1.0f + 100.0f;
-                pModel.number = i + 1;
-                [modelArray addObject:pModel];
-            }
-            CartViewController *cartVC = [[CartViewController alloc] init];
-            cartVC.productModelArray = modelArray;
-            [self.navigationController pushViewController:cartVC animated:YES];
+            
         }
             break;
             
