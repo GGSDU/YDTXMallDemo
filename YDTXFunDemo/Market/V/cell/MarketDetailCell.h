@@ -24,4 +24,6 @@
 @property(weak,nonatomic)id <marketDetailCellDelegate> delegate;
 
 
+
+
 @end

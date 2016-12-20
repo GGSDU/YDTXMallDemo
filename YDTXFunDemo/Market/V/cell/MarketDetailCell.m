@@ -96,12 +96,13 @@
     newFrame.size.height = actualSize.height;
     webView.frame = newFrame;
     
-    self.height = newFrame.size.height;
+
     
-//    [self layoutIfNeeded];
-    [self updateHeight:newFrame.size.height];
     
-//    [self updateConstraints];
+
+//    [self updateHeight:newFrame.size.height];
+    
+
     
 }
 
@@ -116,5 +117,7 @@
     }
 
 }
+
+
 
 @end
