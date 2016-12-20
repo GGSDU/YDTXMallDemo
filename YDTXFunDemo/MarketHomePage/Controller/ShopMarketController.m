@@ -149,7 +149,11 @@ static NSString *watchMoreIdentifier = @"watchMore";
 {
     if (indexPath.section == 1) {
         //点击了分类的cell
-        NSLog(@"%@",self.categoryArray[indexPath.row]);
+        CategoryModel *categoryModel = self.categoryArray[indexPath.row];
+        NSLog(@"%@",categoryModel.objectDictionary);
+        
+        
+        
     } else if (indexPath.section > 1 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
         //点击了商品
         NSLog(@"点击了商品");
