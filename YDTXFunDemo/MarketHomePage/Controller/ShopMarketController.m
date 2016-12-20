@@ -16,6 +16,9 @@
 
 #import "CartViewController.h"
 
+#import "MarketCategoryListViewController.h"
+#import "MarketDetailViewController.h"
+
 #define SectionAddCount 2
 
 static NSString *bannerIdentifier = @"banner";
@@ -160,12 +163,24 @@ static NSString *watchMoreIdentifier = @"watchMore";
         CategoryModel *categoryModel = self.categoryArray[indexPath.row];
         NSLog(@"%@",categoryModel.objectDictionary);
         
+        MarketCategoryListViewController *marketCategoryListVC = [[MarketCategoryListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
+        marketCategoryListVC.ID = categoryModel.ID;
+        marketCategoryListVC.title = categoryModel.title;
+        
+
+        [self.navigationController pushViewController:marketCategoryListVC animated:YES];
+        
+        
     } else if (indexPath.section >= SectionAddCount) {
         
         NSArray *productBriefArray = self.productBriefArray[indexPath.section - SectionAddCount];
         ProductBriefModel *productBriefModel = productBriefArray[indexPath.row];
         //点击了商品
         NSLog(@"点击了商品 %@",productBriefModel.objectDictionary);
+        
+        MarketDetailViewController *marketDetailVC = [MarketDetailViewController new];
+        marketDetailVC.goods_id = productBriefModel.ID;
+        [self.navigationController pushViewController:marketDetailVC animated:YES];
     }
 }
 
@@ -254,6 +269,16 @@ static NSString *watchMoreIdentifier = @"watchMore";
             footer.watchMoreHandler = ^(UIButton *aSender){
                 NSLog(@"点击了更多");
                 NSLog(@"%@",productBriefModel.objectDictionary);
+                
+                
+                
+                MarketCategoryListViewController *marketCategoryListVC = [[MarketCategoryListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
+                marketCategoryListVC.ID = productBriefModel.pid;
+                
+                
+                marketCategoryListVC.title = productBriefModel.up_title;
+                [self.navigationController pushViewController:marketCategoryListVC animated:YES];
+                
             };
             
             return footer;
