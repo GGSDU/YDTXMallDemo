@@ -98,6 +98,43 @@ static NetWorkService *instance = nil;
     }];
 }
 
+- (void)requestForHomeListAggregatedDataWithResponseBlock:(void (^)(NSArray *))responseBlock
+{
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeHomeListAggregatedData requestParam:nil responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"The responseObject ******** %@",responseObject);
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSDictionary *categoryModelDic = [responseDic objectForKey:@"data"];
+        
+
+        NSMutableArray *productBriefModelArray = [[NSMutableArray alloc] initWithCapacity:0];
+        // 默认展示商品
+        NSArray *defaultArray = [categoryModelDic objectForKey:defaultProductKey];
+        NSMutableArray *defaultModelArray = [[NSMutableArray alloc] initWithCapacity:0];
+        for (NSDictionary *modelDic in defaultArray) {
+            ProductBriefModel *productBriefModel = [[ProductBriefModel alloc] init];
+            [productBriefModel setValuesForKeysWithDictionary:modelDic];
+            [defaultModelArray addObject:productBriefModel];
+        }
+        [productBriefModelArray addObject:defaultModelArray];
+        
+        // 推荐商品
+        NSArray *recommendedArray = [categoryModelDic objectForKey:recommendedProductKey];
+        for (NSArray *recommendedProductArray in recommendedArray) {
+            
+            NSMutableArray *recommendedModelArray = [[NSMutableArray alloc] initWithCapacity:0];
+            for (NSDictionary *recommendedDic in recommendedProductArray) {
+                ProductBriefModel *productBriefModel = [[ProductBriefModel alloc] init];
+                [productBriefModel setValuesForKeysWithDictionary:recommendedDic];
+                [recommendedModelArray addObject:productBriefModel];
+            }
+            [productBriefModelArray addObject:recommendedModelArray];
+        }
+     
+        responseBlock(productBriefModelArray);
+    }];
+}
+
 
 
 #pragma mark - get info form 'URLInterface.plist' file

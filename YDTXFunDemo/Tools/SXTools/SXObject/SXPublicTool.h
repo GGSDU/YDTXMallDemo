@@ -17,6 +17,7 @@
 
 + (NSURL *)getResURLBySplitjointResURLString:(NSString *)splitjointResURLString;
 
++ (NSString *)getImageURLStringByURLString:(NSString *)urlString;
 + (NSURL *)getImageURLByURLString:(NSString *)urlString;
 
 
