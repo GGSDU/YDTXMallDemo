@@ -8,9 +8,61 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    responseSuccessed       = 200,
+    responseFailed          = 400,
+    responseIllegalData     = 401,
+    responseIllegalParam    = 403,
+} ResponseStatus;
+
+typedef enum : NSUInteger {
+    RequestMethodNone,
+    GET,
+    POST,
+} RequestMethod;
+
+typedef enum : NSUInteger {
+    URLModuleKeyTypeShopCategory,
+    URLModuleKeyTypeCategoryList,
+    URLModuleKeyTypeHomeListAggregatedData,
+    URLModuleKeyTypeProductDetail,
+    URLModuleKeyTypeProductDetailModel,
+    URLModuleKeyTypeAddAddress,
+    URLModuleKeyTypeAddressList,
+    URLModuleKeyTypeModifyAddressShowInfo,
+    URLModuleKeyTypeCommitModifyAddress,
+    URLModuleKeyTypeDeleteAddress,
+} URLModuleKeyType;
+
+
 @interface NetWorkService : NSObject
 
-+ (instancetype)shareInstance;
+@property (strong, nonatomic) NSMutableDictionary *urlDictionary;   //URL Dictionary
+
++ (nullable instancetype)shareInstance;
+
+#pragma mark - Project ShopMarket GET/POST methods
+/**
+ * 商品分类
+ */
+- (void)requestForDataByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+;
+
+
+
+#pragma mark - get info form 'URLInterface.plist' file
+- (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+- (NSString *)getRequestURLStringByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+- (RequestMethod)getRequestMethodByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+- (NSDictionary *)getRequestParamByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+- (NSDictionary *)getResponseParamByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+
+#pragma mark - Response Status
+- (NSString *)showMessageWithResponseStatus:(ResponseStatus)aStatus;
 
 #pragma mark - AF GET/POST methods
 - (nullable NSURLSessionDataTask *)GET:(nonnull NSString *)URLString
@@ -31,8 +83,5 @@
                       progress:(nullable void (^)(NSProgress * _Nonnull))uploadProgress
                        success:(nullable void (^)(NSURLSessionDataTask * _Nonnull task, id _Nonnull responseObject))success
                        failure:(nullable void (^)(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error))failure;
-
-#pragma mark - private GET/POST methods
-
 
 @end

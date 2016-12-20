@@ -27,6 +27,7 @@
     [nc.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBackImage"] forBarMetrics:UIBarMetricsDefault];
     nc.navigationBar.translucent = YES;
     
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = nc;
     [self.window makeKeyAndVisible];
