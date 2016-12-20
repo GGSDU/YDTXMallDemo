@@ -17,25 +17,7 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GD3-mD-ION">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
-                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <connections>
-                            <outlet property="delegate" destination="-1" id="05X-U8-JtE"/>
-                        </connections>
-                    </webView>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="GD3-mD-ION" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2O2-Lk-dJc"/>
-                    <constraint firstItem="GD3-mD-ION" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8Cq-00-QWE"/>
-                    <constraint firstAttribute="bottom" secondItem="GD3-mD-ION" secondAttribute="bottom" id="CJV-PW-Rjq"/>
-                    <constraint firstAttribute="trailing" secondItem="GD3-mD-ION" secondAttribute="trailing" id="J2E-de-CdP"/>
-                </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="webView" destination="GD3-mD-ION" id="uPw-eP-RPF"/>
-            </connections>
             <point key="canvasLocation" x="34" y="236.5"/>
         </tableViewCell>
     </objects>

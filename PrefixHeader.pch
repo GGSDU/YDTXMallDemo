@@ -30,7 +30,7 @@
 
 #import "SXPublicTool.h"
 #import "NetWorkService.h"
-
+#import "RHNotiTool.h"
 #import "ProductModel.h"
 
 #import "UIColor+Hex.h"

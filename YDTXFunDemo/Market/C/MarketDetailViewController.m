@@ -13,9 +13,10 @@
 #import "CartViewController.h"
 #import "SDCycleDispalyView.h"
 #import "marketDetailModel.h"
-@interface MarketDetailViewController ()<UITableViewDataSource,UITableViewDelegate,reMoveAnimationDelegate>
+@interface MarketDetailViewController ()<reMoveAnimationDelegate,marketDetailCellDelegate,UIWebViewDelegate>
 
-@property(strong,nonatomic)UITableView *tableView ;
+@property (strong,nonatomic) UIScrollView *baseScrollerView;
+@property (strong,nonatomic) UIWebView *DetailWebView;
 
 @property(strong,nonatomic)MarketMaskView *maskView;
 
@@ -30,6 +31,8 @@
 @property(strong,nonatomic)UILabel *salesLabel;              //销售量
 
 
+
+
 @end
 
 
@@ -40,6 +43,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 @implementation MarketDetailViewController
 
 //lazy
+
 -(NSMutableArray *)marketDetailDataArr{
     if (!_marketDetailDataArr) {
         _marketDetailDataArr = [NSMutableArray array];
@@ -51,24 +55,11 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     [super viewDidLoad];
     [self setUI];
     [self setBasic];
-//    [self setRefresh];
     [self loadMarketDetialData];
 }
 
 
--(void)setRefresh{
 
-    [self.tableView.tableHeaderView addSubview:[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMarketDetialData)]];
-    
-    
-    self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    
-    // 进入刷新状态 自动触发loadNewData
-    [self.tableView.mj_header beginRefreshing];
-
-
-
-}
 -(void)setBasic{
     
     //nav标题  商品详情
@@ -78,28 +69,31 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     self.navigationItem.rightBarButtonItem = rightBarItem;
     
-    //基本设置
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    // 注册
+  
+
     
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MarketDetailCell class]) bundle:nil] forCellReuseIdentifier:kMarketDetialCellId];
     
     
 
 }
 -(void)setUI{
-    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-  
-    self.tableView = tableView;
-    [self.view addSubview:tableView];
+    
+    UIScrollView *baseScrollerView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    
+    
+    _baseScrollerView = baseScrollerView;
+    baseScrollerView.backgroundColor = [UIColor whiteColor];
+    baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, 3000);
+    [self.view addSubview:baseScrollerView];
+    
+    
     
     
 //头部底层view
     UIView *headBaseView  =[[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, YDTXScreenW + 200)];
     
     headBaseView.backgroundColor = [UIColor whiteColor];
-   tableView.tableHeaderView = headBaseView;
+    [_baseScrollerView addSubview:headBaseView];
 //轮播
     SDCycleDispalyView *bannerView  =[[SDCycleDispalyView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, YDTXScreenW )];
     
@@ -275,6 +269,39 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     }];
     
     
+    // 商品详情Label
+    UILabel *detailLabel = [[UILabel alloc] init];
+    detailLabel.textColor = [UIColor blackColor];
+    detailLabel.font = [UIFont systemFontOfSize:18];
+    detailLabel.text = @"商品详情";
+    detailLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [baseScrollerView addSubview:detailLabel];
+    [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(baseScrollerView).offset(15);
+        make.top.equalTo(headBaseView.mas_bottom).offset(20);
+    }];
+    
+    
+    
+    
+    
+    //webView
+
+    UIWebView *DetailWebView  = [[UIWebView alloc]initWithFrame:CGRectMake(0, 630, YDTXScreenW , 2000)];
+    DetailWebView.scrollView.scrollEnabled = NO;
+    DetailWebView.delegate = self;
+    _DetailWebView = DetailWebView;
+    [baseScrollerView addSubview:DetailWebView];
+//    [DetailWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(YDTXScreenW, YDTXScreenH));
+//        
+//        make.leading.equalTo(baseScrollerView);
+//        make.trailing.equalTo(baseScrollerView);
+//        make.top.equalTo(detailLabel.mas_bottom).offset(10);
+////        make.bottom.equalTo(baseScrollerView);
+//    }];
+    
+    
     
     
 //底部的悬浮view
@@ -336,8 +363,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     }];
     
     
-    
-    
+ 
     
     
     
@@ -427,34 +453,6 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    
-    NSLog(@"--1--%lu",(unsigned long)self.marketDetailDataArr.count);
-    return self.marketDetailDataArr.count;
-    
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-     NSLog(@"--2--%lu",(unsigned long)self.marketDetailDataArr.count);
-    return self.marketDetailDataArr.count;
-}
-
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    marketDetailModel *model = self.marketDetailDataArr[indexPath.row];
-    MarketDetailCell *marketDetailCell = [tableView dequeueReusableCellWithIdentifier:kMarketDetialCellId];
-    marketDetailCell.marketDetailModel = model;
-   
-    return marketDetailCell;
-
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 600;
-
-}
 
 #pragma mark --load Data Method
 
@@ -500,13 +498,21 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
             //销量
             self.salesLabel.text = [NSString stringWithFormat:@"月销%d件",model.total_num];
             
-            [self.tableView reloadData];
+            //htmlstring
+            //处理url
+            
+            model.content = [model.content stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
+           NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{max-width:%f !important;}</style></head>%@",YDTXScreenW - 5,model.content];
+            
+            [_DetailWebView loadHTMLString:htmlString baseURL:nil];
+            
         }else if([responseObject[@"status"] integerValue] == 400){
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         
         }else if([responseObject[@"status"] integerValue] == 401){
-            
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         }else if([responseObject[@"status"] integerValue] == 403){
-            
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         }
 
 
@@ -514,7 +520,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        
+        [RHNotiTool NotiShowWithTitle:@"没有网络了~" Time:1.0];
         
         
     }];
@@ -527,41 +533,6 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 }
 
 
-#pragma mark - tableView  headerView
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-// 15 15
-    UIView *headView = [[UIView alloc]init];
-    headView.backgroundColor = [UIColor whiteColor];
-    
-    
-    UILabel *label = [[UILabel alloc] init];
-    label.textColor = [UIColor blackColor];
-    label.font = [UIFont systemFontOfSize:15];
-    label.text = @"商品详情";
-    label.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [headView addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(headView).offset(15);
-        make.centerY.equalTo(headView);
-    }];
-    
-
-    
-    
-    
-    return headView;
-}
-
-//头部的高度
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    
-    return 40;
-    
-    
-    
-}
 
 
 #pragma mark -JumpToCartVcMethod
@@ -621,6 +592,26 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
 
 
+}
+
+
+#pragma mark --DetailWebViewDelegate
+
+-(void)webViewDidFinishLoad:(UIWebView*)webView{
+    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
+    CGRect newFrame = webView.frame;
+    newFrame.size.height = actualSize.height;
+    webView.frame = newFrame;
+    
+    _baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, newFrame.size.height + 650);
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 @end
