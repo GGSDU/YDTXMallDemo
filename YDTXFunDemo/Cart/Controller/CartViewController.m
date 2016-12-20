@@ -12,11 +12,15 @@
 #import "CartListCell.h"
 #import "ProductModel.h"
 
+#import "CartDefaultView.h"
+
 #import "NetWorkService.h"
 static NSString *editString = @"编辑";
 static NSString *completeString = @"完成";
 
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,CartCellOperationViewDelegate,CartListCellDelegate>
+
+@property (nonatomic,strong) CartDefaultView *cartDefaultView;
 
 @property (nonatomic,strong) NSMutableArray *productModelmArray;
 @property (nonatomic,strong) UITableView *tableView;
@@ -37,9 +41,13 @@ static NSString *completeString = @"完成";
     self.view.backgroundColor = RGB(238, 238, 238);
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"购物车";
+    
+    _cartDefaultView = [[CartDefaultView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 64)];
+    [self.view addSubview:_cartDefaultView];
+    
     [self customRightBarButtonItem];
     
-    [self creatUI];
+//    [self creatUI];
     
     [self addKeyboardNotification];
 }
