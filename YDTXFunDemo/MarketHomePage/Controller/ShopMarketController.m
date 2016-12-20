@@ -160,11 +160,12 @@ static NSString *watchMoreIdentifier = @"watchMore";
         CategoryModel *categoryModel = self.categoryArray[indexPath.row];
         NSLog(@"%@",categoryModel.objectDictionary);
         
-        
-        
     } else if (indexPath.section >= SectionAddCount) {
+        
+        NSArray *productBriefArray = self.productBriefArray[indexPath.section - SectionAddCount];
+        ProductBriefModel *productBriefModel = productBriefArray[indexPath.row];
         //点击了商品
-        NSLog(@"点击了商品");
+        NSLog(@"点击了商品 %@",productBriefModel.objectDictionary);
     }
 }
 
@@ -237,11 +238,12 @@ static NSString *watchMoreIdentifier = @"watchMore";
 {
     if (indexPath.section > SectionAddCount) {
         
+        NSArray *productBriefArray = self.productBriefArray[indexPath.section - SectionAddCount];
+        ProductBriefModel *productBriefModel = productBriefArray[indexPath.row];
+        
         if (kind == UICollectionElementKindSectionHeader) {
             
             ProductHeaderReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier forIndexPath:indexPath];
-            NSArray *productBriefArray = self.productBriefArray[indexPath.section - SectionAddCount];
-            ProductBriefModel *productBriefModel = productBriefArray[indexPath.row];
             header.label.text = productBriefModel.up_title;
             return header;
             
@@ -251,6 +253,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
             WatchMoreFooterReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:watchMoreIdentifier forIndexPath:indexPath];
             footer.watchMoreHandler = ^(UIButton *aSender){
                 NSLog(@"点击了更多");
+                NSLog(@"%@",productBriefModel.objectDictionary);
             };
             
             return footer;
