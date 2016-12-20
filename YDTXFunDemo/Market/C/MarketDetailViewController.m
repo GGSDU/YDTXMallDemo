@@ -13,7 +13,7 @@
 #import "CartViewController.h"
 #import "SDCycleDispalyView.h"
 #import "marketDetailModel.h"
-@interface MarketDetailViewController ()<reMoveAnimationDelegate,marketDetailCellDelegate>
+@interface MarketDetailViewController ()<reMoveAnimationDelegate,marketDetailCellDelegate,UIWebViewDelegate>
 
 @property (strong,nonatomic) UIScrollView *baseScrollerView;
 @property (strong,nonatomic) UIWebView *DetailWebView;
@@ -83,7 +83,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     _baseScrollerView = baseScrollerView;
     baseScrollerView.backgroundColor = [UIColor whiteColor];
-    
+    baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, 3000);
     [self.view addSubview:baseScrollerView];
     
     
@@ -287,8 +287,9 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     //webView
 
-    UIWebView *DetailWebView  = [[UIWebView alloc]initWithFrame:CGRectMake(0, 630, YDTXScreenW, 2000)];
+    UIWebView *DetailWebView  = [[UIWebView alloc]initWithFrame:CGRectMake(0, 630, YDTXScreenW , 2000)];
     DetailWebView.scrollView.scrollEnabled = NO;
+    DetailWebView.delegate = self;
     _DetailWebView = DetailWebView;
     [baseScrollerView addSubview:DetailWebView];
 //    [DetailWebView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -300,7 +301,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 ////        make.bottom.equalTo(baseScrollerView);
 //    }];
     
-    baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, 3000);
+    
     
     
 //底部的悬浮view
@@ -497,13 +498,21 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
             //销量
             self.salesLabel.text = [NSString stringWithFormat:@"月销%d件",model.total_num];
             
+            //htmlstring
+            //处理url
+            
+            model.content = [model.content stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
+           NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{max-width:%f !important;}</style></head>%@",YDTXScreenW - 5,model.content];
+            
+            [_DetailWebView loadHTMLString:htmlString baseURL:nil];
             
         }else if([responseObject[@"status"] integerValue] == 400){
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         
         }else if([responseObject[@"status"] integerValue] == 401){
-            
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         }else if([responseObject[@"status"] integerValue] == 403){
-            
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         }
 
 
@@ -511,7 +520,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        
+        [RHNotiTool NotiShowWithTitle:@"没有网络了~" Time:1.0];
         
         
     }];
@@ -586,7 +595,23 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 }
 
 
-#pragma mark --marketDetailCellDelegate
+#pragma mark --DetailWebViewDelegate
 
+-(void)webViewDidFinishLoad:(UIWebView*)webView{
+    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
+    CGRect newFrame = webView.frame;
+    newFrame.size.height = actualSize.height;
+    webView.frame = newFrame;
+    
+    _baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, newFrame.size.height + 650);
+    
+    
+    
+    
+    
+    
+    
+    
+}
 
 @end
