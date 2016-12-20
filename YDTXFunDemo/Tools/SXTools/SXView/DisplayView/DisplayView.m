@@ -136,6 +136,7 @@
             make.top.equalTo(self.priceLabel.mas_bottom).offset(12);
             make.left.equalTo(self).offset(12);
             make.bottom.equalTo(self).offset(-12);
+//            make.height.mas_equalTo(36);
         }];
     }
     return _saleLabel;
