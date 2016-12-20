@@ -73,7 +73,13 @@ static NSString *watchMoreIdentifier = @"watchMore";
     
     self.bannerArray = [[NSMutableArray alloc] initWithArray:dic[@"Banner"]];
 
-    self.categoryArray = [[NSMutableArray alloc] initWithArray:dic[@"Category"]];
+    [[NetWorkService shareInstance] requestForShopCategoryWithPid:0 responseBlock:^(NSArray *responseModelArray) {
+        
+        self.categoryArray = [[NSMutableArray alloc] initWithArray:responseModelArray];
+                              
+    }];
+    
+//    self.categoryArray = [[NSMutableArray alloc] initWithArray:dic[@"Category"]];
     
     self.productBriefDic = [[NSMutableDictionary alloc] initWithDictionary:dic[@"ProductBrief"]];
     
@@ -168,7 +174,9 @@ static NSString *watchMoreIdentifier = @"watchMore";
     } else if (indexPath.section == 1) {
         
         CategoryCell *categoryCell = [collectionView dequeueReusableCellWithReuseIdentifier:categoryIdentifier forIndexPath:indexPath];
-        categoryCell.label.text = self.categoryArray[indexPath.row];
+        CategoryModel *categoryModel = self.categoryArray[indexPath.row];
+        categoryCell.label.text = categoryModel.title;
+//        categoryCell.label.text = self.categoryArray[indexPath.row];
         
         cell = categoryCell;
         
