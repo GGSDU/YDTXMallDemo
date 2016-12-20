@@ -30,31 +30,41 @@ static NetWorkService *instance = nil;
 
 #pragma mark - Project ShopMarket GET/POST methods
 - (void)requestForDataByURLModuleKey:(URLModuleKeyType)urlModuleKey
+                        requestParam:(nullable NSDictionary *)requestParam
+                       responseBlock:(nullable void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))responseBlock
 {
     NSString *requestURLString = [self getRequestURLStringByURLModuleKey:urlModuleKey];
     RequestMethod requestMethod = [self getRequestMethodByURLModuleKey:urlModuleKey];
     switch (requestMethod) {
         case GET:
         {
-            [self.httpSessionManager GET:requestURLString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            [self.httpSessionManager GET:requestURLString parameters:requestParam progress:^(NSProgress * _Nonnull downloadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
+                responseBlock(task,responseObject);
+                
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
+                NSString *message =  [self errorMessageWithResponseStatus:error.code];
                 
             }];
         }
             break;
         case POST:
         {
-            [self.httpSessionManager POST:requestURLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            [self.httpSessionManager POST:requestURLString parameters:requestParam constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 
             } progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
+                responseBlock(task,responseObject);
+                
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
+                NSString *message =  [self errorMessageWithResponseStatus:error.code];
+
             }];
         }
         default:
@@ -158,7 +168,7 @@ static NetWorkService *instance = nil;
 }
 
 #pragma mark - Response Status
-- (NSString *)showMessageWithResponseStatus:(ResponseStatus)aStatus
+- (NSString *)errorMessageWithResponseStatus:(ResponseStatus)aStatus
 {
     NSString *message = nil;
     switch (aStatus) {
@@ -178,6 +188,7 @@ static NetWorkService *instance = nil;
         default:
             break;
     }
+    NSLog(@"response status : %@",message);
     return message;
 }
 
