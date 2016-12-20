@@ -10,5 +10,6 @@
 #define AllModel_h
 
 #import "CategoryCell.h"
+#import "ProductBriefCell.h"
 
 #endif /* AllModel_h */

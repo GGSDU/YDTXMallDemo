@@ -23,8 +23,8 @@ typedef enum : NSUInteger {
 
 typedef enum : NSUInteger {
     URLModuleKeyTypeShopCategory,           // 商城分类
-    URLModuleKeyTypeCategoryList,           // 分类列表数据
     URLModuleKeyTypeHomeListAggregatedData, // 商城首页列表聚合数据
+    URLModuleKeyTypeCategoryList,           // 分类列表数据
     URLModuleKeyTypeProductDetail,          // 商品详情
     URLModuleKeyTypeProductDetailModel,     // 商品详情的型号
     URLModuleKeyTypeAddAddress,             // 添加收货地址
@@ -33,6 +33,9 @@ typedef enum : NSUInteger {
     URLModuleKeyTypeCommitModifyAddress,    // 提交修改收货地址
     URLModuleKeyTypeDeleteAddress,          // 删除收货地址
 } URLModuleKeyType;
+
+static NSString *defaultProductKey     = @"shopping";
+static NSString *recommendedProductKey = @"fishtree";
 
 
 @interface NetWorkService : NSObject
@@ -52,7 +55,13 @@ typedef enum : NSUInteger {
 /**
  *  商城分类
  */
-- (void)requestForShopCategoryWithPid:(NSInteger)pid responseBlock:(nullable void(^)(NSArray *responseModelArray))responseBlock;
+- (void)requestForShopCategoryWithPid:(NSInteger)pid
+                        responseBlock:(nullable void(^)(NSArray *responseModelArray))responseBlock;
+
+/**
+ *  商城首页列表聚合数据
+ */
+- (void)requestForHomeListAggregatedDataWithResponseBlock:(nullable void (^)(NSArray *productBriefModelArray))responseBlock;
 
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;

@@ -27,11 +27,12 @@
 
 // 自定义
 #import "AllModel.h"
+#import "ProductModel.h"
+
 
 #import "SXPublicTool.h"
 #import "NetWorkService.h"
 #import "RHNotiTool.h"
-#import "ProductModel.h"
 
 #import "UIColor+Hex.h"
 

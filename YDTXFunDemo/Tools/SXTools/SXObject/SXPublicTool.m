@@ -29,7 +29,7 @@
     return resURL;
 }
 
-+ (NSURL *)getImageURLByURLString:(NSString *)urlString
++ (NSString *)getImageURLStringByURLString:(NSString *)urlString
 {
     NSString *website = @"test.m.yundiaoke.cn";
     NSString *imageUrlString = urlString;
@@ -40,6 +40,12 @@
     } else {
         imageUrlString = [NSString stringWithFormat:@"http://%@%@",website,imageUrlString];
     }
+    return imageUrlString;
+}
+
++ (NSURL *)getImageURLByURLString:(NSString *)urlString
+{
+    NSString *imageUrlString = [SXPublicTool getImageURLStringByURLString:urlString];
     
     NSURL *url = [NSURL URLWithString:imageUrlString];
     

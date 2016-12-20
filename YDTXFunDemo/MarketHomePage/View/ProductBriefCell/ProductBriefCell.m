@@ -9,6 +9,25 @@
 #import "ProductBriefCell.h"
 #import "DisplayView.h"
 
+@implementation ProductBriefModel
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"id"]) {
+        self.ID = value;
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"id"]) {
+        return self.ID;
+    }
+    return nil;
+}
+
+@end
+
 @interface ProductBriefCell ()
 
 @property (nonatomic,strong) DisplayView *displayView;
@@ -31,6 +50,9 @@
 - (void)createUI{
     if (_displayView == nil) {
         _displayView = [[DisplayView alloc] init];
+//        _displayView.priceLabel.backgroundColor = [UIColor redColor];
+//        _displayView.vipPriceLabel.backgroundColor = [UIColor greenColor];
+//        _displayView.saleLabel.backgroundColor = [UIColor blueColor];
         [self addSubview:_displayView];
     }
     
@@ -39,14 +61,14 @@
     }];
 }
 
-- (void)updateViewWithProductModel:(ProductModel *)productModel
+- (void)updateViewWithProductBriefModel:(ProductBriefModel *)productBriefModel
 {
     DisplayModel *displayModel = [[DisplayModel alloc] init];
-    displayModel.imageURL = productModel.infoImageURL;
-    displayModel.infoString = productModel.infoName;
-    displayModel.price = productModel.price;
-    displayModel.vipPrice = productModel.vipPrice;
-    displayModel.saleNumber = productModel.saleNumber;
+    displayModel.imageURL = [SXPublicTool getImageURLStringByURLString:productBriefModel.images_url];
+    displayModel.infoString = productBriefModel.name;
+    displayModel.price = productBriefModel.pay;
+    displayModel.vipPrice = productBriefModel.price;
+    displayModel.saleNumber = productBriefModel.total_num;
     
     _displayView.displayModel = displayModel;
 }

@@ -73,7 +73,7 @@
         _infoLabel = [[UILabel alloc] init];
         _infoLabel.numberOfLines = 2;
         _infoLabel.font = [UIFont systemFontOfSize:15];
-        _infoLabel.adjustsFontSizeToFitWidth = YES;
+//        _infoLabel.adjustsFontSizeToFitWidth = YES;
         _infoLabel.textColor = RGB(46, 46, 46);
         [self addSubview:_infoLabel];
         

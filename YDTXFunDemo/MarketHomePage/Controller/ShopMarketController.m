@@ -10,13 +10,13 @@
 
 #import "BannerCell.h"
 #import "CategoryCell.h"
-#import "ProductHeaderReusableView.h"
 #import "ProductBriefCell.h"
-#import "WatchMoreCell.h"
+#import "ProductHeaderReusableView.h"
+#import "WatchMoreFooterReusableView.h"
 
 #import "CartViewController.h"
 
-#define SectionAddCount 3
+#define SectionAddCount 2
 
 static NSString *bannerIdentifier = @"banner";
 static NSString *categoryIdentifier = @"category";
@@ -32,8 +32,12 @@ static NSString *watchMoreIdentifier = @"watchMore";
 
 @property (nonatomic,strong) NSMutableArray *categoryArray;
 
-@property (nonatomic,strong) NSMutableDictionary *productBriefDic;
-@property (nonatomic,strong) NSMutableArray *productBriefDicSortedKeyArray;
+/**
+ *                       *   defaultProcutArray         -   dic1
+ productBriefArray   -*                                  dic2
+ *   recommendedProductArray    -   array - dic
+ */
+@property (nonatomic,strong) NSMutableArray *productBriefArray;
 
 @end
 
@@ -46,7 +50,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initData];
-
+    
     [self customNavigationItem];
     
     [self creatUI];
@@ -72,7 +76,8 @@ static NSString *watchMoreIdentifier = @"watchMore";
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
     
     self.bannerArray = [[NSMutableArray alloc] initWithArray:dic[@"Banner"]];
-
+    
+    // 分类
     [[NetWorkService shareInstance] requestForShopCategoryWithPid:0 responseBlock:^(NSArray *responseModelArray) {
         
         self.categoryArray = [[NSMutableArray alloc] initWithArray:responseModelArray];
@@ -80,12 +85,13 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
     }];
     
-    self.productBriefDic = [[NSMutableDictionary alloc] initWithDictionary:dic[@"ProductBrief"]];
     
-    self.productBriefDicSortedKeyArray = [[NSMutableArray alloc] initWithArray:self.productBriefDic.allKeys];
-    [self.productBriefDicSortedKeyArray sortUsingSelector:@selector(compare:)];
     
-    NSLog(@"%@",self.productBriefDicSortedKeyArray);
+    [[NetWorkService shareInstance] requestForHomeListAggregatedDataWithResponseBlock:^(NSArray *productBriefModelArray) {
+        
+        self.productBriefArray = [[NSMutableArray alloc] initWithArray:productBriefModelArray];
+        [self.collectionView reloadData];
+    }];
 }
 
 #pragma mark - navigationItem event
@@ -141,8 +147,10 @@ static NSString *watchMoreIdentifier = @"watchMore";
     [_collectionView registerClass:[BannerCell class] forCellWithReuseIdentifier:bannerIdentifier];
     [_collectionView registerClass:[CategoryCell class] forCellWithReuseIdentifier:categoryIdentifier];
     [_collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:briefIdentifier];
-    [_collectionView registerClass:[WatchMoreCell class] forCellWithReuseIdentifier:watchMoreIdentifier];
-    [_collectionView registerClass:[ProductHeaderReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier];
+    [_collectionView registerClass:[ProductHeaderReusableView class]
+        forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+               withReuseIdentifier:productHeaderIdentifier];
+    [_collectionView registerClass:[WatchMoreFooterReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:watchMoreIdentifier];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -154,7 +162,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
         
         
-    } else if (indexPath.section > 1 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+    } else if (indexPath.section >= SectionAddCount) {
         //点击了商品
         NSLog(@"点击了商品");
     }
@@ -184,30 +192,14 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
         cell = categoryCell;
         
-    } else if (indexPath.section == self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
-        
-        WatchMoreCell *watchMoreCell = [collectionView dequeueReusableCellWithReuseIdentifier:watchMoreIdentifier forIndexPath:indexPath];
-        watchMoreCell.watchMoreHandler = ^(UIButton *aSender) {
-            NSLog(@"点击了更多");
-        };
-        
-        cell = watchMoreCell;
-        
     } else {
         
         ProductBriefCell *productBriefCell = [collectionView dequeueReusableCellWithReuseIdentifier:briefIdentifier forIndexPath:indexPath];
         
-        NSString *key = self.productBriefDicSortedKeyArray[indexPath.section - SectionAddCount + 1];
-        NSArray *productModelArray = [self.productBriefDic objectForKey:key];
-        NSDictionary *productDic = [productModelArray objectAtIndex:indexPath.row];
-        ProductModel *productModel = [[ProductModel alloc] init];
-        productModel.infoImageURL = [productDic objectForKey:@"imageUrl"];
-        productModel.infoName = [productDic objectForKey:@"info"];
-        productModel.price = [[productDic objectForKey:@"price"] floatValue];
-        productModel.vipPrice = [[productDic objectForKey:@"vipPrice"] floatValue];
-        productModel.saleNumber = [[productDic objectForKey:@"saleNumber"] intValue];
+        NSArray *productBriefArray = self.productBriefArray[indexPath.section - SectionAddCount];
+        ProductBriefModel *productBriefModel = productBriefArray[indexPath.row];
         
-        [productBriefCell updateViewWithProductModel:productModel];
+        [productBriefCell updateViewWithProductBriefModel:productBriefModel];
         
         cell = productBriefCell;
     }
@@ -218,7 +210,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSInteger number = 1;
-    if (section == 0 || section == self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+    if (section == 0) {
         
         number = 1;
         
@@ -228,9 +220,8 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
     } else {
         
-        NSString *key = self.productBriefDicSortedKeyArray[section - SectionAddCount + 1];
-        NSArray *productModelArray = [self.productBriefDic objectForKey:key];
-        number = productModelArray.count;
+        NSArray *productBriefArray = self.productBriefArray[section - SectionAddCount];
+        number = productBriefArray.count;
     }
     return number;
 }
@@ -238,23 +229,32 @@ static NSString *watchMoreIdentifier = @"watchMore";
 // section count
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return self.productBriefDicSortedKeyArray.count + SectionAddCount;
+    return self.productBriefArray.count + SectionAddCount;
 }
 
 // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if (kind == UICollectionElementKindSectionHeader) {
-     
-        if (indexPath.section > 2 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
-            ProductHeaderReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier forIndexPath:indexPath];
-            NSString *key = self.productBriefDicSortedKeyArray[indexPath.section - SectionAddCount + 1];
-            NSLog(@"%@",key);
-            header.label.text = key;
-            NSLog(@"%@",NSStringFromCGRect(header.label.frame));
-            return header;
-        }
+    if (indexPath.section > SectionAddCount) {
         
+        if (kind == UICollectionElementKindSectionHeader) {
+            
+            ProductHeaderReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:productHeaderIdentifier forIndexPath:indexPath];
+            NSArray *productBriefArray = self.productBriefArray[indexPath.section - SectionAddCount];
+            ProductBriefModel *productBriefModel = productBriefArray[indexPath.row];
+            header.label.text = productBriefModel.up_title;
+            return header;
+            
+        } else if (kind == UICollectionElementKindSectionFooter) {
+            
+            
+            WatchMoreFooterReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:watchMoreIdentifier forIndexPath:indexPath];
+            footer.watchMoreHandler = ^(UIButton *aSender){
+                NSLog(@"点击了更多");
+            };
+            
+            return footer;
+        }
     }
     return nil;
 }
@@ -267,10 +267,8 @@ static NSString *watchMoreIdentifier = @"watchMore";
         cellSize = CGSizeMake(collectionView.frame.size.width, 150);
     } else if (indexPath.section == 1) {
         float count = 4;//一行展示的cell数
-        float width = collectionView.frame.size.width / count - 0.2 * (count - 1);
+        float width = (collectionView.frame.size.width - 0.2 * (count - 1)) / count;
         cellSize = CGSizeMake(width, width);
-    } else if (indexPath.section == self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
-        cellSize = CGSizeMake(collectionView.frame.size.width - 20, 36);
     } else {
         float width = (collectionView.frame.size.width - 25) / 2;
         cellSize = CGSizeMake(width, 276);
@@ -284,8 +282,6 @@ static NSString *watchMoreIdentifier = @"watchMore";
         return UIEdgeInsetsZero;
     } else if (section == 1) {
         return UIEdgeInsetsMake(10, 0, 10, 0);
-    } else if (section == self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
-        return UIEdgeInsetsMake(10, 10, 23, 10);
     } else {
         return UIEdgeInsetsMake(10, 10, 10, 10);
     }
@@ -294,10 +290,9 @@ static NSString *watchMoreIdentifier = @"watchMore";
 
 /** 每个cell垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-//    if (section == 1) {
-//        return 1;
-//    } else
-        if (section > 1 && section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+    if (section == 1) {
+        return 0.2;
+    } else if (section >= SectionAddCount) {
         return 10;
     }
     return 0;
@@ -305,10 +300,9 @@ static NSString *watchMoreIdentifier = @"watchMore";
 
 /** 每个cell水平间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//    if (section == 1) {
-//        return 1;
-//    } else
-        if (section > 1 && section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+    if (section == 1) {
+        return 0.2;
+    } else if (section >= SectionAddCount) {
         return 5;
     }
     return 0;
@@ -317,15 +311,18 @@ static NSString *watchMoreIdentifier = @"watchMore";
 /** 每个头标题大小 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    if (section > 2 && section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
+    if (section > SectionAddCount) {
         return CGSizeMake(collectionView.frame.size.width, 45);
     }
     return CGSizeZero;
 }
 
-///** 每个脚标题大小 */
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-//    return CGSizeZero;
-//}
+/** 每个脚标题大小 */
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+    if (section > SectionAddCount) {
+        return CGSizeMake(collectionView.frame.size.width, 36);
+    }
+    return CGSizeZero;
+}
 
 @end
