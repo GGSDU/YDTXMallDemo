@@ -19,8 +19,12 @@ typedef enum : NSUInteger {
     zhuangBei = 18,    //装备
 } classListType;
 
-@interface MarketListViewController : UICollectionViewController
+@interface MarketCategoryListViewController : UICollectionViewController
 
 @property(assign,nonatomic)classListType classlistType;
+
+@property(assign,nonatomic)NSString *ID; //商品分类
+
+//@property(copy,nonatomic)NSString *navTitle; //导航的title
 
 @end

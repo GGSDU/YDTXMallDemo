@@ -16,7 +16,7 @@
 
 
 //
-#import "MarketListViewController.h"
+#import "MarketCategoryListViewController.h"
 #import "MarketCheakOrderInfoViewController.h"
 #import "PartnerViewController.h"
 @interface ViewController ()
@@ -125,7 +125,7 @@
         //商品列表
         case 6:
         {
-            MarketListViewController *markListVC = [[MarketListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
+            MarketCategoryListViewController *markListVC = [[MarketCategoryListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
             [self.navigationController pushViewController:markListVC animated:YES];
         
         }

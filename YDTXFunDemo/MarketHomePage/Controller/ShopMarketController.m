@@ -16,6 +16,9 @@
 
 #import "CartViewController.h"
 
+#import "MarketCategoryListViewController.h" //分类列表
+#import "MarketDetailViewController.h"       //商品详情
+
 #define SectionAddCount 3
 
 static NSString *bannerIdentifier = @"banner";
@@ -152,11 +155,20 @@ static NSString *watchMoreIdentifier = @"watchMore";
         CategoryModel *categoryModel = self.categoryArray[indexPath.row];
         NSLog(@"%@",categoryModel.objectDictionary);
         
+        MarketCategoryListViewController *marketCategoryListVC = [[MarketCategoryListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
+        
+        marketCategoryListVC.ID = categoryModel.ID;
+        marketCategoryListVC.title = categoryModel.title;
+        
+        [self.navigationController pushViewController:marketCategoryListVC animated:YES];
+        
         
         
     } else if (indexPath.section > 1 && indexPath.section < self.productBriefDicSortedKeyArray.count + SectionAddCount - 1) {
         //点击了商品
         NSLog(@"点击了商品");
+        
+//        ProductModel *productModel  = 
     }
 }
 

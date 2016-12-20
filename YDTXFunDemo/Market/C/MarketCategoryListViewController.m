@@ -6,18 +6,18 @@
 //  Copyright © 2016年 RookieHua. All rights reserved.
 //
 
-#import "MarketListViewController.h"
+#import "MarketCategoryListViewController.h"
 #import "markeListCell.h"
 #import "MarketDetailViewController.h"
 #import "marketListModel.h"
-@interface MarketListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface MarketCategoryListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property(strong,nonatomic)NSMutableArray *marketListDataArr;
 
 @property(assign,nonatomic)NSInteger page;      //做上拉刷新用
 @end
 
-@implementation MarketListViewController
+@implementation MarketCategoryListViewController
 
 static NSString * const kmarketListCellId = @"marketListCell";
 //lazy
@@ -43,7 +43,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
     
     //nav标题
-    self.title = @"商品列表";
+//    self.title = @"商品列表";
     
     
     // 创建布局对象
@@ -91,7 +91,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
 -(void)setupRefresh
 {
     // 展示header  下拉触发loadNewData
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadCategoryNewData)];
     
     
     self.collectionView.mj_header.automaticallyChangeAlpha = YES;
@@ -102,7 +102,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
     
     // 设置footer
-    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadCategoryMoreData)];
 }
 
 
@@ -166,7 +166,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 
 //下拉刷新
--(void)loadNewData{
+-(void)loadCategoryNewData{
     /*
      * page，id（分类的id）
      */
@@ -178,14 +178,15 @@ static NSString * const kmarketListCellId = @"marketListCell";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
 
     params[@"page"] = @(self.page);
-    params[@"id"] = @(1);
+    params[@"id"] = self.ID;
+    NSLog(@"--------%@",params);
     
     NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
     
     [[NetWorkService shareInstance] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-//        NSLog(@"列表数据=》：%@",responseObject);
+        NSLog(@"列表数据=》：%@",responseObject);
         
         if ([responseObject[@"status"] integerValue] == 200) {  //成功请求到数据
             
@@ -228,7 +229,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
 }
 
 //上啦加载
--(void)loadMoreData{
+-(void)loadCategoryMoreData{
     [self.collectionView.mj_footer endRefreshing];
     NSLog(@"上啦加载");
     
@@ -237,7 +238,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     params[@"page"] = @(self.page);
-    params[@"id"] = @(1);
+    params[@"id"] = self.ID;
     
     NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
     
