@@ -76,10 +76,9 @@ static NSString *watchMoreIdentifier = @"watchMore";
     [[NetWorkService shareInstance] requestForShopCategoryWithPid:0 responseBlock:^(NSArray *responseModelArray) {
         
         self.categoryArray = [[NSMutableArray alloc] initWithArray:responseModelArray];
-                              
+        [self.collectionView reloadData];
+        
     }];
-    
-//    self.categoryArray = [[NSMutableArray alloc] initWithArray:dic[@"Category"]];
     
     self.productBriefDic = [[NSMutableDictionary alloc] initWithDictionary:dic[@"ProductBrief"]];
     
@@ -175,8 +174,9 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
         CategoryCell *categoryCell = [collectionView dequeueReusableCellWithReuseIdentifier:categoryIdentifier forIndexPath:indexPath];
         CategoryModel *categoryModel = self.categoryArray[indexPath.row];
+        NSLog(@"categoryCell Dic ******%@",categoryModel.objectDictionary);
+        [categoryCell.imageView sd_setImageWithURL:[SXPublicTool getImageURLByURLString:categoryModel.uploads]];
         categoryCell.label.text = categoryModel.title;
-//        categoryCell.label.text = self.categoryArray[indexPath.row];
         
         cell = categoryCell;
         

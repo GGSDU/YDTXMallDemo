@@ -44,6 +44,11 @@
 
 #pragma mark - create UI 
 - (void)createUI{
+    if (_imageView == nil) {
+        _imageView = [[UIImageView alloc] init];
+        [self addSubview:_imageView];
+    }
+    
     if (_label == nil) {
         _label = [[UILabel alloc] init];
         _label.font = [UIFont systemFontOfSize:12];
@@ -51,10 +56,19 @@
         [self addSubview:_label];
     }
     
+    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mas_top).offset(15);
+        make.bottom.equalTo(_label.mas_top).offset(-10);
+        make.centerX.equalTo(self);
+        make.size.mas_equalTo(CGSizeMake(45, 45));
+    }];
+    
     [_label mas_updateConstraints:^(MASConstraintMaker *make) {
        
-        make.centerX.equalTo(self);
+        make.top.equalTo(_imageView.mas_bottom).offset(10);
         make.bottom.equalTo(self.mas_bottom).offset(-10);
+        make.centerX.equalTo(self);
+        
     }];
 }
 
