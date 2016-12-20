@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+static const char ReferenceReplacedKeyWhenCreatingKeyValuesKey = '\0';
+
 @interface NSObject (Property)
+
 
 //通过对象返回一个NSDictionary，键是属性名称，值是属性值。
 - (NSDictionary *)objectDictionary;

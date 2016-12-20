@@ -73,6 +73,33 @@ static NetWorkService *instance = nil;
     
 }
 
+/**
+ *  商城分类
+ */
+- (void)requestForShopCategoryWithPid:(NSInteger)pid responseBlock:(nullable void(^)(NSArray *responseModelArray))responseBlock
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:[NSString stringWithFormat:@"%ld",pid] forKey:@"pid"];
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeShopCategory requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"The responseObject ******** %@",responseObject);
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        
+        NSArray *categoryModelArray = [responseDic objectForKey:@"data"];
+        
+        NSMutableArray *responseModelArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *modelDic in categoryModelArray) {
+            CategoryModel *categoryModel = [[CategoryModel alloc] init];
+            [categoryModel setValuesForKeysWithDictionary:modelDic];
+            [responseModelArray addObject:categoryModel];
+        }
+        responseBlock(responseModelArray);
+    }];
+}
+
+
+
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey
 {

@@ -9,29 +9,29 @@
 #import <Foundation/Foundation.h>
 
 typedef enum : NSUInteger {
-    responseSuccessed       = 200,
-    responseFailed          = 400,
-    responseIllegalData     = 401,
-    responseIllegalParam    = 403,
+    responseSuccessed       = 200,          // 成功
+    responseFailed          = 400,          // 失败
+    responseIllegalData     = 401,          // 非法数据
+    responseIllegalParam    = 403,          // 非法参数
 } ResponseStatus;
 
 typedef enum : NSUInteger {
-    RequestMethodNone,
-    GET,
-    POST,
+    RequestMethodNone,                      // default
+    GET,                                    // GET
+    POST,                                   // POST
 } RequestMethod;
 
 typedef enum : NSUInteger {
-    URLModuleKeyTypeShopCategory,
-    URLModuleKeyTypeCategoryList,
-    URLModuleKeyTypeHomeListAggregatedData,
-    URLModuleKeyTypeProductDetail,
-    URLModuleKeyTypeProductDetailModel,
-    URLModuleKeyTypeAddAddress,
-    URLModuleKeyTypeAddressList,
-    URLModuleKeyTypeModifyAddressShowInfo,
-    URLModuleKeyTypeCommitModifyAddress,
-    URLModuleKeyTypeDeleteAddress,
+    URLModuleKeyTypeShopCategory,           // 商城分类
+    URLModuleKeyTypeCategoryList,           // 分类列表数据
+    URLModuleKeyTypeHomeListAggregatedData, // 商城首页列表聚合数据
+    URLModuleKeyTypeProductDetail,          // 商品详情
+    URLModuleKeyTypeProductDetailModel,     // 商品详情的型号
+    URLModuleKeyTypeAddAddress,             // 添加收货地址
+    URLModuleKeyTypeAddressList,            // 收货地址列表
+    URLModuleKeyTypeModifyAddressShowInfo,  // 修改收货地址显示信息
+    URLModuleKeyTypeCommitModifyAddress,    // 提交修改收货地址
+    URLModuleKeyTypeDeleteAddress,          // 删除收货地址
 } URLModuleKeyType;
 
 
@@ -49,8 +49,10 @@ typedef enum : NSUInteger {
                         requestParam:(nullable NSDictionary *)requestParam
                        responseBlock:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))responseBlock;
 
-
-
+/**
+ *  商城分类
+ */
+- (void)requestForShopCategoryWithPid:(NSInteger)pid responseBlock:(nullable void(^)(NSArray *responseModelArray))responseBlock;
 
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
@@ -68,10 +70,10 @@ typedef enum : NSUInteger {
 
 #pragma mark - AF GET/POST methods
 - (NSURLSessionDataTask *)GET:(nonnull NSString *)URLString
-                   parameters:(nullable id)parameters
-                     progress:(nullable void (^)(NSProgress *_Nonnull downloadProgress))downloadProgress
-                      success:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))success
-                      failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error))failure;
+                            parameters:(nullable id)parameters
+                              progress:(nullable void (^)(NSProgress *_Nonnull downloadProgress))downloadProgress
+                               success:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))success
+                               failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error))failure;
 
 - (NSURLSessionDataTask *)POST:(nonnull NSString *)URLString
                     parameters:(nullable id)parameters

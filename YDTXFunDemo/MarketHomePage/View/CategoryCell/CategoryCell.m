@@ -7,6 +7,28 @@
 //
 
 #import "CategoryCell.h"
+
+#pragma mark - CategoryModel
+@implementation CategoryModel
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"id"]) {
+        self.ID = value;
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"id"]) {
+        return self.ID;
+    }
+    return nil;
+}
+
+@end
+
+#pragma mark - CategoryCell
 @implementation CategoryCell
 
 - (instancetype)initWithFrame:(CGRect)frame
