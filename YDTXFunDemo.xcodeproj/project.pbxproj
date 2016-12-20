@@ -18,15 +18,6 @@
 		042198071DFFE87D0061175F /* PayWayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197FA1DFFE87D0061175F /* PayWayView.m */; };
 		042198081DFFE87D0061175F /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 042197FC1DFFE87D0061175F /* PPNumberButton.m */; };
 		0421980B1DFFE9170061175F /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421980A1DFFE9170061175F /* UIColor+Hex.m */; };
-		042198241E00E53D0061175F /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198191E00E53D0061175F /* Foundation+Log.m */; };
-		042198251E00E53D0061175F /* SDCycleDispalyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421981B1E00E53D0061175F /* SDCycleDispalyView.m */; };
-		042198261E00E53D0061175F /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421981D1E00E53D0061175F /* UIBarButtonItem+Extension.m */; };
-		042198271E00E53D0061175F /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421981F1E00E53D0061175F /* UIImage+Extension.m */; };
-		042198281E00E53D0061175F /* UIImageView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198211E00E53D0061175F /* UIImageView+Extention.m */; };
-		042198291E00E53D0061175F /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198231E00E53D0061175F /* UIView+Category.m */; };
-		042198311E00E64F0061175F /* LoadData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421982C1E00E64F0061175F /* LoadData.m */; };
-		042198321E00E64F0061175F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421982E1E00E64F0061175F /* Reachability.m */; };
-		042198331E00E64F0061175F /* SDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198301E00E64F0061175F /* SDReachability.m */; };
 		042198BC1E013BEE0061175F /* marketCheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198BB1E013BEE0061175F /* marketCheckModel.m */; };
 		042198BE1E0275760061175F /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198BD1E0275760061175F /* Foundation+Log.m */; };
 		042198C11E0282A30061175F /* marketListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042198C01E0282A30061175F /* marketListModel.m */; };
@@ -125,7 +116,16 @@
 		048540021E077C5300D90459 /* SXAdjustNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FF91E077C5300D90459 /* SXAdjustNumberView.m */; };
 		048540041E077E1500D90459 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048540031E077E1500D90459 /* AssetsLibrary.framework */; };
 		048540061E07A2A400D90459 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048540051E07A2A400D90459 /* WebKit.framework */; };
-		048540091E08CB6300D90459 /* RHNotiTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540081E08CB6300D90459 /* RHNotiTool.m */; };
+		0485403D1E08D3CA00D90459 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485402A1E08D3CA00D90459 /* Reachability.m */; };
+		0485403E1E08D3CA00D90459 /* SDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485402C1E08D3CA00D90459 /* SDReachability.m */; };
+		0485403F1E08D3CA00D90459 /* SDCycleDispalyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485402F1E08D3CA00D90459 /* SDCycleDispalyView.m */; };
+		048540401E08D3CA00D90459 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540311E08D3CA00D90459 /* Foundation+Log.m */; };
+		048540411E08D3CA00D90459 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540331E08D3CA00D90459 /* UIBarButtonItem+Extension.m */; };
+		048540421E08D3CA00D90459 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540351E08D3CA00D90459 /* UIImage+Extension.m */; };
+		048540431E08D3CA00D90459 /* UIImageView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540371E08D3CA00D90459 /* UIImageView+Extention.m */; };
+		048540441E08D3CA00D90459 /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540391E08D3CA00D90459 /* UIView+Category.m */; };
+		048540451E08D3CA00D90459 /* RHNotiTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485403C1E08D3CA00D90459 /* RHNotiTool.m */; };
+		048540481E08D4B800D90459 /* PartnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540471E08D4B800D90459 /* PartnerViewController.m */; };
 		50CE5AE31E03B60200EAB012 /* AddDetailMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */; };
 		50CE5AE41E03B60200EAB012 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50CE5A621E03B60200EAB012 /* Address.plist */; };
 		50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A641E03B60200EAB012 /* SGLocationPickerSheetView.m */; };
@@ -315,23 +315,6 @@
 		042197FC1DFFE87D0061175F /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 		042198091DFFE9170061175F /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		0421980A1DFFE9170061175F /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		042198191E00E53D0061175F /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
-		0421981A1E00E53D0061175F /* SDCycleDispalyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleDispalyView.h; sourceTree = "<group>"; };
-		0421981B1E00E53D0061175F /* SDCycleDispalyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleDispalyView.m; sourceTree = "<group>"; };
-		0421981C1E00E53D0061175F /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
-		0421981D1E00E53D0061175F /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
-		0421981E1E00E53D0061175F /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
-		0421981F1E00E53D0061175F /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
-		042198201E00E53D0061175F /* UIImageView+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extention.h"; sourceTree = "<group>"; };
-		042198211E00E53D0061175F /* UIImageView+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Extention.m"; sourceTree = "<group>"; };
-		042198221E00E53D0061175F /* UIView+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Category.h"; sourceTree = "<group>"; };
-		042198231E00E53D0061175F /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
-		0421982B1E00E64F0061175F /* LoadData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadData.h; sourceTree = "<group>"; };
-		0421982C1E00E64F0061175F /* LoadData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadData.m; sourceTree = "<group>"; };
-		0421982D1E00E64F0061175F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		0421982E1E00E64F0061175F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		0421982F1E00E64F0061175F /* SDReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDReachability.h; sourceTree = "<group>"; };
-		042198301E00E64F0061175F /* SDReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDReachability.m; sourceTree = "<group>"; };
 		042198BA1E013BEE0061175F /* marketCheckModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marketCheckModel.h; sourceTree = "<group>"; };
 		042198BB1E013BEE0061175F /* marketCheckModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = marketCheckModel.m; sourceTree = "<group>"; };
 		042198BD1E0275760061175F /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
@@ -524,8 +507,25 @@
 		04853FF91E077C5300D90459 /* SXAdjustNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXAdjustNumberView.m; sourceTree = "<group>"; };
 		048540031E077E1500D90459 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		048540051E07A2A400D90459 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		048540071E08CB6300D90459 /* RHNotiTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNotiTool.h; sourceTree = "<group>"; };
-		048540081E08CB6300D90459 /* RHNotiTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNotiTool.m; sourceTree = "<group>"; };
+		048540291E08D3CA00D90459 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		0485402A1E08D3CA00D90459 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		0485402B1E08D3CA00D90459 /* SDReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDReachability.h; sourceTree = "<group>"; };
+		0485402C1E08D3CA00D90459 /* SDReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDReachability.m; sourceTree = "<group>"; };
+		0485402E1E08D3CA00D90459 /* SDCycleDispalyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleDispalyView.h; sourceTree = "<group>"; };
+		0485402F1E08D3CA00D90459 /* SDCycleDispalyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleDispalyView.m; sourceTree = "<group>"; };
+		048540311E08D3CA00D90459 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		048540321E08D3CA00D90459 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
+		048540331E08D3CA00D90459 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		048540341E08D3CA00D90459 /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		048540351E08D3CA00D90459 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		048540361E08D3CA00D90459 /* UIImageView+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extention.h"; sourceTree = "<group>"; };
+		048540371E08D3CA00D90459 /* UIImageView+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Extention.m"; sourceTree = "<group>"; };
+		048540381E08D3CA00D90459 /* UIView+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Category.h"; sourceTree = "<group>"; };
+		048540391E08D3CA00D90459 /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
+		0485403B1E08D3CA00D90459 /* RHNotiTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNotiTool.h; sourceTree = "<group>"; };
+		0485403C1E08D3CA00D90459 /* RHNotiTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNotiTool.m; sourceTree = "<group>"; };
+		048540461E08D4B800D90459 /* PartnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerViewController.h; sourceTree = "<group>"; };
+		048540471E08D4B800D90459 /* PartnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerViewController.m; sourceTree = "<group>"; };
 		50CE5A5E1E03B60200EAB012 /* AddDetailMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageViewController.h; sourceTree = "<group>"; };
 		50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageViewController.m; sourceTree = "<group>"; };
 		50CE5A621E03B60200EAB012 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -942,8 +942,6 @@
 		0421980E1E00D82C0061175F /* Partner */ = {
 			isa = PBXGroup;
 			children = (
-				0421982A1E00E64F0061175F /* NetWork */,
-				042198181E00E53D0061175F /* Category */,
 				0421980F1E00D82C0061175F /* C */,
 				042198101E00D82C0061175F /* M */,
 				042198111E00D82C0061175F /* V */,
@@ -954,6 +952,8 @@
 		0421980F1E00D82C0061175F /* C */ = {
 			isa = PBXGroup;
 			children = (
+				048540461E08D4B800D90459 /* PartnerViewController.h */,
+				048540471E08D4B800D90459 /* PartnerViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -970,37 +970,6 @@
 			children = (
 			);
 			path = V;
-			sourceTree = "<group>";
-		};
-		042198181E00E53D0061175F /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				042198191E00E53D0061175F /* Foundation+Log.m */,
-				0421981A1E00E53D0061175F /* SDCycleDispalyView.h */,
-				0421981B1E00E53D0061175F /* SDCycleDispalyView.m */,
-				0421981C1E00E53D0061175F /* UIBarButtonItem+Extension.h */,
-				0421981D1E00E53D0061175F /* UIBarButtonItem+Extension.m */,
-				0421981E1E00E53D0061175F /* UIImage+Extension.h */,
-				0421981F1E00E53D0061175F /* UIImage+Extension.m */,
-				042198201E00E53D0061175F /* UIImageView+Extention.h */,
-				042198211E00E53D0061175F /* UIImageView+Extention.m */,
-				042198221E00E53D0061175F /* UIView+Category.h */,
-				042198231E00E53D0061175F /* UIView+Category.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		0421982A1E00E64F0061175F /* NetWork */ = {
-			isa = PBXGroup;
-			children = (
-				0421982B1E00E64F0061175F /* LoadData.h */,
-				0421982C1E00E64F0061175F /* LoadData.m */,
-				0421982D1E00E64F0061175F /* Reachability.h */,
-				0421982E1E00E64F0061175F /* Reachability.m */,
-				0421982F1E00E64F0061175F /* SDReachability.h */,
-				042198301E00E64F0061175F /* SDReachability.m */,
-			);
-			path = NetWork;
 			sourceTree = "<group>";
 		};
 		042198CC1E029EFA0061175F /* MJRefresh */ = {
@@ -1311,8 +1280,10 @@
 		04853FDD1E077C5300D90459 /* RHTools */ = {
 			isa = PBXGroup;
 			children = (
-				048540071E08CB6300D90459 /* RHNotiTool.h */,
-				048540081E08CB6300D90459 /* RHNotiTool.m */,
+				048540281E08D3CA00D90459 /* NetWork */,
+				0485402D1E08D3CA00D90459 /* RHBanner */,
+				048540301E08D3CA00D90459 /* RHCategory */,
+				0485403A1E08D3CA00D90459 /* RHNotiTool */,
 			);
 			path = RHTools;
 			sourceTree = "<group>";
@@ -1412,6 +1383,51 @@
 				04853FF91E077C5300D90459 /* SXAdjustNumberView.m */,
 			);
 			path = SXAdjustNumberView;
+			sourceTree = "<group>";
+		};
+		048540281E08D3CA00D90459 /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				048540291E08D3CA00D90459 /* Reachability.h */,
+				0485402A1E08D3CA00D90459 /* Reachability.m */,
+				0485402B1E08D3CA00D90459 /* SDReachability.h */,
+				0485402C1E08D3CA00D90459 /* SDReachability.m */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
+		0485402D1E08D3CA00D90459 /* RHBanner */ = {
+			isa = PBXGroup;
+			children = (
+				0485402E1E08D3CA00D90459 /* SDCycleDispalyView.h */,
+				0485402F1E08D3CA00D90459 /* SDCycleDispalyView.m */,
+			);
+			path = RHBanner;
+			sourceTree = "<group>";
+		};
+		048540301E08D3CA00D90459 /* RHCategory */ = {
+			isa = PBXGroup;
+			children = (
+				048540311E08D3CA00D90459 /* Foundation+Log.m */,
+				048540321E08D3CA00D90459 /* UIBarButtonItem+Extension.h */,
+				048540331E08D3CA00D90459 /* UIBarButtonItem+Extension.m */,
+				048540341E08D3CA00D90459 /* UIImage+Extension.h */,
+				048540351E08D3CA00D90459 /* UIImage+Extension.m */,
+				048540361E08D3CA00D90459 /* UIImageView+Extention.h */,
+				048540371E08D3CA00D90459 /* UIImageView+Extention.m */,
+				048540381E08D3CA00D90459 /* UIView+Category.h */,
+				048540391E08D3CA00D90459 /* UIView+Category.m */,
+			);
+			path = RHCategory;
+			sourceTree = "<group>";
+		};
+		0485403A1E08D3CA00D90459 /* RHNotiTool */ = {
+			isa = PBXGroup;
+			children = (
+				0485403B1E08D3CA00D90459 /* RHNotiTool.h */,
+				0485403C1E08D3CA00D90459 /* RHNotiTool.m */,
+			);
+			path = RHNotiTool;
 			sourceTree = "<group>";
 		};
 		2BD8542BA1972E659741F877 /* Frameworks */ = {
@@ -2523,10 +2539,12 @@
 				04853FBD1E03852200D90459 /* NSObject+MJCoding.m in Sources */,
 				042198BC1E013BEE0061175F /* marketCheckModel.m in Sources */,
 				04853FFE1E077C5300D90459 /* Banner.m in Sources */,
-				042198321E00E64F0061175F /* Reachability.m in Sources */,
+				048540421E08D3CA00D90459 /* UIImage+Extension.m in Sources */,
+				048540431E08D3CA00D90459 /* UIImageView+Extention.m in Sources */,
 				50CE5B031E03B60200EAB012 /* MyTableViewCell.m in Sources */,
 				50CE5B0C1E03B60200EAB012 /* OrderGoodsModel.m in Sources */,
 				042199011E029EFA0061175F /* MJRefreshAutoNormalFooter.m in Sources */,
+				048540411E08D3CA00D90459 /* UIBarButtonItem+Extension.m in Sources */,
 				04853FB91E03852200D90459 /* MJProperty.m in Sources */,
 				50FC5FB61E07C4C500F62097 /* CTAssetCollectionViewCell.m in Sources */,
 				50FC5FAF1E07C4C500F62097 /* NSNumberFormatter+CTAssetsPickerController.m in Sources */,
@@ -2534,17 +2552,16 @@
 				50CE5AF71E03B60200EAB012 /* LogisticsTableViewCell.m in Sources */,
 				04853FC71E03852200D90459 /* SDWebImageDecoder.m in Sources */,
 				50FC5FC31E07C4C500F62097 /* CTAssetsNavigationController.m in Sources */,
-				042198271E00E53D0061175F /* UIImage+Extension.m in Sources */,
 				04853FFF1E077C5300D90459 /* MZPageControl.m in Sources */,
 				04853FCA1E03852200D90459 /* SDWebImageManager.m in Sources */,
 				50CE5B011E03B60200EAB012 /* MeTableViewCell.m in Sources */,
-				042198261E00E53D0061175F /* UIBarButtonItem+Extension.m in Sources */,
 				0421980B1DFFE9170061175F /* UIColor+Hex.m in Sources */,
 				50CE5B101E03B60200EAB012 /* Order_HeaderTypeView.m in Sources */,
 				04853FCF1E03852200D90459 /* UIImageView+HighlightedWebCache.m in Sources */,
 				04853FFC1E077C5300D90459 /* SXSqliteTool.m in Sources */,
 				757F32151E03D642004D259C /* ProductBriefCell.m in Sources */,
 				50CE5B0B1E03B60200EAB012 /* OrderViewController.m in Sources */,
+				048540451E08D3CA00D90459 /* RHNotiTool.m in Sources */,
 				757F321C1E03F197004D259C /* ProductHeaderReusableView.m in Sources */,
 				04853FAC1E03852200D90459 /* README.md in Sources */,
 				042199311E03844A0061175F /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -2567,7 +2584,6 @@
 				50CE5AFB1E03B60200EAB012 /* MeTKCollectionModel.m in Sources */,
 				50CE5B211E03D4FB00EAB012 /* OrderDrawBackViewController.m in Sources */,
 				50FC5FAE1E07C4C500F62097 /* NSIndexSet+CTAssetsPickerController.m in Sources */,
-				048540091E08CB6300D90459 /* RHNotiTool.m in Sources */,
 				50FC5FF81E07C9AD00F62097 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				04853FD51E03852200D90459 /* SVProgressAnimatedView.m in Sources */,
 				50CE5AE71E03B60200EAB012 /* SGLocationPickerView.m in Sources */,
@@ -2579,21 +2595,20 @@
 				04853FBE1E03852200D90459 /* NSObject+MJKeyValue.m in Sources */,
 				04853FBA1E03852200D90459 /* MJPropertyKey.m in Sources */,
 				0421992F1E03844A0061175F /* MASViewConstraint.m in Sources */,
-				042198331E00E64F0061175F /* SDReachability.m in Sources */,
 				0421992A1E03844A0061175F /* MASCompositeConstraint.m in Sources */,
 				04853FCD1E03852200D90459 /* UIImage+GIF.m in Sources */,
-				042198251E00E53D0061175F /* SDCycleDispalyView.m in Sources */,
 				042199041E029EFA0061175F /* MJRefreshBackNormalFooter.m in Sources */,
 				0421992C1E03844A0061175F /* MASConstraintMaker.m in Sources */,
 				04853FC11E03852200D90459 /* README.md in Sources */,
 				50FC5FB91E07C4C500F62097 /* CTAssetPlayButton.m in Sources */,
-				042198311E00E64F0061175F /* LoadData.m in Sources */,
 				50CE5B1A1E03C8C400EAB012 /* CouponModel.m in Sources */,
+				0485403D1E08D3CA00D90459 /* Reachability.m in Sources */,
 				04853FB81E03852200D90459 /* MJFoundation.m in Sources */,
 				50FC5FC11E07C4C500F62097 /* CTAssetsGridViewFooter.m in Sources */,
 				50CE5AEE1E03B60200EAB012 /* Coupon_UnUsedTableViewController.m in Sources */,
 				042198041DFFE87D0061175F /* MarketDetailCell.m in Sources */,
 				042197FE1DFFE87D0061175F /* MarketDetailViewController.m in Sources */,
+				0485403E1E08D3CA00D90459 /* SDReachability.m in Sources */,
 				042198FC1E029EFA0061175F /* MJRefreshBackFooter.m in Sources */,
 				50FC5FC81E07C4C500F62097 /* CTAssetsPickerNoAssetsView.m in Sources */,
 				042199321E03844A0061175F /* View+MASAdditions.m in Sources */,
@@ -2603,6 +2618,7 @@
 				50CE5AF81E03B60200EAB012 /* MeViewController.m in Sources */,
 				042198C11E0282A30061175F /* marketListModel.m in Sources */,
 				50CE5AEA1E03B60200EAB012 /* ReceiveTableViewController.m in Sources */,
+				048540401E08D3CA00D90459 /* Foundation+Log.m in Sources */,
 				04853FAE1E03852200D90459 /* AFImageDownloader.m in Sources */,
 				04853FB71E03852200D90459 /* MJExtensionConst.m in Sources */,
 				50CE5AEC1E03B60200EAB012 /* ReceiveTableViewCell.m in Sources */,
@@ -2619,7 +2635,6 @@
 				04853FD01E03852200D90459 /* UIImageView+WebCache.m in Sources */,
 				50CE5AFD1E03B60200EAB012 /* MyModel.m in Sources */,
 				50FC5FB01E07C4C500F62097 /* PHAsset+CTAssetsPickerController.m in Sources */,
-				042198241E00E53D0061175F /* Foundation+Log.m in Sources */,
 				50FC5FF61E07C9AD00F62097 /* ALView+PureLayout.m in Sources */,
 				50FC5FB41E07C4C500F62097 /* UIImage+CTAssetsPickerController.m in Sources */,
 				50FC5FB31E07C4C500F62097 /* UICollectionView+CTAssetsPickerController.m in Sources */,
@@ -2656,6 +2671,7 @@
 				50FC5FF71E07C9AD00F62097 /* NSArray+PureLayout.m in Sources */,
 				757F31F71E03C6DC004D259C /* CategoryCell.m in Sources */,
 				50CE5B0A1E03B60200EAB012 /* Order_ReceiveryTableViewController.m in Sources */,
+				0485403F1E08D3CA00D90459 /* SDCycleDispalyView.m in Sources */,
 				042198BE1E0275760061175F /* Foundation+Log.m in Sources */,
 				04853FD41E03852200D90459 /* SVIndefiniteAnimatedView.m in Sources */,
 				50CE5B051E03B60200EAB012 /* Order_DetailTableViewController.m in Sources */,
@@ -2694,15 +2710,16 @@
 				50FC5F461E07C3CE00F62097 /* MyCollectionViewCell.m in Sources */,
 				048540021E077C5300D90459 /* SXAdjustNumberView.m in Sources */,
 				50CE5B0E1E03B60200EAB012 /* Order_CreatTimer_NumView.m in Sources */,
-				042198281E00E53D0061175F /* UIImageView+Extention.m in Sources */,
 				0421992E1E03844A0061175F /* MASViewAttribute.m in Sources */,
 				757A7E051DF6843300399B10 /* main.m in Sources */,
 				50FC5FC21E07C4C500F62097 /* CTAssetsGridViewLayout.m in Sources */,
 				042198FF1E029EFA0061175F /* MJRefreshHeader.m in Sources */,
 				50CE5B241E03D55E00EAB012 /* OrderDrawBackView.m in Sources */,
 				50FC5FBE1E07C4C500F62097 /* CTAssetsGridView.m in Sources */,
+				048540441E08D3CA00D90459 /* UIView+Category.m in Sources */,
 				04853FBF1E03852200D90459 /* NSObject+MJProperty.m in Sources */,
 				0421992D1E03844A0061175F /* MASLayoutConstraint.m in Sources */,
+				048540481E08D4B800D90459 /* PartnerViewController.m in Sources */,
 				04853FFD1E077C5300D90459 /* AutoScrollerView.m in Sources */,
 				757F32191E03E91D004D259C /* WatchMoreCell.m in Sources */,
 				50CE5AE91E03B60200EAB012 /* AddDetailMessageView.m in Sources */,
@@ -2723,7 +2740,6 @@
 				04853FBB1E03852200D90459 /* MJPropertyType.m in Sources */,
 				048540011E077C5300D90459 /* DisplayView.m in Sources */,
 				04853FB01E03852200D90459 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
-				042198291E00E53D0061175F /* UIView+Category.m in Sources */,
 				042198FB1E029EFA0061175F /* MJRefreshAutoFooter.m in Sources */,
 				50FC5FBA1E07C4C500F62097 /* CTAssetScrollView.m in Sources */,
 				04853FCE1E03852200D90459 /* UIImage+MultiFormat.m in Sources */,

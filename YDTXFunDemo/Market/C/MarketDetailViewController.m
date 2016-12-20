@@ -598,19 +598,14 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 #pragma mark --DetailWebViewDelegate
 
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
+    //处理webView 的高度
     CGSize actualSize = [webView sizeThatFits:CGSizeZero];
     CGRect newFrame = webView.frame;
     newFrame.size.height = actualSize.height;
     webView.frame = newFrame;
-    
+    //处理scrollerView的滚动距离
+#pragma warning -- 650 是估计距离  需要精确计算
     _baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, newFrame.size.height + 650);
-    
-    
-    
-    
-    
-    
-    
     
 }
 
