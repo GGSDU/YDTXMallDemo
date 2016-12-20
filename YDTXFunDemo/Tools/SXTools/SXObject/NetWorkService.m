@@ -83,7 +83,6 @@ static NetWorkService *instance = nil;
     
     [self requestForDataByURLModuleKey:URLModuleKeyTypeShopCategory requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSLog(@"The responseObject ******** %@",responseObject);
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         
         NSArray *categoryModelArray = [responseDic objectForKey:@"data"];
@@ -102,7 +101,6 @@ static NetWorkService *instance = nil;
 {
     [self requestForDataByURLModuleKey:URLModuleKeyTypeHomeListAggregatedData requestParam:nil responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSLog(@"The responseObject ******** %@",responseObject);
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         NSDictionary *categoryModelDic = [responseDic objectForKey:@"data"];
         

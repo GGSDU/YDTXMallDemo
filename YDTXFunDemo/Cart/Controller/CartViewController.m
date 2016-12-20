@@ -15,12 +15,17 @@
 #import "CartDefaultView.h"
 
 #import "NetWorkService.h"
+
+
 static NSString *editString = @"编辑";
 static NSString *completeString = @"完成";
 
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,CartCellOperationViewDelegate,CartListCellDelegate>
 
 @property (nonatomic,strong) CartDefaultView *cartDefaultView;
+@property (nonatomic,strong) UIView *cartListMainView;
+
+@property (nonatomic,strong) UIBarButtonItem *rightBarButtonItem;
 
 @property (nonatomic,strong) NSMutableArray *productModelmArray;
 @property (nonatomic,strong) UITableView *tableView;
@@ -42,12 +47,11 @@ static NSString *completeString = @"完成";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"购物车";
     
-    _cartDefaultView = [[CartDefaultView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 64)];
-    [self.view addSubview:_cartDefaultView];
+    [self createDefaultView];
     
-    [self customRightBarButtonItem];
+    [self customRightBarButtonItemWithTitle:editString];
     
-//    [self creatUI];
+    [self creatUI];
     
     [self addKeyboardNotification];
 }
@@ -296,30 +300,40 @@ static NSString *completeString = @"完成";
 }
 
 #pragma mark - init UI
+- (void)createDefaultView{
+    CGRect frame = CGRectMake(0, 64, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 64);
+    _cartDefaultView = [[CartDefaultView alloc] initWithFrame:frame];
+    [self.view addSubview:_cartDefaultView];
+}
+
 - (void)creatUI{
+    _cartListMainView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:_cartListMainView];
+    
+    
     _cartCellOperationView = [[CartCellOperationView alloc] init];
     _cartCellOperationView.delegate = self;
-    [self.view addSubview:_cartCellOperationView];
+    [_cartListMainView addSubview:_cartCellOperationView];
     [_cartCellOperationView mas_updateConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.view.mas_left).offset(0);
-        make.bottom.equalTo(self.view.mas_bottom).offset(0);
-        make.right.equalTo(self.view.mas_right).offset(0);
+        make.left.equalTo(_cartListMainView.mas_left).offset(0);
+        make.bottom.equalTo(_cartListMainView.mas_bottom).offset(0);
+        make.right.equalTo(_cartListMainView.mas_right).offset(0);
         make.height.mas_equalTo(49);
     }];
  
     
-//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 - _cartCellOperationView.frame.size.height) style:UITableViewStylePlain];
+//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, cartListMainView.frame.size.width, cartListMainView.frame.size.height - 64 - _cartCellOperationView.frame.size.height) style:UITableViewStylePlain];
     _tableView = [[UITableView alloc] init];
     _tableView.rowHeight = 135;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    [self.view sendSubviewToBack:_tableView];
+    [_cartListMainView addSubview:_tableView];
+    [_cartListMainView sendSubviewToBack:_tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
  
-        make.left.equalTo(self.view.mas_left).offset(0);
-        make.right.equalTo(self.view.mas_right).offset(0);
+        make.left.equalTo(_cartListMainView.mas_left).offset(0);
+        make.right.equalTo(_cartListMainView.mas_right).offset(0);
         
         make.top.mas_equalTo(64);
         make.bottom.equalTo(_cartCellOperationView.mas_top).offset(0);
@@ -330,10 +344,17 @@ static NSString *completeString = @"完成";
     }];
 }
 
-- (void)customRightBarButtonItem
+- (void)customRightBarButtonItemWithTitle:(NSString *)title
 {
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithTitle:editString style:UIBarButtonItemStylePlain target:self action:@selector(startEdit:)];
-    self.navigationItem.rightBarButtonItem = rightBarButton;
+    if (_rightBarButtonItem == nil) {
+        _rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(startEdit:)];
+    }
+    self.navigationItem.rightBarButtonItem = _rightBarButtonItem;
+}
+
+- (void)removeRightBarButtonItemFromSuperView
+{
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 #pragma mark - keyboard Notification

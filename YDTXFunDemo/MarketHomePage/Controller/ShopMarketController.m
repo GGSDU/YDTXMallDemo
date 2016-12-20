@@ -115,6 +115,7 @@ static NSString *watchMoreIdentifier = @"watchMore";
         pModel.number = i + 1;
         [modelArray addObject:pModel];
     }
+    
     CartViewController *cartVC = [[CartViewController alloc] init];
     cartVC.productModelArray = modelArray;
     [self.navigationController pushViewController:cartVC animated:YES];
@@ -202,7 +203,6 @@ static NSString *watchMoreIdentifier = @"watchMore";
         
         CategoryCell *categoryCell = [collectionView dequeueReusableCellWithReuseIdentifier:categoryIdentifier forIndexPath:indexPath];
         CategoryModel *categoryModel = self.categoryArray[indexPath.row];
-        NSLog(@"categoryCell Dic ******%@",categoryModel.objectDictionary);
         [categoryCell.imageView sd_setImageWithURL:[SXPublicTool getImageURLByURLString:categoryModel.uploads]];
         categoryCell.label.text = categoryModel.title;
         

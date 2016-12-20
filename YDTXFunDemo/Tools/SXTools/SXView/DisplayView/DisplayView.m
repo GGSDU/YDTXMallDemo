@@ -60,8 +60,9 @@
            
             make.top.equalTo(self.mas_top);
             make.left.equalTo(self.mas_left);
-            make.size.mas_equalTo(CGSizeMake(175, 175));
             make.right.equalTo(self.mas_right);
+            make.height.equalTo(self.mas_width);
+//            make.size.mas_equalTo(CGSizeMake(175, 175));
         }];
     }
     return _imageView;
