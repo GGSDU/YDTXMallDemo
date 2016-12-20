@@ -10,7 +10,7 @@
 
 @interface marketListModel : NSObject
 
-@property(assign,nonatomic)NSInteger ID;            //商品id
+@property(copy,nonatomic)NSString *ID;            //商品id
 @property(assign,nonatomic)NSInteger pid;           //商品分类id
 @property(copy,nonatomic)NSString *images_url;      //商品图片
 @property(copy,nonatomic)NSString *name;            //商品名

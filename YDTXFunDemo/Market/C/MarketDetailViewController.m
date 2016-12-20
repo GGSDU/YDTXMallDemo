@@ -467,7 +467,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
      */
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"goods_id"] = @(self.goods_id);
+    params[@"goods_id"] = self.goods_id;
     params[@"userid"]  = @8;
     NSString *Url = @"http://test.m.yundiaoke.cn/api/goods/detail";
     
