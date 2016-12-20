@@ -43,9 +43,11 @@ typedef enum : NSUInteger {
 
 #pragma mark - Project ShopMarket GET/POST methods
 /**
- * 商品分类
+ * 请求通用方法
  */
-- (void)requestForDataByURLModuleKey:(URLModuleKeyType)urlModuleKey;
+- (void)requestForDataByURLModuleKey:(URLModuleKeyType)urlModuleKey
+                        requestParam:(nullable NSDictionary *)requestParam
+                       responseBlock:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))responseBlock;
 ;
 
 
@@ -62,22 +64,22 @@ typedef enum : NSUInteger {
 - (NSDictionary *)getResponseParamByURLModuleKey:(URLModuleKeyType)urlModuleKey;
 
 #pragma mark - Response Status
-- (NSString *)showMessageWithResponseStatus:(ResponseStatus)aStatus;
+- (NSString *)errorMessageWithResponseStatus:(ResponseStatus)aStatus;
 
 #pragma mark - AF GET/POST methods
-- (nullable NSURLSessionDataTask *)GET:(nonnull NSString *)URLString
+- (NSURLSessionDataTask *)GET:(nonnull NSString *)URLString
                             parameters:(nullable id)parameters
                               progress:(nullable void (^)(NSProgress *_Nonnull downloadProgress))downloadProgress
                                success:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))success
                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *_Nonnull error))failure;
 
-- (nullable NSURLSessionDataTask *)POST:(nonnull NSString *)URLString
+- (NSURLSessionDataTask *)POST:(nonnull NSString *)URLString
                     parameters:(nullable id)parameters
                       progress:(nullable void (^)(NSProgress * _Nonnull))uploadProgress
                        success:(nullable void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
                        failure:(nullable void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure;
 
-- (nullable NSURLSessionDataTask *)POST:(nonnull NSString *)URLString
+- (NSURLSessionDataTask *)POST:(nonnull NSString *)URLString
                     parameters:(nullable id)parameters
      constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> _Nonnull formData))block
                       progress:(nullable void (^)(NSProgress * _Nonnull))uploadProgress
