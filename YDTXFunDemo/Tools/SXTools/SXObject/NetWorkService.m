@@ -68,7 +68,7 @@ static NetWorkService *instance = nil;
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
                 NSString *message =  [self errorMessageWithResponseStatus:error.code];
-
+                
                 if (_delegate && [_delegate respondsToSelector:@selector(networkService:requestFailedWithTask:error:message:)]) {
                     [_delegate networkService:self requestFailedWithTask:task error:error message:message];
                 }
@@ -111,7 +111,7 @@ static NetWorkService *instance = nil;
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         NSDictionary *categoryModelDic = [responseDic objectForKey:@"data"];
         
-
+        
         NSMutableArray *productBriefModelArray = [[NSMutableArray alloc] initWithCapacity:0];
         // 默认展示商品
         NSArray *defaultArray = [categoryModelDic objectForKey:defaultProductKey];
@@ -135,7 +135,7 @@ static NetWorkService *instance = nil;
             }
             [productBriefModelArray addObject:recommendedModelArray];
         }
-     
+        
         responseBlock(productBriefModelArray);
     }];
 }
@@ -145,7 +145,7 @@ static NetWorkService *instance = nil;
  *  商城分类列表数据
  */
 -(void)requestForMarketCategoryListDataWithPid:(NSString *)pid Page:(NSInteger)page responseBlock:(nullable void(^)(NSArray *marketListModelArray))responseBlock{
-
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"id"] = pid;
     params[@"page"] = @(page);
@@ -154,25 +154,25 @@ static NetWorkService *instance = nil;
             
             //字典转模型
             NSArray* marketListModelArray = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-             responseBlock(marketListModelArray);
+            responseBlock(marketListModelArray);
         }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             
             [RHNotiTool NotiShowWithTitle:@"没有更多数据了" Time:1.0];
         }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
             
-           [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
             
         }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
             
-          [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
+            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         }
-
-     
         
-       
+        
+        
+        
     }];
-
-
+    
+    
 }
 
 
@@ -186,14 +186,14 @@ static NetWorkService *instance = nil;
             requestInfoDictionary = [self.urlDictionary objectForKey:@"ShopCategory"];
         }
             break;
-        case URLModuleKeyTypeCategoryList:
-        {
-            requestInfoDictionary = [self.urlDictionary objectForKey:@"CategoryList"];
-        }
-            break;
         case URLModuleKeyTypeHomeListAggregatedData:
         {
             requestInfoDictionary = [self.urlDictionary objectForKey:@"HomeListAggregatedData"];
+        }
+            break;
+        case URLModuleKeyTypeCategoryList:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CategoryList"];
         }
             break;
         case URLModuleKeyTypeProductDetail:
@@ -206,14 +206,55 @@ static NetWorkService *instance = nil;
             requestInfoDictionary = [self.urlDictionary objectForKey:@"ProductDetailModel"];
         }
             break;
-        case URLModuleKeyTypeAddAddress:
+        case URLModuleKeyTypeCartList:
         {
-            requestInfoDictionary = [self.urlDictionary objectForKey:@"AddAddress"];
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CartList"];
+        }
+            break;
+        case URLModuleKeyTypeDeleteCartList:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"DeleteCartList"];
+        }
+            break;
+        case URLModuleKeyTypeCheckGoodsQuantity:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CheckGoodsQuantity"];
+        }
+            break;
+        case URLModuleKeyTypeOrderList:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"OrderList"];
+        }
+            break;
+        case URLModuleKeyTypeOrderDetail:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"OrderDetail"];
+            
+        }
+            break;
+        case URLModuleKeyTypeCommitOrder:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CommitOrder"];
+        }
+            break;
+        case URLModuleKeyTypeCancelOrder:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CanecelOrder"];
+        }
+            break;
+        case URLModuleKeyTypeDeleteOrder:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"DeleteOrder"];
         }
             break;
         case URLModuleKeyTypeAddressList:
         {
             requestInfoDictionary = [self.urlDictionary objectForKey:@"AddressList"];
+        }
+            break;
+        case URLModuleKeyTypeAddAddress:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"AddAddress"];
         }
             break;
         case URLModuleKeyTypeModifyAddressShowInfo:

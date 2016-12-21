@@ -24,14 +24,29 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     URLModuleKeyTypeShopCategory,           // 商城分类
     URLModuleKeyTypeHomeListAggregatedData, // 商城首页列表聚合数据
+    
     URLModuleKeyTypeCategoryList,           // 分类列表数据
     URLModuleKeyTypeProductDetail,          // 商品详情
     URLModuleKeyTypeProductDetailModel,     // 商品详情的型号
-    URLModuleKeyTypeAddAddress,             // 添加收货地址
+    
+    URLModuleKeyTypeCartList,               // 购物车列表
+    URLModuleKeyTypeDeleteCartList,         // 删除购物车列表
+    URLModuleKeyTypeCheckGoodsQuantity,     // 检查库存
+
+    URLModuleKeyTypeOrderList,              // 订单列表
+    URLModuleKeyTypeOrderDetail,            // 订单详情
+    URLModuleKeyTypeCommitOrder,            // 确认订单
+    URLModuleKeyTypeCancelOrder,            // 取消订单
+    URLModuleKeyTypeDeleteOrder,            // 删除订单
+    
+    
     URLModuleKeyTypeAddressList,            // 收货地址列表
+    URLModuleKeyTypeAddAddress,             // 添加收货地址
     URLModuleKeyTypeModifyAddressShowInfo,  // 修改收货地址显示信息
     URLModuleKeyTypeCommitModifyAddress,    // 提交修改收货地址
     URLModuleKeyTypeDeleteAddress,          // 删除收货地址
+    
+    
 } URLModuleKeyType;
 
 
