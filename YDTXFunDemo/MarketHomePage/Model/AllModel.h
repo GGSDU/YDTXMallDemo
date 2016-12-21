@@ -12,4 +12,7 @@
 #import "CategoryCell.h"
 #import "ProductBriefCell.h"
 
+
+#import "marketListModel.h"
+#import "marketDetailModel.h"
 #endif /* AllModel_h */

@@ -10,7 +10,7 @@
 #import "markeListCell.h"
 #import "MarketDetailViewController.h"
 #import "marketListModel.h"
-@interface MarketCategoryListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface MarketCategoryListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,NetWorkServiceDelegate>
 
 @property(strong,nonatomic)NSMutableArray *marketListDataArr;
 
@@ -39,6 +39,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
 //配置一些基本设置
 -(void)setBasic{
     
+    [[NetWorkService shareInstance] setDelegate:self];
 
     
     
@@ -114,7 +115,6 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 
 
-
 #pragma mark <UICollectionViewDataSource>
 
 // 设置每个分区返回多少item
@@ -173,57 +173,12 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
     [self.collectionView.mj_footer resetNoMoreData];
     self.page = 1;
-    
-    NSLog(@"下拉刷新");
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-
-    params[@"page"] = @(self.page);
-    params[@"id"] = self.ID;
-    NSLog(@"--------%@",params);
-    
-    NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
-    
-    [[NetWorkService shareInstance] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSLog(@"列表数据=》：%@",responseObject);
-        
-        if ([responseObject[@"status"] integerValue] == 200) {  //成功请求到数据
-            
-            self.marketListDataArr = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-            [self.collectionView reloadData];
-        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
-            
-            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-            SVProgressHUD.minimumDismissTimeInterval = 1.0;
-            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
-            
-        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
-            
-            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-            SVProgressHUD.minimumDismissTimeInterval = 1.0;
-            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
-            
-        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
-            
-            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-            SVProgressHUD.minimumDismissTimeInterval = 1.0;
-            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
-        }
-        
-        
-        
-        
+    [[NetWorkService shareInstance]requestForMarketCategoryListDataWithPid:self.ID Page:self.page responseBlock:^(NSArray *marketListModelArray) {
+        [_marketListDataArr removeAllObjects];
+        [self.marketListDataArr addObjectsFromArray:marketListModelArray];
         [self.collectionView.mj_header endRefreshing];
+        [self.collectionView reloadData];
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-    
-        NSLog(@"请求失败");
-        SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-        SVProgressHUD.minimumDismissTimeInterval = 1.0;
-        [SVProgressHUD showErrorWithStatus:@"网络跑丢了~"];
-        
-        [self.collectionView.mj_header endRefreshing];
     }];
     
 }
@@ -231,68 +186,37 @@ static NSString * const kmarketListCellId = @"marketListCell";
 //上啦加载
 -(void)loadCategoryMoreData{
     [self.collectionView.mj_footer endRefreshing];
-    NSLog(@"上啦加载");
     
     self.page += 1;
-    NSLog(@"%ld",self.page);
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    params[@"page"] = @(self.page);
-    params[@"id"] = self.ID;
-    
-    NSString *url = @"http://test.m.yundiaoke.cn/api/goods/classList";
-    
-    
-    [[NetWorkService shareInstance] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSLog(@"More MarketList Data-->:%@",responseObject);
-        
-        if ([responseObject[@"status"] integerValue] == 200) {
-            
-            [self.marketListDataArr addObjectsFromArray:[marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]]];
-            [self.collectionView reloadData];
-            
-        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
-            
-            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-            SVProgressHUD.minimumDismissTimeInterval = 1.0;
-            [SVProgressHUD showErrorWithStatus:@"没有更多数据了~"];
-            
-            [self.collectionView.mj_footer endRefreshingWithNoMoreData];
-            
-        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
-            
-            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-            SVProgressHUD.minimumDismissTimeInterval = 1.0;
-            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
-            
-        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
-            
-            SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-            SVProgressHUD.minimumDismissTimeInterval = 1.0;
-            [SVProgressHUD showErrorWithStatus:@"刷新失败"];
-        }
-        
-         [self.collectionView.mj_header endRefreshing];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        
-        self.page -= 1;
-        
-        SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-        SVProgressHUD.minimumDismissTimeInterval = 1.0;
-        [SVProgressHUD showErrorWithStatus:@"网络跑丢了~"];
-        
+    [[NetWorkService shareInstance]requestForMarketCategoryListDataWithPid:self.ID Page:self.page responseBlock:^(NSArray *marketListModelArray) {
+       
+        [self.marketListDataArr addObjectsFromArray:marketListModelArray];
         [self.collectionView.mj_header endRefreshing];
+        [self.collectionView reloadData];
+        
         
     }];
     
-    
-    
+
 }
 
 
+#pragma mark - networkServiceDelegate
+- (void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message
+{
+    
+     [self.collectionView.mj_header endRefreshing];
+    [self.collectionView.mj_footer endRefreshing];
+    self.page -=1;
+    [RHNotiTool NotiShowWithTitle:@"网络跑丢了~" Time:1.0];
+    
+}
+
+-(void)mj_footerNoMoreData{
+    
+    [self.collectionView.mj_footer endRefreshingWithNoMoreData];
+
+}
 
 @end
