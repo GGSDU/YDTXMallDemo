@@ -209,6 +209,42 @@ static NetWorkService *instance = nil;
 }
 
 
+
+
+/**
+ *  商品型号数据
+ */
+-(void)requestForMarketGoodsModelDataWithGoodsId:(NSString *)goods_id responseBlock:(nullable void(^)(NSArray *marketProductModelArray))responseBlock{
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"id"] = goods_id;
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeProductDetailModel requestParam:params responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"productModelData-->:%@--id:%@",responseObject,goods_id);
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+            //字典转模型
+            NSArray* marketProductModelArray = [marketProductModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            responseBlock(marketProductModelArray);
+        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
+            
+            [RHNotiTool NotiShowWithTitle:@"获取商品规格失败" Time:1.0];
+            
+        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
+            
+            [RHNotiTool NotiShowWithTitle:@"获取商品规格失败" Time:1.0];
+            
+        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
+            
+            [RHNotiTool NotiShowWithTitle:@"获取商品规格失败" Time:1.0];
+        }
+        
+    }];
+
+
+
+}
+
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey
 {

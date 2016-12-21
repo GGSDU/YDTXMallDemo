@@ -91,6 +91,11 @@ static NSString *recommendedProductKey = @"fishtree";
 -(void)requestForMarketGoodsDetailDataWithGoodsId:(NSString *)goods_id UserId:(NSString *)user_id responseBlock:(nullable void(^)(NSArray *marketGoodsDetailModelArray))responseBlock;
 
 
+/**
+ *  商品型号数据
+ */
+-(void)requestForMarketGoodsModelDataWithGoodsId:(NSString *)goods_id responseBlock:(nullable void(^)(NSArray *marketProductModelArray))responseBlock;
+
 
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;

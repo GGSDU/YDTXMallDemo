@@ -13,12 +13,10 @@
 #import "CartViewController.h"
 #import "SDCycleDispalyView.h"
 #import "marketDetailModel.h"
-@interface MarketDetailViewController ()<reMoveAnimationDelegate,UIWebViewDelegate,NetWorkServiceDelegate>
+@interface MarketDetailViewController ()<UIWebViewDelegate,NetWorkServiceDelegate>
 
 @property (strong,nonatomic) UIScrollView *baseScrollerView;
 @property (strong,nonatomic) UIWebView *DetailWebView;
-
-@property(strong,nonatomic)MarketMaskView *maskView;
 
 @property(strong,nonatomic)NSMutableArray *marketDetailDataArr;
 
@@ -383,33 +381,12 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
 }
 -(void)jionItemInShopCar{
-
     
-    
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [self.view.layer setTransform:[self firstTransform]];
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            
-            [self.view.layer setTransform:[self secondTransform]];
-//            显示maskView
- 
-            MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
-            self.maskView =maskView;
-            maskView.delegate = self;
-            [[UIApplication sharedApplication].keyWindow addSubview:maskView];
-            
-            
-          
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-    }];
+    MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
+    maskView.goods_id =  self.goods_id;
+    [self.view addSubview:maskView];
+    [maskView showWithTransformAnimation];
+    [maskView updateUIWithGoodsId:self.goods_id];
 
 
 }
@@ -418,41 +395,13 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
     NSLog(@"-buyItNow-");
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [self.view.layer setTransform:[self firstTransform]];
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            
-            [self.view.layer setTransform:[self secondTransform]];
-            //            显示maskView
-            
-            MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
-            self.maskView =maskView;
-            maskView.delegate = self;
-            [[UIApplication sharedApplication].keyWindow addSubview:maskView];
-            
-            
-            
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-    }];
-    
+      
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
-
-#pragma mark - Table view data source
-
-
-
 
 #pragma mark --load Data Method
 
@@ -505,56 +454,6 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     CartViewController *cartVC = [CartViewController new];
     [self.navigationController pushViewController:cartVC animated:YES];
     
-}
-
-
-#pragma mark - TranslationAnimation
-- (CATransform3D)firstTransform{
-    CATransform3D t1 = CATransform3DIdentity;
-    t1.m34 = 1.0/-900;
-    //带点缩小的效果
-    t1 = CATransform3DScale(t1, 0.95, 0.95, 1);
-    //绕x轴旋转
-    t1 = CATransform3DRotate(t1, 15.0 * M_PI/180.0, 1, 0, 0);
-    return t1;
-    
-}
-
-- (CATransform3D)secondTransform{
-    
-    CATransform3D t2 = CATransform3DIdentity;
-    t2.m34 = [self firstTransform].m34;
-    //向上移
-    t2 = CATransform3DTranslate(t2, 0, self.view.frame.size.height * (-0.08), 0);
-    //第二次缩小
-    t2 = CATransform3DScale(t2, 0.85, 0.75, 1);
-    return t2;
-}
-#pragma mark - MarketMaskDelegate
--(void)removeMarketVCAnimation{
-
-    [self.maskView removeFromSuperview];
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [self.view.layer setTransform:[self firstTransform]];
-       
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            //变为初始值
-            [self.view.layer setTransform:CATransform3DIdentity];
-            
-        } completion:^(BOOL finished) {
-            
-       
-        }];
-        
-    }];
-    
-
-
-
 }
 
 

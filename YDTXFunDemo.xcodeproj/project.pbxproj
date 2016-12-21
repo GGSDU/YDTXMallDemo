@@ -129,6 +129,7 @@
 		0485404B1E090A3800D90459 /* CategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485404A1E090A3800D90459 /* CategoryView.m */; };
 		0485404E1E09250500D90459 /* CategoryWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485404D1E09250500D90459 /* CategoryWebView.m */; };
 		048540511E092B9C00D90459 /* PartnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540501E092B9C00D90459 /* PartnerModel.m */; };
+		0485405A1E0A6A7600D90459 /* marketProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540591E0A6A7600D90459 /* marketProductModel.m */; };
 		50CE5AE31E03B60200EAB012 /* AddDetailMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */; };
 		50CE5AE41E03B60200EAB012 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50CE5A621E03B60200EAB012 /* Address.plist */; };
 		50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A641E03B60200EAB012 /* SGLocationPickerSheetView.m */; };
@@ -538,6 +539,8 @@
 		0485404D1E09250500D90459 /* CategoryWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryWebView.m; sourceTree = "<group>"; };
 		0485404F1E092B9C00D90459 /* PartnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerModel.h; sourceTree = "<group>"; };
 		048540501E092B9C00D90459 /* PartnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerModel.m; sourceTree = "<group>"; };
+		048540581E0A6A7600D90459 /* marketProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marketProductModel.h; sourceTree = "<group>"; };
+		048540591E0A6A7600D90459 /* marketProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = marketProductModel.m; sourceTree = "<group>"; };
 		50CE5A5E1E03B60200EAB012 /* AddDetailMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageViewController.h; sourceTree = "<group>"; };
 		50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageViewController.m; sourceTree = "<group>"; };
 		50CE5A621E03B60200EAB012 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -915,6 +918,8 @@
 				04853FDA1E03B26000D90459 /* marketDetailModel.m */,
 				042198BF1E0282A30061175F /* marketListModel.h */,
 				042198C01E0282A30061175F /* marketListModel.m */,
+				048540581E0A6A7600D90459 /* marketProductModel.h */,
+				048540591E0A6A7600D90459 /* marketProductModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2643,6 +2648,7 @@
 				50CE5AEA1E03B60200EAB012 /* ReceiveTableViewController.m in Sources */,
 				048540401E08D3CA00D90459 /* Foundation+Log.m in Sources */,
 				04853FAE1E03852200D90459 /* AFImageDownloader.m in Sources */,
+				0485405A1E0A6A7600D90459 /* marketProductModel.m in Sources */,
 				04853FB71E03852200D90459 /* MJExtensionConst.m in Sources */,
 				50CE5AEC1E03B60200EAB012 /* ReceiveTableViewCell.m in Sources */,
 				50FC5FBB1E07C4C500F62097 /* CTAssetSelectionButton.m in Sources */,
