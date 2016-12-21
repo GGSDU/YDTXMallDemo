@@ -46,7 +46,7 @@
 {
     _cellSelectButton.selected = !_cellSelectButton.selected;
     if (_delegate && [_delegate respondsToSelector:@selector(cartListCell:didSelectedCell:)]) {
-        [_delegate performSelector:@selector(cartListCell:didSelectedCell:) withObject:self withObject:self.productModel];
+        [_delegate performSelector:@selector(cartListCell:didSelectedCell:) withObject:self withObject:self.cartProductModel];
     }
 }
 
@@ -59,10 +59,11 @@
         _mainView = [[UIView alloc] init];
         _mainView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_mainView];
-        [_mainView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-        }];
     }
+    
+    [_mainView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
     
     if (_cellSelectButton == nil) {
         _cellSelectButton = [[UIButton alloc] init];
@@ -70,44 +71,46 @@
         [_cellSelectButton setImage:[UIImage imageNamed:@"Cart_CellStatusButton_Selected"] forState:UIControlStateSelected];
         [_cellSelectButton addTarget:self action:@selector(cellStatusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.mainView addSubview:_cellSelectButton];
-        [_cellSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.centerY.equalTo(self.mainView.mas_centerY);
-            make.centerX.equalTo(self.infoImageView.mas_left).dividedBy(2);
-//            make.left.greaterThanOrEqualTo(self.mainView.mas_left);
-//            make.right.lessThanOrEqualTo(self.infoImageView.mas_left);
-            make.size.mas_equalTo(CGSizeMake(18, 18));
-            
-        }];
     }
+    [_cellSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(self.mainView.mas_centerY);
+        make.centerX.equalTo(self.infoImageView.mas_left).dividedBy(2);
+        //            make.left.greaterThanOrEqualTo(self.mainView.mas_left);
+        //            make.right.lessThanOrEqualTo(self.infoImageView.mas_left);
+        make.size.mas_equalTo(CGSizeMake(18, 18));
+    }];
+    
     
     if (_adjustNumberView == nil) {
         _adjustNumberView = [[SXAdjustNumberView alloc] init];
         __weak typeof(self) weakSelf = self;
         _adjustNumberView.updateNumberBlock = ^(int number) {
-            weakSelf.productModel.number = number;
+            weakSelf.cartProductModel.nums = number;
         };
         [self.mainView addSubview:_adjustNumberView];
-        [_adjustNumberView mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.top.equalTo(self.detailLabel.mas_bottom).offset(12);
-            make.left.equalTo(self.label.mas_left).offset(0);
-            make.bottom.equalTo(self.infoImageView.mas_bottom).offset(0);
-            make.size.mas_equalTo(CGSizeMake(80, 25));
-        }];
     }
+    [_adjustNumberView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.detailLabel.mas_bottom).offset(12);
+        make.left.equalTo(self.label.mas_left).offset(0);
+        make.bottom.equalTo(self.infoImageView.mas_bottom).offset(0);
+        make.size.mas_equalTo(CGSizeMake(80, 25));
+    }];
 }
 
 #pragma mark - getter/setter
-- (void)setProductModel:(ProductModel *)productModel
+- (void)setCartProductModel:(CartProductModel *)cartProductModel
 {
-    _productModel = productModel;
+    _cartProductModel = cartProductModel;
     
-    [self.infoImageView sd_setImageWithURL:[NSURL URLWithString:productModel.infoImageURL] placeholderImage:[UIImage imageNamed:@"Image"]];
-    self.label.text = productModel.infoName;
-    self.detailLabel.text = productModel.modelType;
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2f",productModel.price];
-    self.productNumber = productModel.number;
+    [self.infoImageView sd_setImageWithURL:[SXPublicTool getImageURLByURLString:cartProductModel.images_url]];
+    self.label.text = cartProductModel.goods_name;
+    self.detailLabel.text = [NSString stringWithFormat:@"型号:%@",cartProductModel.models];
+    self.priceLabel.text = [NSString stringWithFormat:@"%.2f",cartProductModel.price];
+    self.productNumber = cartProductModel.nums;
+    
+    self.adjustNumberView.maxValue = cartProductModel.quantity;
 }
 
 - (UIImageView *)infoImageView
@@ -196,18 +199,6 @@
     _productNumber = productNumber;
     _adjustNumberView.number = _productNumber;
     
-}
-
-#pragma mark -
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

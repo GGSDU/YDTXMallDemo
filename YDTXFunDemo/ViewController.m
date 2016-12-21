@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 
-#import "SXAdjustNumberView.h"
 #import "CartViewController.h"
 #import "ShopMarketController.h"
 
@@ -24,50 +23,10 @@
 @end
 
 @implementation ViewController
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        NSLog(@"%s",__func__);
-    }
-    return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)setI:(int)i
-{
-    _i = i;
-    NSLog(@"%s",__func__);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%s",__func__);
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor redColor];
     
@@ -152,15 +111,5 @@
             break;
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-
 
 @end

@@ -21,7 +21,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     ViewController *rootViewController = [[ViewController alloc] init];
-    rootViewController.i = 1;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     
     [nc.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBackImage"] forBarMetrics:UIBarMetricsDefault];

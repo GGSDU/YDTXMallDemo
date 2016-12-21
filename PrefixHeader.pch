@@ -40,6 +40,10 @@
 
 #import "UIView+Category.h"
 
+#import "ShopMarketController.h"
+
+#define USER_ID 72
+
 #define StandardBackgroundColor RGB(238, 238, 238)
 
 #define YDTXScreenW [UIScreen mainScreen].bounds.size.width

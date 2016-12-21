@@ -10,6 +10,4 @@
 
 @interface CartViewController : UIViewController
 
-@property (nonatomic,strong) NSArray *productModelArray;
-
 @end

@@ -24,14 +24,29 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     URLModuleKeyTypeShopCategory,           // 商城分类
     URLModuleKeyTypeHomeListAggregatedData, // 商城首页列表聚合数据
+    
     URLModuleKeyTypeCategoryList,           // 分类列表数据
     URLModuleKeyTypeProductDetail,          // 商品详情
     URLModuleKeyTypeProductDetailModel,     // 商品详情的型号
-    URLModuleKeyTypeAddAddress,             // 添加收货地址
+    
+    URLModuleKeyTypeCartList,               // 购物车列表
+    URLModuleKeyTypeDeleteCartList,         // 删除购物车列表
+    URLModuleKeyTypeCheckGoodsQuantity,     // 检查库存
+
+    URLModuleKeyTypeOrderList,              // 订单列表
+    URLModuleKeyTypeOrderDetail,            // 订单详情
+    URLModuleKeyTypeCommitOrder,            // 确认订单
+    URLModuleKeyTypeCancelOrder,            // 取消订单
+    URLModuleKeyTypeDeleteOrder,            // 删除订单
+    
+    
     URLModuleKeyTypeAddressList,            // 收货地址列表
+    URLModuleKeyTypeAddAddress,             // 添加收货地址
     URLModuleKeyTypeModifyAddressShowInfo,  // 修改收货地址显示信息
     URLModuleKeyTypeCommitModifyAddress,    // 提交修改收货地址
     URLModuleKeyTypeDeleteAddress,          // 删除收货地址
+    
+    
 } URLModuleKeyType;
 
 
@@ -81,7 +96,9 @@ static NSString *recommendedProductKey = @"fishtree";
 /**
  *  商城分类列表数据
  */
--(void)requestForMarketCategoryListDataWithPid:(NSString *)pid Page:(NSInteger)page responseBlock:(nullable void(^)(NSArray *marketListModelArray))responseBlock;
+- (void)requestForMarketCategoryListDataWithPid:(NSString *)pid
+                                           Page:(NSInteger)page 
+                                  responseBlock:(nullable void(^)(NSArray *marketListModelArray))responseBlock;
 
 
 
@@ -90,12 +107,25 @@ static NSString *recommendedProductKey = @"fishtree";
  */
 -(void)requestForMarketGoodsDetailDataWithGoodsId:(NSString *)goods_id UserId:(NSString *)user_id responseBlock:(nullable void(^)(NSArray *marketGoodsDetailModelArray))responseBlock;
 
+/**
+ *  获取库存
+ */
+- (void)getCurrentQuantityWithGoodsModelId:(int)goods_model_id quantity:(int *)quantity;
 
 /**
  *  商品型号数据
  */
 -(void)requestForMarketGoodsModelDataWithGoodsId:(NSString *)goods_id responseBlock:(nullable void(^)(NSArray *marketProductModelArray))responseBlock;
 
+/*
+ *  购物车列表
+ */
+- (void)requestForCartListWithUserId:(int)user_id responseBlock:(nullable void (^)(NSArray *responseCartProductModelArray))responseBlock;
+
+/**
+ *  删除购物车列表
+ */
+- (void)requestForDeleteCartListWithGoodsOrderIdArray:(NSArray *)goods_order_id_Array;
 
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
