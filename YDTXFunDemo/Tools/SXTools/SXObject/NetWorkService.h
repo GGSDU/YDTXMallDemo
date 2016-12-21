@@ -41,6 +41,8 @@ typedef enum : NSUInteger {
 
 - (void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message;
 
+- (void)mj_footerNoMoreData;
+
 @end
 
 static NSString *defaultProductKey     = @"shopping";
@@ -81,6 +83,12 @@ static NSString *recommendedProductKey = @"fishtree";
  */
 -(void)requestForMarketCategoryListDataWithPid:(NSString *)pid Page:(NSInteger)page responseBlock:(nullable void(^)(NSArray *marketListModelArray))responseBlock;
 
+
+
+/**
+ *  商品详情数据
+ */
+-(void)requestForMarketGoodsDetailDataWithGoodsId:(NSString *)goods_id UserId:(NSString *)user_id responseBlock:(nullable void(^)(NSArray *marketGoodsDetailModelArray))responseBlock;
 
 
 

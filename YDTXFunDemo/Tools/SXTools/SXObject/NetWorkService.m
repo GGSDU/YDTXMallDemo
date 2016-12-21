@@ -158,6 +158,10 @@ static NetWorkService *instance = nil;
         }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             
             [RHNotiTool NotiShowWithTitle:@"没有更多数据了" Time:1.0];
+            if (_delegate &&[_delegate respondsToSelector:@selector(mj_footerNoMoreData)]) {
+                [_delegate mj_footerNoMoreData];
+            }
+            
         }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
             
            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
@@ -167,11 +171,40 @@ static NetWorkService *instance = nil;
           [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
         }
 
-     
-        
-       
     }];
+}
 
+
+
+/**
+ *  商品详情数据
+ */
+-(void)requestForMarketGoodsDetailDataWithGoodsId:(NSString *)goods_id UserId:(NSString *)user_id responseBlock:(nullable void(^)(NSArray *marketGoodsDetailModelArray))responseBlock{
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    params[@"goods_id"] = goods_id;
+    params[@"userid"]  = user_id;
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeProductDetail requestParam:params responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+            //字典转模型
+            NSArray* marketGoodsDetailModelArray = [marketDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            responseBlock(marketGoodsDetailModelArray);
+        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
+            
+            [RHNotiTool NotiShowWithTitle:@"加载商品详情失败~" Time:1.0];
+           
+        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
+            
+            [RHNotiTool NotiShowWithTitle:@"加载商品详情失败~" Time:1.0];
+            
+        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
+            
+            [RHNotiTool NotiShowWithTitle:@"加载商品详情失败~" Time:1.0];
+        }
+        
+    }];
 
 }
 

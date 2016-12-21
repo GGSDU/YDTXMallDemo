@@ -13,7 +13,7 @@
 #import "CartViewController.h"
 #import "SDCycleDispalyView.h"
 #import "marketDetailModel.h"
-@interface MarketDetailViewController ()<reMoveAnimationDelegate,marketDetailCellDelegate,UIWebViewDelegate>
+@interface MarketDetailViewController ()<reMoveAnimationDelegate,UIWebViewDelegate,NetWorkServiceDelegate>
 
 @property (strong,nonatomic) UIScrollView *baseScrollerView;
 @property (strong,nonatomic) UIWebView *DetailWebView;
@@ -70,7 +70,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     self.navigationItem.rightBarButtonItem = rightBarItem;
     
   
-
+    [NetWorkService shareInstance].delegate = self;
     
     
     
@@ -153,7 +153,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     stockLabel.numberOfLines = 1;
     stockLabel.font = [UIFont systemFontOfSize:12];
     stockLabel.textColor = [UIColor colorForHex:@"3f3f3f"];
-    stockLabel.text = @"商家库存1000件";
+    stockLabel.text = @"商家库存xxx件";
     self.stockLabel = stockLabel;
     [headBaseView addSubview:stockLabel];
     [stockLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -460,75 +460,38 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 -(void)loadMarketDetialData{
 
     /*
-     *  http://test.m.yundiaoke.cn/api/goods/detail/goods_id/37/userid/8
-     *  请求方式：get
      *  参数：goods_id（商品的id）,userid(用户id)
      *
      */
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"goods_id"] = self.goods_id;
-    params[@"userid"]  = @8;
-    NSString *Url = @"http://test.m.yundiaoke.cn/api/goods/detail";
-    
-    [[NetWorkService shareInstance] GET:Url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSString *userid = @"8";
+    [[NetWorkService shareInstance] requestForMarketGoodsDetailDataWithGoodsId:self.goods_id UserId:userid responseBlock:^(NSArray *marketGoodsDetailModelArray) {
         
-        NSLog(@"market Detail Info-->:%@",responseObject);
-    
-        if ([responseObject[@"status"] integerValue] == 200) {
-            
-            
-            self.marketDetailDataArr = [marketDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-            
-            marketDetailModel *model = self.marketDetailDataArr[0];
-            
-            //轮播
-            self.cycleView.currentMiddleImageViewIndex = 0;
-            self.cycleView.imageUrls = model.images_url;
-            [self.cycleView updateImageViewsAndTitleLabel];
-            //商品名
-            self.goodsTitleLabel.text = model.name;
-            //原价
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",model.price];
-            //会员价
-            self.vipPriceLabel.text = [NSString stringWithFormat:@"会员价：￥%.2f",model.pay];
-            //库存
-            self.stockLabel.text = [NSString stringWithFormat:@"商家库存：%d件",model.quantity];
-            //销量
-            self.salesLabel.text = [NSString stringWithFormat:@"月销%d件",model.total_num];
-            
-            //htmlstring
-            //处理url
-            
-            model.content = [model.content stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
-           NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{max-width:%f !important;}</style></head>%@",YDTXScreenW - 5,model.content];
-            
-            [_DetailWebView loadHTMLString:htmlString baseURL:nil];
-            
-        }else if([responseObject[@"status"] integerValue] == 400){
-            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
+        [self.marketDetailDataArr addObjectsFromArray:marketGoodsDetailModelArray];
+                    marketDetailModel *model = self.marketDetailDataArr[0];
+                    //轮播
+                    self.cycleView.currentMiddleImageViewIndex = 0;
+                    self.cycleView.imageUrls = model.images_url;
+                    [self.cycleView updateImageViewsAndTitleLabel];
+                    //商品名
+                    self.goodsTitleLabel.text = model.name;
+                    //原价
+                    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",model.price];
+                    //会员价
+                    self.vipPriceLabel.text = [NSString stringWithFormat:@"会员价：￥%.2f",model.pay];
+                    //库存
+                    self.stockLabel.text = [NSString stringWithFormat:@"商家库存：%d件",model.quantity];
+                    //销量
+                    self.salesLabel.text = [NSString stringWithFormat:@"月销%d件",model.total_num];
         
-        }else if([responseObject[@"status"] integerValue] == 401){
-            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
-        }else if([responseObject[@"status"] integerValue] == 403){
-            [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
-        }
-
-
+                    //htmlstring
+                    //处理url
         
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        [RHNotiTool NotiShowWithTitle:@"没有网络了~" Time:1.0];
-        
+                    model.content = [model.content stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
+                   NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{max-width:%f !important;}</style></head>%@",YDTXScreenW - 5,model.content];
+                    
+                    [_DetailWebView loadHTMLString:htmlString baseURL:nil];
         
     }];
-    
-    
-    
-
-
 
 }
 
@@ -608,5 +571,12 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     _baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, newFrame.size.height + 650);
     
 }
+
+#pragma mark --networkServiceDelegate
+-(void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message{
+
+    [RHNotiTool NotiShowWithTitle:@"网络跑丢了~" Time:1.0];
+}
+
 
 @end
