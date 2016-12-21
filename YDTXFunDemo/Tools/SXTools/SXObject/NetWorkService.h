@@ -34,11 +34,22 @@ typedef enum : NSUInteger {
     URLModuleKeyTypeDeleteAddress,          // 删除收货地址
 } URLModuleKeyType;
 
+
+@class NetWorkService;
+
+@protocol NetWorkServiceDelegate <NSObject>
+
+- (void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message;
+
+@end
+
 static NSString *defaultProductKey     = @"shopping";
 static NSString *recommendedProductKey = @"fishtree";
 
 
 @interface NetWorkService : NSObject
+
+@property (nonatomic,assign) id<NetWorkServiceDelegate>delegate;
 
 @property (strong, nonatomic) NSMutableDictionary *urlDictionary;   //URL Dictionary
 
@@ -62,6 +73,16 @@ static NSString *recommendedProductKey = @"fishtree";
  *  商城首页列表聚合数据
  */
 - (void)requestForHomeListAggregatedDataWithResponseBlock:(nullable void (^)(NSArray *productBriefModelArray))responseBlock;
+
+
+
+/**
+ *  商城分类列表数据
+ */
+-(void)requestForMarketCategoryListDataWithPid:(NSString *)pid Page:(NSInteger)page responseBlock:(nullable void(^)(NSArray *marketListModelArray))responseBlock;
+
+
+
 
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;

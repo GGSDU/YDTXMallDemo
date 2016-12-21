@@ -48,6 +48,10 @@ static NetWorkService *instance = nil;
                 
                 NSString *message =  [self errorMessageWithResponseStatus:error.code];
                 
+                if (_delegate && [_delegate respondsToSelector:@selector(networkService:requestFailedWithTask:error:message:)]) {
+                    [_delegate networkService:self requestFailedWithTask:task error:error message:message];
+                }
+                
             }];
         }
             break;
@@ -65,6 +69,9 @@ static NetWorkService *instance = nil;
                 
                 NSString *message =  [self errorMessageWithResponseStatus:error.code];
 
+                if (_delegate && [_delegate respondsToSelector:@selector(networkService:requestFailedWithTask:error:message:)]) {
+                    [_delegate networkService:self requestFailedWithTask:task error:error message:message];
+                }
             }];
         }
         default:
@@ -133,6 +140,40 @@ static NetWorkService *instance = nil;
     }];
 }
 
+
+/**
+ *  商城分类列表数据
+ */
+-(void)requestForMarketCategoryListDataWithPid:(NSString *)pid Page:(NSInteger)page responseBlock:(nullable void(^)(NSArray *marketListModelArray))responseBlock{
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"id"] = pid;
+    params[@"page"] = @(page);
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeCategoryList requestParam:params responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+            //字典转模型
+            NSArray* marketListModelArray = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+             responseBlock(marketListModelArray);
+        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
+            
+            [RHNotiTool NotiShowWithTitle:@"没有更多数据了" Time:1.0];
+        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
+            
+           [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
+            
+        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
+            
+          [RHNotiTool NotiShowWithTitle:@"刷新失败" Time:1.0];
+        }
+
+     
+        
+       
+    }];
+
+
+}
 
 
 #pragma mark - get info form 'URLInterface.plist' file
