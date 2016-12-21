@@ -212,7 +212,30 @@ static NetWorkService *instance = nil;
     }];
 }
 
-
+/**
+ *  购物车列表
+ */
+- (void)requestForCartListWithUserId:(int)user_id responseBlock:(void (^)(NSArray *))responseBlock
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:[NSString stringWithFormat:@"%d",user_id] forKey:@"user_id"];
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeCartList requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSMutableArray *responseArray = [[NSMutableArray alloc] initWithCapacity:0];
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSArray *cartListModelArray = [responseDic objectForKey:@"data"];
+        
+        for (NSDictionary *cartListDic in cartListModelArray) {
+            
+            CartProductModel *cartProductModel = [[CartProductModel alloc] init];
+            [cartProductModel setValuesForKeysWithDictionary:cartListDic];
+            [responseArray addObject:cartProductModel];
+        }
+        
+        responseBlock(responseArray);
+    }];
+}
 
 
 #pragma mark - get info form 'URLInterface.plist' file

@@ -30,6 +30,9 @@
 - (void)buttonClick:(UIButton *)aSender
 {
     NSLog(@"去看看");
+    if (_delegate && [_delegate respondsToSelector:@selector(cartDefaultView:didClickedGoToShopMarket:)]) {
+        [_delegate cartDefaultView:self didClickedGoToShopMarket:aSender];
+    }
 }
 
 #pragma mark - createUI

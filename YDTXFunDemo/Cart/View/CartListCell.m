@@ -46,7 +46,7 @@
 {
     _cellSelectButton.selected = !_cellSelectButton.selected;
     if (_delegate && [_delegate respondsToSelector:@selector(cartListCell:didSelectedCell:)]) {
-        [_delegate performSelector:@selector(cartListCell:didSelectedCell:) withObject:self withObject:self.productModel];
+        [_delegate performSelector:@selector(cartListCell:didSelectedCell:) withObject:self withObject:self.cartProductModel];
     }
 }
 
@@ -85,7 +85,7 @@
         _adjustNumberView = [[SXAdjustNumberView alloc] init];
         __weak typeof(self) weakSelf = self;
         _adjustNumberView.updateNumberBlock = ^(int number) {
-            weakSelf.productModel.number = number;
+            weakSelf.cartProductModel.nums = number;
         };
         [self.mainView addSubview:_adjustNumberView];
         [_adjustNumberView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,15 +99,16 @@
 }
 
 #pragma mark - getter/setter
-- (void)setProductModel:(ProductModel *)productModel
+- (void)setCartProductModel:(CartProductModel *)cartProductModel
 {
-    _productModel = productModel;
+    _cartProductModel = cartProductModel;
     
-    [self.infoImageView sd_setImageWithURL:[NSURL URLWithString:productModel.infoImageURL] placeholderImage:[UIImage imageNamed:@"Image"]];
-    self.label.text = productModel.infoName;
-    self.detailLabel.text = productModel.modelType;
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2f",productModel.price];
-    self.productNumber = productModel.number;
+    [self.infoImageView sd_setImageWithURL:[SXPublicTool getImageURLByURLString:cartProductModel.images_url]];
+    self.label.text = cartProductModel.goods_name;
+    self.detailLabel.text = [NSString stringWithFormat:@"型号:%@",cartProductModel.models];
+    self.priceLabel.text = [NSString stringWithFormat:@"%.2f",cartProductModel.price];
+    self.productNumber = cartProductModel.nums;
+    
 }
 
 - (UIImageView *)infoImageView
@@ -196,18 +197,6 @@
     _productNumber = productNumber;
     _adjustNumberView.number = _productNumber;
     
-}
-
-#pragma mark -
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

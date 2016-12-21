@@ -12,7 +12,8 @@
 
 @protocol CartListCellDelegate <NSObject>
 
-- (void)cartListCell:(CartListCell *)cartListCell didSelectedCell:(ProductModel *)productModel;
+- (void)cartListCell:(CartListCell *)cartListCell didSelectedCell:(CartProductModel *)cartProductModel;
+
 
 @end
 
@@ -20,7 +21,7 @@
 
 @property (nonatomic,assign) id<CartListCellDelegate>delegate;
 
-@property (nonatomic,strong) ProductModel *productModel;
+@property (nonatomic,strong) CartProductModel *cartProductModel;
 
 @property (nonatomic,assign) int productNumber;
 

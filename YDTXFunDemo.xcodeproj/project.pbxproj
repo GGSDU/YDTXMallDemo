@@ -275,6 +275,7 @@
 		75B7F7ED1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7E91DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png */; };
 		75B7F7EE1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7EA1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png */; };
 		75B7F7EF1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7EB1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png */; };
+		75D633E71E0A483E00AC8DC1 /* CartProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D633E61E0A483E00AC8DC1 /* CartProductModel.m */; };
 		75DB99C31E07B91C00E6998B /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */; };
 		75DB99C71E08407F00E6998B /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DB99C61E08407F00E6998B /* NSObject+Property.m */; };
 		75F6966C1E07910C0056BAD2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F6966B1E07910C0056BAD2 /* WebKit.framework */; };
@@ -832,6 +833,8 @@
 		75B7F7E91DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Disabled@3x.png"; sourceTree = "<group>"; };
 		75B7F7EA1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Normal@2x.png"; sourceTree = "<group>"; };
 		75B7F7EB1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Normal@3x.png"; sourceTree = "<group>"; };
+		75D633E51E0A483E00AC8DC1 /* CartProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartProductModel.h; sourceTree = "<group>"; };
+		75D633E61E0A483E00AC8DC1 /* CartProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartProductModel.m; sourceTree = "<group>"; };
 		75DB99C11E07B91C00E6998B /* UIScrollView+UITouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UITouch.h"; sourceTree = "<group>"; };
 		75DB99C21E07B91C00E6998B /* UIScrollView+UITouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UITouch.m"; sourceTree = "<group>"; };
 		75DB99C51E08407F00E6998B /* NSObject+Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
@@ -2190,6 +2193,8 @@
 			children = (
 				756EE9701DFFD71300D1B89D /* ProductModel.h */,
 				756EE9711DFFD71300D1B89D /* ProductModel.m */,
+				75D633E51E0A483E00AC8DC1 /* CartProductModel.h */,
+				75D633E61E0A483E00AC8DC1 /* CartProductModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2638,6 +2643,7 @@
 				04853FC91E03852200D90459 /* SDWebImageDownloaderOperation.m in Sources */,
 				50FC5FC41E07C4C500F62097 /* CTAssetsPageView.m in Sources */,
 				50FC5FCB1E07C4C500F62097 /* CTAssetThumbnailStacks.m in Sources */,
+				75D633E71E0A483E00AC8DC1 /* CartProductModel.m in Sources */,
 				50CE5AF81E03B60200EAB012 /* MeViewController.m in Sources */,
 				042198C11E0282A30061175F /* marketListModel.m in Sources */,
 				50CE5AEA1E03B60200EAB012 /* ReceiveTableViewController.m in Sources */,
