@@ -93,12 +93,20 @@
                       confirmHandler:(void (^)(UIAlertAction * _Nullable))confirmHandler
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    //cancel
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:cancelHandler];
-    [alert addAction:cancelAction];
-    //confirm
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmTitle style:UIAlertActionStyleDefault handler:confirmHandler];
-    [alert addAction:confirmAction];
+    
+    if (cancelTitle || cancelHandler) {
+        //cancel
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:cancelHandler];
+        [alert addAction:cancelAction];
+    }
+    
+    if (confirmHandler || confirmHandler) {
+        //confirm
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmTitle style:UIAlertActionStyleDefault handler:confirmHandler];
+        [alert addAction:confirmAction];
+    }
+    
+    
     //present
     UIWindow *window = [SXPublicTool keyWindow];
     [window.rootViewController presentViewController:alert animated:YES completion:nil];

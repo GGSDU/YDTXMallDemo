@@ -120,11 +120,20 @@ static NSString *completeString = @"完成";
     NSLog(@"here to delete list");
     [SXPublicTool showAlertControllerWithTitle:nil meassage:@"确定要删除选中的商品吗？" cancelTitle:@"取消" cancelHandler:^(UIAlertAction * _Nonnull action) {
         
+        
+        
     } confirmTitle:@"确定" confirmHandler:^(UIAlertAction * _Nonnull action) {
         NSArray *selectCellArray = [self getCurrentSelectedCellModelArray];
         
         //删除数据
         NSLog(@"%@",self.cartProductModelArray);
+        NSMutableArray *param = [[NSMutableArray alloc] initWithCapacity:0];
+        for (CartProductModel *cartProductModel in selectCellArray) {
+            [param addObject:[NSNumber numberWithInt:cartProductModel.goods_order_id]];
+        }
+        
+        [[NetWorkService shareInstance] requestForDeleteCartListWithGoodsOrderIdArray:param];
+        
         [self.cartProductModelArray removeObjectsInArray:selectCellArray];
         NSLog(@"%@",self.cartProductModelArray);
         [self initOperateCellIndexPathDicData];
@@ -178,7 +187,10 @@ static NSString *completeString = @"完成";
 //        }];
     }
     
+    
     CartProductModel *cartProductModel = (CartProductModel *)self.cartProductModelArray[indexPath.section];
+    int quantity = cartProductModel.quantity;
+    [[NetWorkService shareInstance] getCurrentQuantityWithGoodsModelId:cartProductModel.goods_model_id quantity:&quantity];
     cartListCell.cartProductModel = cartProductModel;
     
     NSNumber *boolObject = [self.operateCellIndexPathDic objectForKey:[NSNumber numberWithInteger:indexPath.section]];
@@ -301,13 +313,16 @@ static NSString *completeString = @"完成";
 - (void)initDataFromNet{
     
     [[NetWorkService shareInstance] requestForCartListWithUserId:USER_ID responseBlock:^(NSArray *responsecartProductModelArray) {
-       
-        [self.cartProductModelArray removeAllObjects];
-        [self.cartProductModelArray addObjectsFromArray:responsecartProductModelArray];
         
-        
-        [self customRightBarButtonItemWithTitle:editString];
-        [self creatUI];
+        if (responsecartProductModelArray && responsecartProductModelArray.count > 0) {
+         
+            [self.cartProductModelArray removeAllObjects];
+            [self.cartProductModelArray addObjectsFromArray:responsecartProductModelArray];
+            
+            
+            [self customRightBarButtonItemWithTitle:editString];
+            [self creatUI];
+        }
         
     }];
 }

@@ -213,6 +213,30 @@ static NetWorkService *instance = nil;
 }
 
 /**
+ *
+ */
+- (void)getCurrentQuantityWithGoodsModelId:(int)goods_model_id quantity:(int *)quantity
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:[NSString stringWithFormat:@"%d",goods_model_id] forKey:@"goods_model_id"];
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeCheckGoodsQuantity requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+       
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        int status = (int)responseDic[@"status"];
+        if (status == 200) {
+            
+            *quantity = (int)responseDic[@"data"];
+            
+        } else if (status == 400) {
+            *quantity = -1;
+        }
+        NSLog(@"id : %d",goods_model_id);
+        NSLog(@"quantity %@",responseDic);
+    }];
+}
+
+/**
  *  购物车列表
  */
 - (void)requestForCartListWithUserId:(int)user_id responseBlock:(void (^)(NSArray *))responseBlock
@@ -222,18 +246,41 @@ static NetWorkService *instance = nil;
     
     [self requestForDataByURLModuleKey:URLModuleKeyTypeCartList requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSMutableArray *responseArray = [[NSMutableArray alloc] initWithCapacity:0];
         NSDictionary *responseDic = (NSDictionary *)responseObject;
-        NSArray *cartListModelArray = [responseDic objectForKey:@"data"];
         
-        for (NSDictionary *cartListDic in cartListModelArray) {
+        NSString *status = responseObject[@"status"];
+        if (status.intValue == 200) {
             
-            CartProductModel *cartProductModel = [[CartProductModel alloc] init];
-            [cartProductModel setValuesForKeysWithDictionary:cartListDic];
-            [responseArray addObject:cartProductModel];
-        }
+            NSMutableArray *responseArray = [[NSMutableArray alloc] initWithCapacity:0];
+            NSArray *cartListModelArray = [responseDic objectForKey:@"data"];
+            
+            for (NSDictionary *cartListDic in cartListModelArray) {
+                
+                CartProductModel *cartProductModel = [[CartProductModel alloc] init];
+                [cartProductModel setValuesForKeysWithDictionary:cartListDic];
+                [responseArray addObject:cartProductModel];
+            }
+            responseBlock(responseArray);
+        } else
+            responseBlock(nil);
+    }];
+}
+
+/**
+ *  删除购物车列表
+ */
+- (void)requestForDeleteCartListWithGoodsOrderIdArray:(NSArray *)goods_order_id_Array
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:goods_order_id_Array forKey:@"goods_order_id"];
+    
+    NSLog(@"delete cart list param : %@",param);
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeDeleteCartList requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        responseBlock(responseArray);
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSString *message = responseObject[@"message"];
+        
+        
     }];
 }
 

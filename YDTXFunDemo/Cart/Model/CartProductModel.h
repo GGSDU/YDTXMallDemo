@@ -21,4 +21,6 @@
 @property (nonatomic,strong) NSString *models;
 @property (nonatomic,strong) NSString *images_url;
 
+@property (nonatomic,assign) int quantity;
+
 @end

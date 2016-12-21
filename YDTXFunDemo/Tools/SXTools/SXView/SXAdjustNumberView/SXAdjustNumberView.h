@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^UpdateNumberBlock)(int number);
+typedef void (^QuantityLowBlock)();
 
 @interface SXAdjustNumberView : UIView
 
@@ -17,5 +18,6 @@ typedef void(^UpdateNumberBlock)(int number);
 
 @property (nonatomic,assign) int number;
 @property (nonatomic,copy) UpdateNumberBlock updateNumberBlock;
+@property (nonatomic,copy) QuantityLowBlock quantityLowBlock;
 
 @end

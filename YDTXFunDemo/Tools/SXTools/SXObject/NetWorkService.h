@@ -108,10 +108,19 @@ static NSString *recommendedProductKey = @"fishtree";
 -(void)requestForMarketGoodsDetailDataWithGoodsId:(NSString *)goods_id UserId:(NSString *)user_id responseBlock:(nullable void(^)(NSArray *marketGoodsDetailModelArray))responseBlock;
 
 /**
+ *  获取库存
+ */
+- (void)getCurrentQuantityWithGoodsModelId:(int)goods_model_id quantity:(int *)quantity;
+
+/**
  *  购物车列表
  */
 - (void)requestForCartListWithUserId:(int)user_id responseBlock:(nullable void (^)(NSArray *responseCartProductModelArray))responseBlock;
 
+/**
+ *  删除购物车列表
+ */
+- (void)requestForDeleteCartListWithGoodsOrderIdArray:(NSArray *)goods_order_id_Array;
 
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;

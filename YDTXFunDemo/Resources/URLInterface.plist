@@ -163,7 +163,7 @@
 	<key>DeleteCartList</key>
 	<dict>
 		<key>RequestURL</key>
-		<string>IOS：http://test.m.yundiaoke.cn/api/goodsOrder/orderCart</string>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/orderCart</string>
 		<key>RequestMethod</key>
 		<string>GET</string>
 		<key>RequestParam</key>
