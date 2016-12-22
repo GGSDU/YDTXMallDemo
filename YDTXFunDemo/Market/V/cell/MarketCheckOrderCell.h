@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "marketCheckModel.h"
+#import "CartProductModel.h"
 @interface MarketCheckOrderCell : UITableViewCell
 
-@property(strong,nonatomic)marketCheckModel *marketCheckModel;
+@property(strong,nonatomic)CartProductModel *cartProductModel;
 
-@property(assign,nonatomic)float totalPrice;
+
 @end

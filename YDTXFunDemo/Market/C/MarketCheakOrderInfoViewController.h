@@ -10,7 +10,7 @@
 
 @interface MarketCheakOrderInfoViewController : UIViewController
 
+@property(assign,nonatomic)float totalPrice;
 
-
--(void)updateCheckVCWithDataArr :(NSMutableArray *)DataArr;
+-(void)updateCheckVCWithDataArr :(NSArray *)DataArr;
 @end

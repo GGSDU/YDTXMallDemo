@@ -83,7 +83,7 @@
     [_goodsNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_ImgView);
         make.leading.equalTo(_ImgView.mas_trailing).offset(10);
-        make.trailing.equalTo(topBaseView).offset(-10);
+        make.trailing.lessThanOrEqualTo(topBaseView).offset(-10);
     }];
     
     //型号Label
@@ -91,11 +91,12 @@
     _modelLabel.textColor = [UIColor colorForHex:@"7b7b7b"];
     _modelLabel.font = [UIFont systemFontOfSize:15];
     _modelLabel.text = @"型号:xx";
+    _modelLabel.numberOfLines = 0;
     [topBaseView addSubview:_modelLabel];
     [_modelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(_goodsNameLabel);
         make.top.equalTo(_goodsNameLabel.mas_bottom).offset(18);
-        make.trailing.equalTo(topBaseView).offset(-10);
+        make.trailing.lessThanOrEqualTo(topBaseView).offset(-10);
     }];
     
     [_goodsNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -111,22 +112,23 @@
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_modelLabel.mas_bottom).offset(18);
         make.leading.equalTo(_modelLabel);
-        make.width.mas_equalTo(60);
+//        make.width.mas_equalTo(60);
     }];
     
-    [_modelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(_priceLabel.mas_top).offset(-18);
-    }];
+//    [_modelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(_priceLabel.mas_top).offset(-18);
+//    }];
     
     //购买数量Label
     _numLabel = [[UILabel alloc]init];
     _numLabel.textColor = [UIColor colorForHex:@"666666"];
     _numLabel.font = [UIFont systemFontOfSize:15];
-    _numLabel.text = @"x1";
+    _numLabel.text = @"x";
     [topBaseView addSubview:_numLabel];
     [_numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(_priceLabel.mas_trailing);
         make.centerY.equalTo(_priceLabel);
-        make.trailing.equalTo(topBaseView).offset(-10);
+        make.trailing.equalTo(topBaseView).offset(-10).priorityHigh();
     }];
     
     
@@ -187,7 +189,7 @@
     _bottomNumLabel = [[UILabel alloc]init];
     _bottomNumLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
     _bottomNumLabel.font = [UIFont systemFontOfSize:15];
-    _bottomNumLabel.text = @"1";
+    _bottomNumLabel.text = @"x";
     [buyNumView addSubview:_bottomNumLabel];
     [_bottomNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(buyNumView);
@@ -362,13 +364,6 @@
     _partCountLabel.text = @"共x件商品    小计：¥xxx";
     _partCountLabel.textAlignment = NSTextAlignmentRight;
     
-    //处理富文本
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:_partCountLabel.text];
-    [attrStr addAttribute:NSForegroundColorAttributeName
-                    value:[UIColor colorForHex:@"e84a3e"]
-                    range:NSMakeRange(12, _partCountLabel.text.length - 12)];
-    _partCountLabel.attributedText = attrStr;
-    
     [partCountView addSubview:_partCountLabel];
     [_partCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(partCountView);
@@ -379,13 +374,42 @@
 }
 
 #pragma mark --setModel
--(void)setMarketCheckModel:(marketCheckModel *)marketCheckModel{
-    _marketCheckModel = marketCheckModel;
+
+-(void)setCartProductModel:(CartProductModel *)cartProductModel{
+
+    _cartProductModel = cartProductModel;
     
-    _totalPrice += marketCheckModel.price;
+    NSLog(@"cartProductModel--->:%@",cartProductModel);
+    
+    [_ImgView sd_setImageWithURL:[NSURL URLWithString:cartProductModel.images_url] placeholderImage:[UIImage imageNamed:@"zwt"]];
+    
+    _goodsNameLabel.text = cartProductModel.goods_name;
+    _modelLabel.text = [NSString stringWithFormat:@"型号：%@",cartProductModel.models];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%.2f",cartProductModel.price];
+    _numLabel.text = [NSString stringWithFormat:@"x%d",cartProductModel.nums];
+    _bottomNumLabel.text = [NSString stringWithFormat:@"%d",cartProductModel.nums];
+    
+    //?优惠券
+//    _discountConditionLabel.text = cartProductModel.
+    
+    //？快递方式
+//    _distributeConditionLabel.text =
+    
+    CGFloat partTotalPrice = cartProductModel.price *cartProductModel.nums;
+    NSString *title = [NSString stringWithFormat:@"共%d件商品    小计：¥%.2f",cartProductModel.nums,partTotalPrice];
+    //处理富文本
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:title];
+    
+    
+    UIColor *color = [UIColor colorForHex:@"e84a3e"];
+    NSRange range1 = [title rangeOfString:[NSString stringWithFormat:@"%d",cartProductModel.nums]];
+    NSRange range2 = [title rangeOfString:[NSString stringWithFormat:@"¥%.2f",partTotalPrice]];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:color range:range1];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:color range:range2];
+    
+    _partCountLabel.attributedText = attrStr;
 
 }
-
 
 #pragma mark --TapGestureMethod
 -(void)TapDiscountView{

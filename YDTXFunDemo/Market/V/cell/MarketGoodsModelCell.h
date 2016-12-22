@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "marketProductModel.h"
-
 @interface MarketGoodsModelCell : UICollectionViewCell
 
 @property(strong,nonatomic)marketProductModel *marketProductModel;
