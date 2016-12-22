@@ -18,8 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="123" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDy-mA-0oH">
-                        <rect key="frame" x="0.0" y="0.0" width="123" height="50"/>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDy-mA-0oH">
+                        <rect key="frame" x="10" y="0.0" width="103" height="50"/>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="xx">
@@ -29,16 +29,16 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="tDy-mA-0oH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="T9z-pk-oNX"/>
+                <constraint firstItem="tDy-mA-0oH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="T9z-pk-oNX"/>
                 <constraint firstItem="tDy-mA-0oH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="V6m-el-kbv"/>
                 <constraint firstAttribute="bottom" secondItem="tDy-mA-0oH" secondAttribute="bottom" id="aJl-GR-p3R"/>
-                <constraint firstAttribute="trailing" secondItem="tDy-mA-0oH" secondAttribute="trailing" id="mU9-zd-UU2"/>
+                <constraint firstAttribute="trailing" secondItem="tDy-mA-0oH" secondAttribute="trailing" constant="10" id="mU9-zd-UU2"/>
             </constraints>
             <size key="customSize" width="123" height="50"/>
             <connections>
-                <outlet property="modelBtn" destination="tDy-mA-0oH" id="7hb-6I-R1T"/>
+                <outlet property="modelBtn" destination="tDy-mA-0oH" id="MzU-9h-D7U"/>
             </connections>
-            <point key="canvasLocation" x="-77" y="126"/>
+            <point key="canvasLocation" x="-77.5" y="126"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -13,6 +13,7 @@
 @interface MarketCheakOrderInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic)UITableView *tableView;
+@property(strong,nonatomic)NSMutableArray *OrderDataArr;
 
 @end
 
@@ -25,6 +26,13 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
         _tableView = [[UITableView alloc]init];
     }
     return _tableView;
+}
+//
+-(NSArray *)OrderDataArr{
+    if (!_OrderDataArr) {
+        _OrderDataArr = [NSMutableArray array];
+    }
+    return _OrderDataArr;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,7 +47,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     //导航标题
     self.title = @"确认订单";
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds ];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView = tableView;
@@ -211,21 +219,15 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
 #pragma mark -TableView delegate Method
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 2;
-}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+//    return _OrderDataArr.count;
+    return 2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     MarketCheckOrderCell *marketCheckOrderCell = [tableView dequeueReusableCellWithIdentifier:kMarketCheckOrderCellId];
-    
-    
-
     
     return marketCheckOrderCell;
 }
@@ -241,9 +243,13 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
 #pragma mark -- Deal Data Method
 
--(void)updateCheckVCWithDataArr:(NSArray *)DataArr{
+-(void)updateCheckVCWithDataArr:(NSMutableArray *)DataArr{
 
-
+    _OrderDataArr = [NSMutableArray array];
+    [_OrderDataArr removeAllObjects];
+    [_OrderDataArr addObjectsFromArray:DataArr];
+    [_tableView reloadData];
+    
 
 }
 

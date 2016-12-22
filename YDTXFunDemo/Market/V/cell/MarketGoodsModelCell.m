@@ -9,8 +9,9 @@
 #import "MarketGoodsModelCell.h"
 @interface MarketGoodsModelCell()
 
-@property (weak, nonatomic) IBOutlet UIButton *modelBtn;
 
+
+@property (weak, nonatomic) IBOutlet UIButton *modelBtn;
 
 @end
 
@@ -33,18 +34,20 @@
 }
 
 -(void)setup{
-    _modelBtn.layer.borderColor = RGB(211, 211, 211).CGColor;
-    _modelBtn.layer.borderWidth = 0.8;
-    _modelBtn.layer.cornerRadius = 5;
-    _modelBtn.layer.masksToBounds = YES;
+    self.layer.borderColor = RGB(211, 211, 211).CGColor;
+    self.layer.borderWidth = 0.8;
+    self.layer.cornerRadius = 5;
+    self.layer.masksToBounds = YES;
 
 
+    
 }
 
 -(void)setMarketProductModel:(marketProductModel *)marketProductModel{
     _marketProductModel = marketProductModel;
 
     [_modelBtn setTitle:marketProductModel.model forState:UIControlStateNormal];
+    
     
 }
 @end

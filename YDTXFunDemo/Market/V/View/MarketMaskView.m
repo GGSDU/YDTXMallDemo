@@ -156,7 +156,7 @@ static NSString *kmodelCellId = @"modelCell";
     layout.minimumInteritemSpacing = 10;
     // item的size
     CGFloat itemW = (YDTXScreenW - 50) / 3;
-    layout.itemSize = CGSizeMake(itemW, 30);
+    layout.estimatedItemSize = CGSizeMake(itemW, 30);
     // 每一组的缩进
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
@@ -257,12 +257,12 @@ static NSString *kmodelCellId = @"modelCell";
     //提交订单
     NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
     paramsDic[@"user_id"] = @"37";
-    paramsDic[@"goods_id"] = @"70";
+    paramsDic[@"goods_id"] = @"72";
     paramsDic[@"goods_model_id"] = @"33";
     paramsDic[@"cou_id"] = @"3";
-    paramsDic[@"goods_name"] = @"内涵段子";
-    paramsDic[@"price"] = @"102.00";
-    paramsDic[@"total_price"] = @"102.00";
+    paramsDic[@"goods_name"] = @"段";
+    paramsDic[@"price"] = @"103.00";
+    paramsDic[@"total_price"] = @"103.00";
     paramsDic[@"nums"] = @"1";
     paramsDic[@"courier"] = @"申通";
     paramsDic[@"status"] = @"4";
@@ -335,16 +335,24 @@ static NSString *kmodelCellId = @"modelCell";
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    
     marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
-    
     MarketGoodsModelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmodelCellId forIndexPath:indexPath];
     cell.marketProductModel = marketProductModel;
-    
     return cell;
 }
+
+//
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    
+    MarketGoodsModelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmodelCellId forIndexPath:indexPath];
+    NSLog(@"---cell:%@",cell);
+    cell.layer.borderColor = RGB(255, 114, 0).CGColor;
+
+
+}
+
 
 
 

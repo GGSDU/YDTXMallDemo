@@ -12,5 +12,5 @@
 
 
 
--(void)updateCheckVCWithDataArr :(NSArray *)DataArr;
+-(void)updateCheckVCWithDataArr :(NSMutableArray *)DataArr;
 @end
