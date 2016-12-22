@@ -9,20 +9,29 @@
 #import "MarketMaskView.h"
 
 #import "PPNumberButton.h"
-@interface MarketMaskView ()
+#import "MarketGoodsModelCell.h"
+@interface MarketMaskView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property(strong,nonatomic)UIView *baseMaskView;//遮罩view
 @property(strong,nonatomic)UIView *baseView;//进行商品信息选择的baseView
 @property(strong,nonatomic)UICollectionView *modelCollectView;
 
+@property(strong,nonatomic)NSMutableArray *modelDataArr;
+
 @end
 
 
 
-static NSString *model = @"banner";
+static NSString *kmodelCellId = @"modelCell";
 @implementation MarketMaskView
 //Lazy
+-(NSMutableArray *)modelDataArr{
 
+    if (!_modelDataArr) {
+        _modelDataArr = [NSMutableArray array];
+    }
+    return _modelDataArr;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -34,6 +43,23 @@ static NSString *model = @"banner";
 }
 
 
+-(void)setBasic{
+
+    _modelCollectView.delegate = self;
+    _modelCollectView.dataSource = self;
+    _modelCollectView.backgroundColor = [UIColor whiteColor];
+    
+    _modelCollectView.showsHorizontalScrollIndicator = NO;
+    _modelCollectView.showsVerticalScrollIndicator = NO;
+    
+    
+    
+    //注册cell
+    
+    
+    [_modelCollectView registerNib:[UINib nibWithNibName:@"marketGoodsModelCell" bundle:nil] forCellWithReuseIdentifier:kmodelCellId];
+
+}
 
 //布局界面
 -(void)setUI{
@@ -126,8 +152,20 @@ static NSString *model = @"banner";
     }];
 //型号collectionView
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    // 最小列间距
+    layout.minimumInteritemSpacing = 10;
+    // item的size
+    CGFloat itemW = (YDTXScreenW - 50) / 3;
+    layout.itemSize = CGSizeMake(itemW, 30);
+    // 每一组的缩进
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    
     _modelCollectView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-    _modelCollectView.backgroundColor = [UIColor greenColor];
+    _modelCollectView.backgroundColor = [UIColor whiteColor];
+    _modelCollectView.showsHorizontalScrollIndicator = NO;
+    _modelCollectView.showsVerticalScrollIndicator = NO;
+    _modelCollectView.delegate = self;
+    _modelCollectView.dataSource = self;
     [_baseView addSubview:_modelCollectView];
     [_modelCollectView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_baseView);
@@ -135,7 +173,9 @@ static NSString *model = @"banner";
         make.top.equalTo(typeLabel.mas_bottom);
         make.height.mas_equalTo(160);
     }];
-    
+
+    [_modelCollectView registerNib:[UINib nibWithNibName:@"MarketGoodsModelCell" bundle:nil] forCellWithReuseIdentifier:kmodelCellId];
+
     
 
     //购买数量Label
@@ -196,7 +236,40 @@ static NSString *model = @"banner";
 
     NSLog(@"--点击了加入购物车按钮--");
 
- 
+    
+/*
+    http://test.m.yundiaoke.cn/api/goodsOrder/submitOrder
+    请求方式：POST
+    参数：
+    User_id：用户id
+    Goods_id：商品Id
+    Goods_model_id：商品型号id
+    Cou_id：优惠券id
+    Goods_name：商品名称
+    Price：订单单价
+    Total_price：订单总价
+    Nums：购买数量
+    Courier：快递名称
+    Status：订单状态====>
+    address_id :收货地址
+    订单状态： -1为已取消，0为未付款 ，1为已付款， 2为待收货，3为退款，4为加入购物车
+*/
+    //提交订单
+    NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
+    paramsDic[@"user_id"] = @"37";
+    paramsDic[@"goods_id"] = @"70";
+    paramsDic[@"goods_model_id"] = @"33";
+    paramsDic[@"cou_id"] = @"3";
+    paramsDic[@"goods_name"] = @"内涵段子";
+    paramsDic[@"price"] = @"102.00";
+    paramsDic[@"total_price"] = @"102.00";
+    paramsDic[@"nums"] = @"1";
+    paramsDic[@"courier"] = @"申通";
+    paramsDic[@"status"] = @"4";
+    paramsDic[@"address_id"] = @"如东";
+    
+    [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];
+    
 
 }
 
@@ -216,6 +289,11 @@ static NSString *model = @"banner";
 //        marketProductModel *marketProductModel = marketProductModelArray[0];
         //创建规格视图
 //        [self creatModelBtnWithDataArray:marketProductModelArray];
+        
+        _modelDataArr = [NSMutableArray array];
+        [_modelDataArr removeAllObjects];
+        [_modelDataArr addObjectsFromArray:marketProductModelArray];
+        [_modelCollectView reloadData];
     }];
     
     
@@ -249,6 +327,24 @@ static NSString *model = @"banner";
 
 
 #pragma mark--modelCollectionView Method
+
+// 设置每个分区返回多少item
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _modelDataArr.count ;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+    marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
+    
+    MarketGoodsModelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmodelCellId forIndexPath:indexPath];
+    cell.marketProductModel = marketProductModel;
+    
+    return cell;
+}
 
 
 
@@ -285,6 +381,7 @@ static NSString *model = @"banner";
             
         } completion:^(BOOL finished) {
             [self setUI];
+//            [self setBasic];
         }];
         
     }];

@@ -321,6 +321,76 @@ static NetWorkService *instance = nil;
 
 }
 
+
+/**
+ *  处理订单
+ */
+- (void)requestForDealGoodsOrderWithParamsDic:(NSMutableDictionary *)paramsDic{
+    
+    NSInteger statusType  = [[paramsDic objectForKey:@"status"] integerValue];
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeCommitOrder requestParam:paramsDic responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"处理订单的接口--->:%@",responseObject);
+        
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+            switch (statusType) {
+                case 4: //加入购物车成功
+                {
+                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                }
+                    
+                    break;
+                    
+                case 3: // 退款
+                {
+                    NSLog(@"退款");
+//                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                }
+                    
+                    break;
+                case 2: //待收货
+                {
+                    
+                     NSLog(@"待收货");
+//                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                }
+                    
+                    break;
+                case 1: //已付款
+                {
+                     NSLog(@"已付款");
+//                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                }
+                    
+                    break;
+                case 0: //未付款
+                {
+                     NSLog(@"未付款");
+//                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                }
+                    
+                    break;
+                
+                case -1: //已取消
+                {
+                    NSLog(@"已取消");
+                    //                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                }
+                    
+                    break;
+
+                    
+                default:
+                    break;
+            }
+            
+        }
+        
+    }];
+
+}
+
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey
 {

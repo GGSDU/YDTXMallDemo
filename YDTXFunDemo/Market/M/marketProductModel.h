@@ -22,8 +22,13 @@
 
 @property(assign,nonatomic)float price;
 
-@property(strong,nonatomic)NSArray *quantity;
+@property(assign,nonatomic)NSInteger quantity;
 
-@property(strong,nonatomic)NSArray *model;
+@property(copy,nonatomic)NSString *model;
+
+
+
+
+
 
 @end

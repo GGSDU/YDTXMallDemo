@@ -127,6 +127,13 @@ static NSString *recommendedProductKey = @"fishtree";
  */
 - (void)requestForDeleteCartListWithGoodsOrderIdArray:(NSArray *)goods_order_id_Array;
 
+
+/**
+ *  处理订单
+ */
+-(void)requestForDealGoodsOrderWithParamsDic:(NSMutableDictionary *)paramsDic;
+
+
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
 
