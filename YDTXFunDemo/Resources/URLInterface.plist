@@ -178,6 +178,20 @@
 		<key>RequestMethod</key>
 		<string>GET</string>
 	</dict>
+	<key>CartNumberIncrease</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/cartNumInc</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>CartNumberDecrease</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/cartNumDec</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
 	<key>OrderList</key>
 	<dict>
 		<key>RequestURL</key>

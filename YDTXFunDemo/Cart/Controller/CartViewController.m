@@ -27,6 +27,8 @@ static NSString *completeString = @"完成";
 
 @property (nonatomic,strong) UIBarButtonItem *rightBarButtonItem;
 
+
+@property (nonatomic,strong) NSMutableArray *cartOriginalNumberArray;
 @property (nonatomic,strong) NSMutableArray *cartProductModelArray;
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) CartCellOperationView *cartCellOperationView;
@@ -88,6 +90,10 @@ static NSString *completeString = @"完成";
 {
     NSLog(@"here to start settle account button");
     NSArray *selectCellArray = [self getCurrentSelectedCellModelArray];
+    
+    for (CartProductModel *model in self.cartProductModelArray) {
+        NSLog(@"num = %d",model.nums);
+    }
     
 }
 
@@ -160,13 +166,19 @@ static NSString *completeString = @"完成";
     
     
     CartProductModel *cartProductModel = (CartProductModel *)self.cartProductModelArray[indexPath.section];
-    int quantity = cartProductModel.quantity;
-    [[NetWorkService shareInstance] getCurrentQuantityWithGoodsModelId:cartProductModel.goods_model_id quantity:&quantity];
-    cartListCell.cartProductModel = cartProductModel;
+    
+    
+    [[NetWorkService shareInstance] requestForCurrentQuantityWithGoodsModelId:cartProductModel.goods_model_id responseBlock:^(int quantity) {
+
+        cartProductModel.quantity = quantity;
+        NSLog(@"%@",cartProductModel.objectDictionary);
+        
+        cartListCell.cartProductModel = cartProductModel;
+    }];
     
     NSNumber *boolObject = [self.operateCellIndexPathDic objectForKey:[NSNumber numberWithInteger:indexPath.section]];
     [cartListCell updateCellStatusButtonSelected:boolObject.boolValue];
-    
+
     
     return cartListCell;
 }
@@ -284,13 +296,10 @@ static NSString *completeString = @"完成";
         if (responsecartProductModelArray && responsecartProductModelArray.count > 0) {
             
             [self.cartProductModelArray addObjectsFromArray:responsecartProductModelArray];
-            
-            
             [self customRightBarButtonItemWithTitle:editString];
             [self creatUI];
             
         } else {
-            
             [self showViewWhenNoList];
         }
         
@@ -329,7 +338,6 @@ static NSString *completeString = @"完成";
         [cartListCell updateCellStatusButtonSelected:selected];
     }
 }
-
 
 #pragma mark - init UI
 - (void)showViewWhenNoList

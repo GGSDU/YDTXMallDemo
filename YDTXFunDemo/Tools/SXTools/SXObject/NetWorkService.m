@@ -213,26 +213,22 @@ static NetWorkService *instance = nil;
 }
 
 /**
- *
+ *  库存
  */
-- (void)getCurrentQuantityWithGoodsModelId:(int)goods_model_id quantity:(int *)quantity
+- (void)requestForCurrentQuantityWithGoodsModelId:(int)goods_model_id responseBlock:(void (^)(int))responseBlock
 {
     NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
     [param setObject:[NSString stringWithFormat:@"%d",goods_model_id] forKey:@"goods_model_id"];
     
     [self requestForDataByURLModuleKey:URLModuleKeyTypeCheckGoodsQuantity requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-       
+
+        NSString *quantity = @"0";
         NSDictionary *responseDic = (NSDictionary *)responseObject;
-        int status = (int)responseDic[@"status"];
-        if (status == 200) {
-            
-            *quantity = (int)responseDic[@"data"];
-            
-        } else if (status == 400) {
-            *quantity = -1;
+        NSNumber *status = [responseDic objectForKey:@"status"];
+        if (status.intValue == 200) {
+            quantity = responseDic[@"data"];
         }
-        NSLog(@"id : %d",goods_model_id);
-        NSLog(@"quantity %@",responseDic);
+        responseBlock(quantity.intValue);
     }];
 }
 
@@ -279,12 +275,23 @@ static NetWorkService *instance = nil;
         
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         NSString *message = responseObject[@"message"];
-        
-        
     }];
 }
 
+/**
+ *  购物车数量操作
+ */
+- (void)requestForModifyCartNumber:(URLModuleKeyType)operateType nums:(int)nums goods_order_id:(int)goods_order_id
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:[NSNumber numberWithInt:nums] forKey:@"nums"];
+    [param setObject:[NSNumber numberWithInt:goods_order_id] forKey:@"goods_order_id"];
 
+    
+    [self requestForDataByURLModuleKey:operateType requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
+    }];
+}
 
 
 /**
@@ -316,9 +323,6 @@ static NetWorkService *instance = nil;
         }
         
     }];
-
-
-
 }
 
 
@@ -434,6 +438,18 @@ static NetWorkService *instance = nil;
         case URLModuleKeyTypeCheckGoodsQuantity:
         {
             requestInfoDictionary = [self.urlDictionary objectForKey:@"CheckGoodsQuantity"];
+        }
+            break;
+        case URLModuleKeyTypeCartNumberIncrease:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CartNumberIncrease"];
+
+        }
+            break;
+        case URLModuleKeyTypeCartNumberDecrease:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CartNumberDecrease"];
+
         }
             break;
         case URLModuleKeyTypeOrderList:

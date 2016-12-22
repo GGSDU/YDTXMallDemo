@@ -32,6 +32,8 @@ typedef enum : NSUInteger {
     URLModuleKeyTypeCartList,               // 购物车列表
     URLModuleKeyTypeDeleteCartList,         // 删除购物车列表
     URLModuleKeyTypeCheckGoodsQuantity,     // 检查库存
+    URLModuleKeyTypeCartNumberIncrease,     // 购物车数量相加
+    URLModuleKeyTypeCartNumberDecrease,     // 购物车数量相减
 
     URLModuleKeyTypeOrderList,              // 订单列表
     URLModuleKeyTypeOrderDetail,            // 订单详情
@@ -54,7 +56,14 @@ typedef enum : NSUInteger {
 
 @protocol NetWorkServiceDelegate <NSObject>
 
-- (void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message;
+
+- (void)networkService:(NetWorkService *)networkService
+requestSuccessWithTask:(NSURLSessionDataTask *)task
+        responseObject:(id)responseObject;
+- (void)networkService:(NetWorkService *)networkService
+ requestFailedWithTask:(NSURLSessionDataTask *)task 
+                 error:(NSError *)error
+               message:(NSString *)message;
 
 - (void)mj_footerNoMoreData;
 
@@ -110,7 +119,7 @@ static NSString *recommendedProductKey = @"fishtree";
 /**
  *  获取库存
  */
-- (void)getCurrentQuantityWithGoodsModelId:(int)goods_model_id quantity:(int *)quantity;
+- (void)requestForCurrentQuantityWithGoodsModelId:(int)goods_model_id responseBlock:(void (^)(int quantity))responseBlock;
 
 /**
  *  商品型号数据
@@ -126,6 +135,11 @@ static NSString *recommendedProductKey = @"fishtree";
  *  删除购物车列表
  */
 - (void)requestForDeleteCartListWithGoodsOrderIdArray:(NSArray *)goods_order_id_Array;
+
+/**
+ *  购物车数量加减
+ */
+- (void)requestForModifyCartNumber:(URLModuleKeyType)operateType nums:(int)nums goods_order_id:(int)goods_order_id;
 
 
 /**

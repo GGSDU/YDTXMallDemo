@@ -26,6 +26,8 @@
 @property (nonatomic,assign) int productNumber;
 
 @property (nonatomic,strong) UIButton *cellSelectButton;
+@property (nonatomic,strong) SXAdjustNumberView *adjustNumberView;
+
 
 - (void)updateCellStatusButtonSelected:(BOOL)selected;
 

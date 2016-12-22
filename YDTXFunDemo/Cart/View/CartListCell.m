@@ -8,7 +8,6 @@
 
 #import "CartListCell.h"
 
-#import "SXAdjustNumberView.h"
 
 @interface CartListCell ()
 
@@ -17,12 +16,10 @@
 @property (nonatomic,strong) UILabel *label;
 @property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic,strong) UILabel *priceLabel;
-@property (nonatomic,strong) SXAdjustNumberView *adjustNumberView;
 
 @end
 
 @implementation CartListCell
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -31,7 +28,6 @@
         
         [self createView];
     }
-    
     return self;
 }
 
