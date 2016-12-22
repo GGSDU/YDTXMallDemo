@@ -12,13 +12,15 @@
 
 @interface SXSqliteTool : NSObject
 
++ (instancetype)shareInstance;
+
+
+#pragma mark - fmdb原始方法透出
 @property (nonatomic,assign) BOOL openResult;
 
 @property (nonatomic,copy) NSString *path;
 
 @property (nonatomic,strong) FMDatabaseQueue *queue;
-
-+ (instancetype)shareInstance;
 
 - (BOOL)openDataBaseWithPath:(NSString *)path;
 
@@ -27,7 +29,5 @@
 - (void)inDatabase:(void (^)(FMDatabase *db))block;
 
 - (void)inTransaction:(void (^)(FMDatabase *db, BOOL *rollback))block;
-
-#pragma mark - get Data
 
 @end
