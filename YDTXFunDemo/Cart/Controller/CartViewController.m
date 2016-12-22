@@ -16,6 +16,7 @@
 
 #import "NetWorkService.h"
 
+#import "MarketCheakOrderInfoViewController.h"
 
 static NSString *editString = @"编辑";
 static NSString *completeString = @"完成";
@@ -90,6 +91,12 @@ static NSString *completeString = @"完成";
 {
     NSLog(@"here to start settle account button");
     NSArray *selectCellArray = [self getCurrentSelectedCellModelArray];
+    float totalPrice = [self getCurrentSelectedCellAllPrice];
+    
+    MarketCheakOrderInfoViewController *marketCheckOrderInfoVC = [MarketCheakOrderInfoViewController new];
+    marketCheckOrderInfoVC.totalPrice = totalPrice;
+    [marketCheckOrderInfoVC updateCheckVCWithDataArr:selectCellArray];
+    [self.navigationController pushViewController:marketCheckOrderInfoVC animated:YES];
     
     for (CartProductModel *model in self.cartProductModelArray) {
         NSLog(@"num = %d",model.nums);

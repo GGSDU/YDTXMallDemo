@@ -13,6 +13,8 @@
 @interface MarketCheakOrderInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic)UITableView *tableView;
+@property(strong,nonatomic)NSMutableArray *OrderDataArr;
+@property(strong,nonatomic)UILabel *settleAccountLabel;
 
 @end
 
@@ -26,12 +28,21 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     }
     return _tableView;
 }
+//
+-(NSArray *)OrderDataArr{
+    if (!_OrderDataArr) {
+        _OrderDataArr = [NSMutableArray array];
+    }
+    return _OrderDataArr;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setBasic];
     
-    [self setUI];
+    [self setUIWithTotalPrice:_totalPrice];
 }
 
 -(void)setBasic{
@@ -39,7 +50,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     //导航标题
     self.title = @"确认订单";
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds ];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView = tableView;
@@ -62,7 +73,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
 }
 
--(void)setUI{
+-(void)setUIWithTotalPrice:(CGFloat)totalPrice{
 
     
     
@@ -143,21 +154,21 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
     
     //结算Label
-    UILabel *settleAccountLabel = [[UILabel alloc]init];
-    settleAccountLabel.backgroundColor = [UIColor whiteColor];
-    settleAccountLabel.font = [UIFont systemFontOfSize:15];
-    settleAccountLabel.text = @"合计：¥108";
-    settleAccountLabel.textAlignment = NSTextAlignmentRight;
+    _settleAccountLabel = [[UILabel alloc]init];
+    _settleAccountLabel.backgroundColor = [UIColor whiteColor];
+    _settleAccountLabel.font = [UIFont systemFontOfSize:15];
+    _settleAccountLabel.text = [NSString stringWithFormat:@"合计：¥%.2f",totalPrice];
+    _settleAccountLabel.textAlignment = NSTextAlignmentRight;
     
     //处理富文本
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:settleAccountLabel.text];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:_settleAccountLabel.text];
     [attrStr addAttribute:NSForegroundColorAttributeName
                     value:[UIColor orangeColor]
-                    range:NSMakeRange(3, settleAccountLabel.text.length - 3)];
-    settleAccountLabel.attributedText = attrStr;
+                    range:NSMakeRange(3, _settleAccountLabel.text.length - 3)];
+    _settleAccountLabel.attributedText = attrStr;
   
-    [toolView addSubview:settleAccountLabel];
-    [settleAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [toolView addSubview:_settleAccountLabel];
+    [_settleAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(toolView);
         make.top.equalTo(toolView);
         make.bottom.equalTo(toolView);
@@ -211,22 +222,16 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
 #pragma mark -TableView delegate Method
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 2;
-}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return _OrderDataArr.count;
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     MarketCheckOrderCell *marketCheckOrderCell = [tableView dequeueReusableCellWithIdentifier:kMarketCheckOrderCellId];
-    
-    
-
-    
+    marketCheckOrderCell.cartProductModel = _OrderDataArr[indexPath.row];
     return marketCheckOrderCell;
 }
 
@@ -243,9 +248,14 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
 -(void)updateCheckVCWithDataArr:(NSArray *)DataArr{
 
-
+    _OrderDataArr = [NSMutableArray array];
+    [_OrderDataArr removeAllObjects];
+    [_OrderDataArr addObjectsFromArray:DataArr];
+    [_tableView reloadData];
+    
 
 }
+
 
 #pragma mark --Gesture Method
 -(void)JumpToAddressList{

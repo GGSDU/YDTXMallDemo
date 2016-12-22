@@ -8,6 +8,22 @@
 
 #import "MarketCheckOrderCell.h"
 
+@interface MarketCheckOrderCell ()
+
+@property(strong,nonatomic)UIImageView *ImgView;
+@property(strong,nonatomic)UILabel *goodsNameLabel;
+@property(strong,nonatomic)UILabel *modelLabel;
+@property(strong,nonatomic)UILabel *priceLabel;
+@property(strong,nonatomic)UILabel *numLabel;
+
+@property(strong,nonatomic)UILabel *bottomNumLabel;
+@property(strong,nonatomic)UILabel *discountConditionLabel;
+@property(strong,nonatomic)UILabel *distributeConditionLabel;
+@property(strong,nonatomic)UILabel *partCountLabel;
+
+@end
+
+
 @implementation MarketCheckOrderCell
 
 
@@ -48,69 +64,71 @@
     }];
     
     //商品图片imgView
-    UIImageView *ImgView = [[UIImageView alloc]init];
-    ImgView.backgroundColor = [UIColor redColor];
-    [topBaseView addSubview:ImgView];
-    [ImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _ImgView = [[UIImageView alloc]init];
+    _ImgView.backgroundColor = [UIColor redColor];
+    [topBaseView addSubview:_ImgView];
+    [_ImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topBaseView).offset(15);
         make.leading.equalTo(topBaseView).offset(15);
         make.size.mas_equalTo(CGSizeMake(100, 100));
     }];
     
     //商品名Label
-    UILabel *goodsNameLabel = [[UILabel alloc]init];
-    goodsNameLabel.numberOfLines = 2;
-    goodsNameLabel.font = [UIFont systemFontOfSize:15];
-    goodsNameLabel.text = @"钓箱";
-    goodsNameLabel.textColor = [UIColor colorForHex:@"313131"];
-    [topBaseView addSubview:goodsNameLabel];
-    [goodsNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ImgView);
-        make.leading.equalTo(ImgView.mas_trailing).offset(10);
-        make.trailing.equalTo(topBaseView).offset(-10);
+    _goodsNameLabel = [[UILabel alloc]init];
+    _goodsNameLabel.numberOfLines = 2;
+    _goodsNameLabel.font = [UIFont systemFontOfSize:15];
+    _goodsNameLabel.text = @"xx";
+    _goodsNameLabel.textColor = [UIColor colorForHex:@"313131"];
+    [topBaseView addSubview:_goodsNameLabel];
+    [_goodsNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_ImgView);
+        make.leading.equalTo(_ImgView.mas_trailing).offset(10);
+        make.trailing.lessThanOrEqualTo(topBaseView).offset(-10);
     }];
     
     //型号Label
-    UILabel *modelLabel = [[UILabel alloc]init];
-    modelLabel.textColor = [UIColor colorForHex:@"7b7b7b"];
-    modelLabel.font = [UIFont systemFontOfSize:15];
-    modelLabel.text = @"型号:";
-    [topBaseView addSubview:modelLabel];
-    [modelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(goodsNameLabel);
-        make.top.equalTo(goodsNameLabel.mas_bottom).offset(18);
-        make.trailing.equalTo(topBaseView).offset(-10);
+    _modelLabel = [[UILabel alloc]init];
+    _modelLabel.textColor = [UIColor colorForHex:@"7b7b7b"];
+    _modelLabel.font = [UIFont systemFontOfSize:15];
+    _modelLabel.text = @"型号:xx";
+    _modelLabel.numberOfLines = 0;
+    [topBaseView addSubview:_modelLabel];
+    [_modelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(_goodsNameLabel);
+        make.top.equalTo(_goodsNameLabel.mas_bottom).offset(18);
+        make.trailing.lessThanOrEqualTo(topBaseView).offset(-10);
     }];
     
-    [goodsNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(modelLabel.mas_top).offset(-18);
+    [_goodsNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_modelLabel.mas_top).offset(-18);
     }];
     
     //价格Label
-    UILabel *priceLabel =[[UILabel alloc]init];
-    priceLabel.textColor = [UIColor colorForHex:@"e84a3e"];
-    priceLabel.text = @"¥108";
-    priceLabel.font = [UIFont systemFontOfSize:15];
-    [topBaseView addSubview:priceLabel];
-    [priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(modelLabel.mas_bottom).offset(18);
-        make.leading.equalTo(modelLabel);
-        make.width.mas_equalTo(60);
+    _priceLabel =[[UILabel alloc]init];
+    _priceLabel.textColor = [UIColor colorForHex:@"e84a3e"];
+    _priceLabel.text = @"¥xxx.xx";
+    _priceLabel.font = [UIFont systemFontOfSize:15];
+    [topBaseView addSubview:_priceLabel];
+    [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_modelLabel.mas_bottom).offset(18);
+        make.leading.equalTo(_modelLabel);
+//        make.width.mas_equalTo(60);
     }];
     
-    [modelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(priceLabel.mas_top).offset(-18);
-    }];
+//    [_modelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(_priceLabel.mas_top).offset(-18);
+//    }];
     
     //购买数量Label
-    UILabel *numLabel = [[UILabel alloc]init];
-    numLabel.textColor = [UIColor colorForHex:@"666666"];
-    numLabel.font = [UIFont systemFontOfSize:15];
-    numLabel.text = @"x1";
-    [topBaseView addSubview:numLabel];
-    [numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(priceLabel);
-        make.trailing.equalTo(topBaseView).offset(-10);
+    _numLabel = [[UILabel alloc]init];
+    _numLabel.textColor = [UIColor colorForHex:@"666666"];
+    _numLabel.font = [UIFont systemFontOfSize:15];
+    _numLabel.text = @"x";
+    [topBaseView addSubview:_numLabel];
+    [_numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(_priceLabel.mas_trailing);
+        make.centerY.equalTo(_priceLabel);
+        make.trailing.equalTo(topBaseView).offset(-10).priorityHigh();
     }];
     
     
@@ -168,12 +186,12 @@
     }];
     
     //购买数量Label
-    UILabel *bottomNumLabel = [[UILabel alloc]init];
-    bottomNumLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
-    bottomNumLabel.font = [UIFont systemFontOfSize:15];
-    bottomNumLabel.text = @"1";
-    [buyNumView addSubview:bottomNumLabel];
-    [bottomNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _bottomNumLabel = [[UILabel alloc]init];
+    _bottomNumLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
+    _bottomNumLabel.font = [UIFont systemFontOfSize:15];
+    _bottomNumLabel.text = @"x";
+    [buyNumView addSubview:_bottomNumLabel];
+    [_bottomNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(buyNumView);
         make.trailing.equalTo(buyNumView).offset(-10);
     }];
@@ -236,12 +254,12 @@
 
     
     //优惠情况Label
-    UILabel *discountConditionLabel = [[UILabel alloc]init];
-    discountConditionLabel.textColor = [UIColor colorForHex:@"9e9c9d"];
-    discountConditionLabel.font = [UIFont systemFontOfSize:15];
-    discountConditionLabel.text = @"无可用";
-    [discountView addSubview:discountConditionLabel];
-    [discountConditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _discountConditionLabel = [[UILabel alloc]init];
+    _discountConditionLabel.textColor = [UIColor colorForHex:@"9e9c9d"];
+    _discountConditionLabel.font = [UIFont systemFontOfSize:15];
+    _discountConditionLabel.text = @"无可用";
+    [discountView addSubview:_discountConditionLabel];
+    [_discountConditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(discountView);
         make.trailing.equalTo(rightBtn.mas_leading).offset(-5);
     }];
@@ -305,12 +323,12 @@
     
     
     //配送情况Label
-    UILabel *distributeConditionLabel = [[UILabel alloc]init];
-    distributeConditionLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
-    distributeConditionLabel.font = [UIFont systemFontOfSize:15];
-    distributeConditionLabel.text = @"快递 免邮";
-    [distributeWayView addSubview:distributeConditionLabel];
-    [distributeConditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _distributeConditionLabel = [[UILabel alloc]init];
+    _distributeConditionLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
+    _distributeConditionLabel.font = [UIFont systemFontOfSize:15];
+    _distributeConditionLabel.text = @"快递 免邮";
+    [distributeWayView addSubview:_distributeConditionLabel];
+    [_distributeConditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(distributeWayView);
         make.trailing.equalTo(distributeRightBtn.mas_leading).offset(-5);
     }];
@@ -340,21 +358,14 @@
     }];
     //小计Label
     
-    UILabel *partCountLabel = [[UILabel alloc]init];
-    partCountLabel.backgroundColor = [UIColor whiteColor];
-    partCountLabel.font = [UIFont systemFontOfSize:15];
-    partCountLabel.text = @"共x件商品    小计：¥xxx";
-    partCountLabel.textAlignment = NSTextAlignmentRight;
+    _partCountLabel = [[UILabel alloc]init];
+    _partCountLabel.backgroundColor = [UIColor whiteColor];
+    _partCountLabel.font = [UIFont systemFontOfSize:15];
+    _partCountLabel.text = @"共x件商品    小计：¥xxx";
+    _partCountLabel.textAlignment = NSTextAlignmentRight;
     
-    //处理富文本
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:partCountLabel.text];
-    [attrStr addAttribute:NSForegroundColorAttributeName
-                    value:[UIColor colorForHex:@"e84a3e"]
-                    range:NSMakeRange(12, partCountLabel.text.length - 12)];
-    partCountLabel.attributedText = attrStr;
-    
-    [partCountView addSubview:partCountLabel];
-    [partCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [partCountView addSubview:_partCountLabel];
+    [_partCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(partCountView);
         make.trailing.equalTo(partCountView).offset(-10);
     }];
@@ -363,13 +374,42 @@
 }
 
 #pragma mark --setModel
--(void)setMarketCheckModel:(marketCheckModel *)marketCheckModel{
-    _marketCheckModel = marketCheckModel;
+
+-(void)setCartProductModel:(CartProductModel *)cartProductModel{
+
+    _cartProductModel = cartProductModel;
     
-    _totalPrice += marketCheckModel.price;
+    NSLog(@"cartProductModel--->:%@",cartProductModel);
+    
+    [_ImgView sd_setImageWithURL:[NSURL URLWithString:cartProductModel.images_url] placeholderImage:[UIImage imageNamed:@"zwt"]];
+    
+    _goodsNameLabel.text = cartProductModel.goods_name;
+    _modelLabel.text = [NSString stringWithFormat:@"型号：%@",cartProductModel.models];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%.2f",cartProductModel.price];
+    _numLabel.text = [NSString stringWithFormat:@"x%d",cartProductModel.nums];
+    _bottomNumLabel.text = [NSString stringWithFormat:@"%d",cartProductModel.nums];
+    
+    //?优惠券
+//    _discountConditionLabel.text = cartProductModel.
+    
+    //？快递方式
+//    _distributeConditionLabel.text =
+    
+    CGFloat partTotalPrice = cartProductModel.price *cartProductModel.nums;
+    NSString *title = [NSString stringWithFormat:@"共%d件商品    小计：¥%.2f",cartProductModel.nums,partTotalPrice];
+    //处理富文本
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:title];
+    
+    
+    UIColor *color = [UIColor colorForHex:@"e84a3e"];
+    NSRange range1 = [title rangeOfString:[NSString stringWithFormat:@"%d",cartProductModel.nums]];
+    NSRange range2 = [title rangeOfString:[NSString stringWithFormat:@"¥%.2f",partTotalPrice]];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:color range:range1];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:color range:range2];
+    
+    _partCountLabel.attributedText = attrStr;
 
 }
-
 
 #pragma mark --TapGestureMethod
 -(void)TapDiscountView{
