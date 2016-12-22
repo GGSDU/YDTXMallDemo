@@ -17,6 +17,8 @@ static SXSqliteTool *instance = nil;
 
 @implementation SXSqliteTool
 
+
+#pragma mark - fmdb原始方法透出
 + (instancetype)shareInstance
 {
    static dispatch_once_t once;
@@ -66,8 +68,5 @@ static SXSqliteTool *instance = nil;
       [self.queue inTransaction:block];
    }
 }
-
-#pragma mark - get Data
-
 
 @end
