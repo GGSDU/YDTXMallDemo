@@ -65,20 +65,16 @@ static NSString *watchMoreIdentifier = @"watchMore";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - BannerCellDelegate
-- (void)bannerCell:(BannerCell *)bannerCell didSelectedAtIndex:(NSInteger)index
-{
-    NSLog(@"%@",self.bannerArray[index]);
-}
-
-
-
 #pragma mark - init data
 - (void)initData{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Category" ofType:@"plist"];
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
     
-    self.bannerArray = [[NSMutableArray alloc] initWithArray:dic[@"Banner"]];
+    // 轮播图
+    [[NetWorkService shareInstance] requestForHomeBannerWithResponseBlock:^(NSArray *bannerModelArray) {
+    
+        self.bannerArray = [[NSMutableArray alloc] initWithArray:bannerModelArray];
+        [self.collectionView reloadData];
+    }];
+    
     
     // 分类
     [[NetWorkService shareInstance] requestForShopCategoryWithPid:0 responseBlock:^(NSArray *responseModelArray) {
@@ -109,42 +105,14 @@ static NSString *watchMoreIdentifier = @"watchMore";
     [self.navigationController pushViewController:cartVC animated:YES];
 }
 
-#pragma mark - creatUI
-- (void)customNavigationItem
+#pragma mark - BannerCellDelegate
+- (void)bannerCell:(BannerCell *)bannerCell didSelectedAtIndex:(NSInteger)index
 {
-    self.title = @"商城";
-    
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    
-    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchBarItemClicked:)];
-    self.navigationItem.leftBarButtonItem = searchBarItem;
-    
-    UIImage *cartImage = [[UIImage imageNamed:@"Cart"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIBarButtonItem *cartBarItem = [[UIBarButtonItem alloc] initWithImage:cartImage style:UIBarButtonItemStylePlain target:self action:@selector(cartBarItemClicked:)];
-    self.navigationItem.rightBarButtonItem = cartBarItem;
+    NSLog(@"%@",self.bannerArray[index]);
 }
 
-- (void)creatUI{
-    
-    float originY = 64;
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY) collectionViewLayout:layout];
-    _collectionView.backgroundColor = StandardBackgroundColor;
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
-    [self.view addSubview:_collectionView];
-    
-    // 注册cell
-    [_collectionView registerClass:[BannerCell class] forCellWithReuseIdentifier:bannerIdentifier];
-    [_collectionView registerClass:[CategoryCell class] forCellWithReuseIdentifier:categoryIdentifier];
-    [_collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:briefIdentifier];
-    [_collectionView registerClass:[ProductHeaderReusableView class]
-        forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-               withReuseIdentifier:productHeaderIdentifier];
-    [_collectionView registerClass:[WatchMoreFooterReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:watchMoreIdentifier];
-}
 
+#pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
@@ -339,6 +307,42 @@ static NSString *watchMoreIdentifier = @"watchMore";
         return CGSizeMake(collectionView.frame.size.width, 36);
     }
     return CGSizeZero;
+}
+
+#pragma mark - creatUI
+- (void)customNavigationItem
+{
+    self.title = @"商城";
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    
+    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchBarItemClicked:)];
+    self.navigationItem.leftBarButtonItem = searchBarItem;
+    
+    UIImage *cartImage = [[UIImage imageNamed:@"Cart"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIBarButtonItem *cartBarItem = [[UIBarButtonItem alloc] initWithImage:cartImage style:UIBarButtonItemStylePlain target:self action:@selector(cartBarItemClicked:)];
+    self.navigationItem.rightBarButtonItem = cartBarItem;
+}
+
+- (void)creatUI{
+    
+    float originY = 64;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY) collectionViewLayout:layout];
+    _collectionView.backgroundColor = StandardBackgroundColor;
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    [self.view addSubview:_collectionView];
+    
+    // 注册cell
+    [_collectionView registerClass:[BannerCell class] forCellWithReuseIdentifier:bannerIdentifier];
+    [_collectionView registerClass:[CategoryCell class] forCellWithReuseIdentifier:categoryIdentifier];
+    [_collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:briefIdentifier];
+    [_collectionView registerClass:[ProductHeaderReusableView class]
+        forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+               withReuseIdentifier:productHeaderIdentifier];
+    [_collectionView registerClass:[WatchMoreFooterReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:watchMoreIdentifier];
 }
 
 @end

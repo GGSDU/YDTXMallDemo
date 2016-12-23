@@ -10,6 +10,28 @@
 
 #import "Banner.h"
 
+#pragma mark - BannerModel
+@implementation BannerModel
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"id"]) {
+        self.ID = value;
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key
+{
+    
+    if ([key isEqualToString:@"id"]) {
+        return self.ID;
+    }
+    return  nil;
+}
+
+@end
+
+#pragma mark - BannerCell
 @interface BannerCell ()<BannerDelegate>
 
 @property (nonatomic,strong) Banner *banner;
@@ -44,7 +66,11 @@
 
 - (void)setBannerArray:(NSArray *)bannerArray
 {
-    _banner.bannerArray = bannerArray;
+    NSMutableArray *imageBannerArray = [[NSMutableArray alloc] initWithCapacity:0];
+    for (BannerModel *model in bannerArray) {
+        [imageBannerArray addObject:[SXPublicTool getImageURLStringByURLString:model.images_url]];
+    }
+    _banner.bannerArray = imageBannerArray;
 }
 
 - (void)createAutoScrollerView

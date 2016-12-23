@@ -8,8 +8,6 @@
 
 #import "Banner.h"
 
-#import "BannerModel.h"
-
 #import "AutoScrollerView.h"
 
 #define AUTOSCROLL_TIME 5.0f

@@ -9,6 +9,7 @@
 #ifndef AllModel_h
 #define AllModel_h
 
+#import "BannerCell.h"
 #import "CategoryCell.h"
 #import "ProductBriefCell.h"
 

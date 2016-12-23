@@ -81,6 +81,29 @@ static NetWorkService *instance = nil;
 }
 
 /**
+ *  商城轮播图
+ */
+- (void)requestForHomeBannerWithResponseBlock:(void (^)(NSArray *))responseBlock
+{
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeBanner requestParam:nil responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSArray *responseModelArray = [responseDic objectForKey:@"data"];
+
+        NSMutableArray *responseArray = [[NSMutableArray alloc] initWithCapacity:0];
+        for (NSDictionary *modelDic in responseModelArray) {
+            BannerModel *bannerModel = [[BannerModel alloc] init];
+            [bannerModel setValuesForKeysWithDictionary:modelDic];
+            
+            [responseArray addObject:bannerModel];
+        }
+        
+        responseBlock(responseArray);
+        
+    }];
+}
+
+/**
  *  商城分类
  */
 - (void)requestForShopCategoryWithPid:(NSInteger)pid responseBlock:(nullable void(^)(NSArray *responseModelArray))responseBlock
@@ -400,6 +423,11 @@ static NetWorkService *instance = nil;
 {
     NSDictionary *requestInfoDictionary = nil;
     switch (urlModuleKey) {
+        case URLModuleKeyTypeBanner:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"HomeBanner"];
+        }
+            break;
         case URLModuleKeyTypeShopCategory:
         {
             requestInfoDictionary = [self.urlDictionary objectForKey:@"ShopCategory"];

@@ -110,7 +110,7 @@ static NSString *completeString = @"完成";
     [SXPublicTool showAlertControllerWithTitle:nil meassage:@"确定要删除选中的商品吗？" cancelTitle:@"取消" cancelHandler:^(UIAlertAction * _Nonnull action) {
         
         
-        
+    
     } confirmTitle:@"确定" confirmHandler:^(UIAlertAction * _Nonnull action) {
         
         // 删除订单
@@ -225,7 +225,7 @@ static NSString *completeString = @"完成";
 {
     float totalPrice = 0.0f;
     for (CartProductModel *cartProductModel in [self getCurrentSelectedCellModelArray]) {
-        totalPrice += cartProductModel.price;
+        totalPrice += cartProductModel.price * cartProductModel.nums;
     }
     return totalPrice;
 }
