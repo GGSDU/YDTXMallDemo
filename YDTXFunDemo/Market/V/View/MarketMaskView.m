@@ -10,13 +10,25 @@
 
 #import "PPNumberButton.h"
 #import "MarketGoodsModelCell.h"
-@interface MarketMaskView ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface MarketMaskView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property(strong,nonatomic)UIView *baseMaskView;//遮罩view
 @property(strong,nonatomic)UIView *baseView;//进行商品信息选择的baseView
 @property(strong,nonatomic)UICollectionView *modelCollectView;
 
+/** 数据数组*/
 @property(strong,nonatomic)NSMutableArray *modelDataArr;
+
+/***/
+@property(strong,nonatomic)MarketGoodsModelCell *CurrentSelectCell;
+
+@property(strong,nonatomic)UIImageView *ImgView; //图片
+@property(strong,nonatomic)UILabel *goodsTitleLabel;//商品名称
+@property(strong,nonatomic)UILabel *priceLabel;//价格
+@property(strong,nonatomic)PPNumberButton *numberButton;//加减控件
+
+
+
 
 @end
 
@@ -62,7 +74,7 @@ static NSString *kmodelCellId = @"modelCell";
 }
 
 //布局界面
--(void)setUI{
+-(void)setUIWithGoods_name:(NSString *)goods_name ImageUrl:(NSURL *)imageUrl{
     
 //底部的maskView
     
@@ -78,7 +90,7 @@ static NSString *kmodelCellId = @"modelCell";
 //baseView
      _baseView = [[UIView alloc]initWithFrame:CGRectMake(0, YDTXScreenH , YDTXScreenW, 418)];
     
-    _baseView.backgroundColor = [UIColor yellowColor];
+    _baseView.backgroundColor = [UIColor whiteColor];
     
 //    baseView.userInteractionEnabled = NO;
     [[UIApplication sharedApplication].keyWindow addSubview:_baseView];
@@ -101,42 +113,42 @@ static NSString *kmodelCellId = @"modelCell";
     }];
     
 //imageView
-    UIImageView *ImgView = [[UIImageView alloc]init];
-    ImgView.backgroundColor = [UIColor redColor];
-    ImgView.layer.borderWidth = 2;
-    ImgView.layer.borderColor = [UIColor whiteColor].CGColor;
-    ImgView.layer.cornerRadius = 5;
-    ImgView.layer.masksToBounds = YES;
-    [_baseView addSubview:ImgView];
-    [ImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _ImgView = [[UIImageView alloc]init];
+    _ImgView.backgroundColor = [UIColor redColor];
+    _ImgView.layer.borderWidth = 2;
+    _ImgView.layer.borderColor = [UIColor whiteColor].CGColor;
+    _ImgView.layer.cornerRadius = 5;
+    _ImgView.layer.masksToBounds = YES;
+    [_ImgView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"zwt"]];
+    [_baseView addSubview:_ImgView];
+    [_ImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(125, 125));
         make.leading.equalTo(_baseView).offset(15);
         make.top.equalTo(_baseView).offset(-15);
     }];
 
 //商品Label
-    UILabel *goodsTitleLabel = [[UILabel alloc]init];
-    goodsTitleLabel.numberOfLines = 2;
-    goodsTitleLabel.font = [UIFont systemFontOfSize:16];
-    goodsTitleLabel.textColor = [UIColor blackColor];
-    goodsTitleLabel.text = @"xxx";
-    [_baseView addSubview:goodsTitleLabel];
-    [goodsTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(ImgView.mas_trailing).offset(10);
+    _goodsTitleLabel = [[UILabel alloc]init];
+    _goodsTitleLabel.numberOfLines = 2;
+    _goodsTitleLabel.font = [UIFont systemFontOfSize:16];
+    _goodsTitleLabel.textColor = [UIColor blackColor];
+    _goodsTitleLabel.text = goods_name;
+    [_baseView addSubview:_goodsTitleLabel];
+    [_goodsTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(_ImgView.mas_trailing).offset(10);
         make.top.equalTo(_baseView).offset(30);
         make.trailing.equalTo(_baseView).offset(-10);
     }];
     
 //价格Label
-    UILabel *priceLabel = [[UILabel alloc]init];
-    priceLabel.numberOfLines = 1;
-    priceLabel.textColor = [UIColor redColor];
-    priceLabel.font = [UIFont systemFontOfSize:18];
-    priceLabel.text = @"¥xxx.xx";
-    [_baseView addSubview:priceLabel];
-    [priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(goodsTitleLabel);
-        make.top.equalTo(goodsTitleLabel.mas_bottom).offset(20);
+    _priceLabel = [[UILabel alloc]init];
+    _priceLabel.numberOfLines = 1;
+    _priceLabel.textColor = [UIColor redColor];
+    _priceLabel.font = [UIFont systemFontOfSize:18];
+    [_baseView addSubview:_priceLabel];
+    [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(_goodsTitleLabel);
+        make.top.equalTo(_goodsTitleLabel.mas_bottom).offset(20);
     }];
     
 //型号Label
@@ -146,15 +158,16 @@ static NSString *kmodelCellId = @"modelCell";
     typeLabel.textColor = [UIColor blackColor];
     [_baseView addSubview:typeLabel];
     [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(ImgView);
-        make.top.equalTo(ImgView.mas_bottom).offset(15);
+        make.leading.equalTo(_ImgView);
+        make.top.equalTo(_ImgView.mas_bottom).offset(15);
         
     }];
 //型号collectionView
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     // 最小列间距
     layout.minimumInteritemSpacing = 10;
-    // item的size
+    
+//     item的size
     CGFloat itemW = (YDTXScreenW - 50) / 3;
     layout.estimatedItemSize = CGSizeMake(itemW, 30);
     // 每一组的缩进
@@ -185,7 +198,7 @@ static NSString *kmodelCellId = @"modelCell";
     buyNumLabel.textColor = [UIColor blackColor];
     [_baseView addSubview:buyNumLabel];
     [buyNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(ImgView);
+        make.leading.equalTo(_ImgView);
         make.top.equalTo(_modelCollectView.mas_bottom).offset(15);
         
     }];
@@ -196,7 +209,7 @@ static NSString *kmodelCellId = @"modelCell";
     [addToCartBtn setBackgroundColor:[UIColor orangeColor]];
     addToCartBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [addToCartBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
-    [addToCartBtn addTarget:self action:@selector(addToCartWithModelId:) forControlEvents:UIControlEventTouchUpInside];
+    [addToCartBtn addTarget:self action:@selector(addToCart) forControlEvents:UIControlEventTouchUpInside];
     [_baseView addSubview:addToCartBtn];
     [addToCartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_baseView);
@@ -209,21 +222,21 @@ static NSString *kmodelCellId = @"modelCell";
 //加减数量btn与textfiled
 
     
-    PPNumberButton *numberButton = [[PPNumberButton alloc]init];;
-    numberButton.shakeAnimation = YES;
+    _numberButton = [[PPNumberButton alloc]init];;
+    _numberButton.shakeAnimation = YES;
     //设置边框颜色
-    numberButton.borderColor = [UIColor grayColor];
+    _numberButton.borderColor = [UIColor grayColor];
     
-    numberButton.increaseTitle = @"＋";
-    numberButton.decreaseTitle = @"－";
-    numberButton.inputFieldFont = 14;
+    _numberButton.increaseTitle = @"＋";
+    _numberButton.decreaseTitle = @"－";
+    _numberButton.inputFieldFont = 14;
     
-    numberButton.resultBlock = ^(NSString *num){
+    _numberButton.resultBlock = ^(NSString *num){
         NSLog(@"%@",num);
     };
     
-    [_baseView addSubview:numberButton];
-    [numberButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_baseView addSubview:_numberButton];
+    [_numberButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(buyNumLabel);
         make.trailing.equalTo(_baseView).offset(-10);
         make.size.mas_equalTo(CGSizeMake(120, 35));
@@ -232,44 +245,50 @@ static NSString *kmodelCellId = @"modelCell";
 }
 
 
--(void)addToCartWithModelId:(NSString *)modelId{
+-(void)addToCart{
 
     NSLog(@"--点击了加入购物车按钮--");
 
+    if (_CurrentSelectCell ) {
+        
+        /*
+         http://test.m.yundiaoke.cn/api/goodsOrder/submitOrder
+         请求方式：POST
+         参数：
+         User_id：用户id
+         Goods_id：商品Id
+         Goods_model_id：商品型号id
+         Cou_id：优惠券id
+         Goods_name：商品名称
+         Price：订单单价
+         Total_price：订单总价
+         Nums：购买数量
+         Courier：快递名称
+         Status：订单状态====>
+         address_id :收货地址
+         订单状态： -1为已取消，0为未付款 ，1为已付款， 2为待收货，3为退款，4为加入购物车
+         */
+        
+        NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
+        paramsDic[@"user_id"] = @"37";
+        paramsDic[@"goods_id"] = _goods_id;
+        paramsDic[@"goods_model_id"] = @"33";
+//        paramsDic[@"cou_id"] = @"3";
+        paramsDic[@"goods_name"] = _goods_Name;
+//        paramsDic[@"price"] = _priceLabel.text in;
+        paramsDic[@"total_price"] = @"103.00";
+        paramsDic[@"nums"] = @"1";
+        paramsDic[@"courier"] = @"申通";
+        paramsDic[@"status"] = @"4";
+        paramsDic[@"address_id"] = @"如东";
+        
+        
+         [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];
+    }
     
-/*
-    http://test.m.yundiaoke.cn/api/goodsOrder/submitOrder
-    请求方式：POST
-    参数：
-    User_id：用户id
-    Goods_id：商品Id
-    Goods_model_id：商品型号id
-    Cou_id：优惠券id
-    Goods_name：商品名称
-    Price：订单单价
-    Total_price：订单总价
-    Nums：购买数量
-    Courier：快递名称
-    Status：订单状态====>
-    address_id :收货地址
-    订单状态： -1为已取消，0为未付款 ，1为已付款， 2为待收货，3为退款，4为加入购物车
-*/
-    //提交订单
-    NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
-    paramsDic[@"user_id"] = @"37";
-    paramsDic[@"goods_id"] = @"72";
-    paramsDic[@"goods_model_id"] = @"33";
-    paramsDic[@"cou_id"] = @"3";
-    paramsDic[@"goods_name"] = @"段";
-    paramsDic[@"price"] = @"103.00";
-    paramsDic[@"total_price"] = @"103.00";
-    paramsDic[@"nums"] = @"1";
-    paramsDic[@"courier"] = @"申通";
-    paramsDic[@"status"] = @"4";
-    paramsDic[@"address_id"] = @"如东";
     
-    [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];
-    
+
+  
 
 }
 
@@ -283,19 +302,16 @@ static NSString *kmodelCellId = @"modelCell";
 
 
 -(void)updateUIWithGoodsId:(NSString *)goods_id{
-    //获取数据
+    
+    
+    //获取模型数据  并创建视图
     [[NetWorkService shareInstance]requestForMarketGoodsModelDataWithGoodsId:goods_id responseBlock:^(NSArray *marketProductModelArray) {
-        
-//        marketProductModel *marketProductModel = marketProductModelArray[0];
-        //创建规格视图
-//        [self creatModelBtnWithDataArray:marketProductModelArray];
         
         _modelDataArr = [NSMutableArray array];
         [_modelDataArr removeAllObjects];
         [_modelDataArr addObjectsFromArray:marketProductModelArray];
         [_modelCollectView reloadData];
     }];
-    
     
     
     
@@ -327,7 +343,30 @@ static NSString *kmodelCellId = @"modelCell";
 
 
 #pragma mark--modelCollectionView Method
-
+//// 垂直间距
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    return 10;
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    return 10;
+//}
+//
+////- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+////{
+////    return UIEdgeInsetsMake(10, 10, 10, 10);
+////}
+//
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    MarketGoodsModelCell *cell = (MarketGoodsModelCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    CGFloat btnW = cell.modelBtn.titleLabel.width;
+////    CGFloat itemW = (YDTXScreenW - 50) / 3;
+//    return CGSizeMake(btnW +10, 30);
+//}
+//
 // 设置每个分区返回多少item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
@@ -339,6 +378,7 @@ static NSString *kmodelCellId = @"modelCell";
     marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
     MarketGoodsModelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmodelCellId forIndexPath:indexPath];
     cell.marketProductModel = marketProductModel;
+    
     return cell;
 }
 
@@ -346,9 +386,32 @@ static NSString *kmodelCellId = @"modelCell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
     
-    MarketGoodsModelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmodelCellId forIndexPath:indexPath];
-    NSLog(@"---cell:%@",cell);
+   MarketGoodsModelCell *cell = (MarketGoodsModelCell *)[collectionView cellForItemAtIndexPath:indexPath];
+
+    marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
+    
+    
+    //选中了cell
+    // 1.改变cell的边框和字体颜色
+    
     cell.layer.borderColor = RGB(255, 114, 0).CGColor;
+    [cell.modelBtn setTitleColor:RGB(255, 114, 0) forState:UIControlStateNormal];
+    
+    if (_CurrentSelectCell && ![_CurrentSelectCell isEqual:cell]) {
+        _CurrentSelectCell.layer.borderColor = RGB(211, 211, 211).CGColor;
+        [_CurrentSelectCell.modelBtn setTitleColor:RGB(48 , 48, 48) forState:UIControlStateNormal];
+    }
+    
+    _CurrentSelectCell = cell;
+    // 2.改变价格
+    _priceLabel.text = [NSString stringWithFormat:@"￥%.2f",marketProductModel.price];
+    
+    // 3.设置库存数量
+    _numberButton.maxValue = marketProductModel.quantity;
+    
+    
+    
+
 
 
 }
@@ -388,7 +451,7 @@ static NSString *kmodelCellId = @"modelCell";
             [self.superview.layer setTransform:[self secondTransform]];
             
         } completion:^(BOOL finished) {
-            [self setUI];
+            [self setUIWithGoods_name:_goods_Name ImageUrl:_imageUrl];
 //            [self setBasic];
         }];
         
@@ -436,5 +499,6 @@ static NSString *kmodelCellId = @"modelCell";
     t2 = CATransform3DScale(t2, 0.85, 0.75, 1);
     return t2;
 }
+
 
 @end

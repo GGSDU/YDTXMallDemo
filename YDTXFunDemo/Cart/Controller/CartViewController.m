@@ -161,6 +161,7 @@ static NSString *completeString = @"完成";
     
     [self updateCartCellOperationViewAllButton];
     [self updateCartCellOperationViewPrice];
+    
 }
 
 #pragma mark - tableVeiw delegate & datasource
@@ -229,6 +230,8 @@ static NSString *completeString = @"完成";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
 }
 
 #pragma mark - private methods - get data

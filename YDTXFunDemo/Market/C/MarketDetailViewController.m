@@ -28,7 +28,7 @@
 @property(strong,nonatomic)UILabel *stockLabel;              //库存
 @property(strong,nonatomic)UILabel *salesLabel;              //销售量
 
-
+@property(copy,nonatomic)NSString *goods_imgUrl;
 
 
 @end
@@ -384,6 +384,8 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
     maskView.goods_id =  self.goods_id;
+    maskView.goods_Name =_goodsTitleLabel.text ;
+    maskView.imageUrl = [SXPublicTool getImageURLByURLString:_goods_imgUrl];
     [self.view addSubview:maskView];
     [maskView showWithTransformAnimation];
     [maskView updateUIWithGoodsId:self.goods_id];
@@ -421,6 +423,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
                     self.cycleView.currentMiddleImageViewIndex = 0;
                     self.cycleView.imageUrls = model.images_url;
                     [self.cycleView updateImageViewsAndTitleLabel];
+                    _goods_imgUrl = model.images_url[0];
                     //商品名
                     self.goodsTitleLabel.text = model.name;
                     //原价
