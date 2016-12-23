@@ -27,6 +27,7 @@
 
 @property (nonatomic,strong) UIButton *cellSelectButton;
 @property (nonatomic,strong) SXAdjustNumberView *adjustNumberView;
+@property (nonatomic,copy) UpdateNumberBlock updateNumberBlock;
 
 
 - (void)updateCellStatusButtonSelected:(BOOL)selected;

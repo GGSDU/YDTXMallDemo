@@ -264,7 +264,6 @@
 		757A7E5C1DF6B13F00399B10 /* Cart_Increase@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 757A7E541DF6B13F00399B10 /* Cart_Increase@3x.png */; };
 		757F31F61E03C6DC004D259C /* BannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757F31EE1E03C6DC004D259C /* BannerCell.m */; };
 		757F31F71E03C6DC004D259C /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757F31F11E03C6DC004D259C /* CategoryCell.m */; };
-		757F31F91E03C6FA004D259C /* Category.plist in Resources */ = {isa = PBXBuildFile; fileRef = 757F31F81E03C6FA004D259C /* Category.plist */; };
 		757F32151E03D642004D259C /* ProductBriefCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757F32141E03D642004D259C /* ProductBriefCell.m */; };
 		757F321C1E03F197004D259C /* ProductHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 757F321B1E03F197004D259C /* ProductHeaderReusableView.m */; };
 		7589EF351E0929E80066D302 /* WatchMoreFooterReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7589EF341E0929E80066D302 /* WatchMoreFooterReusableView.m */; };
@@ -820,7 +819,6 @@
 		757F31EE1E03C6DC004D259C /* BannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerCell.m; sourceTree = "<group>"; };
 		757F31F01E03C6DC004D259C /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCell.h; sourceTree = "<group>"; };
 		757F31F11E03C6DC004D259C /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCell.m; sourceTree = "<group>"; };
-		757F31F81E03C6FA004D259C /* Category.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Category.plist; sourceTree = "<group>"; };
 		757F32131E03D642004D259C /* ProductBriefCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductBriefCell.h; sourceTree = "<group>"; };
 		757F32141E03D642004D259C /* ProductBriefCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductBriefCell.m; sourceTree = "<group>"; };
 		757F321A1E03F197004D259C /* ProductHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductHeaderReusableView.h; sourceTree = "<group>"; };
@@ -2267,7 +2265,6 @@
 			children = (
 				7589EF391E0940880066D302 /* defaultCart@2x.png */,
 				7589EF3A1E0940880066D302 /* defaultCart@3x.png */,
-				757F31F81E03C6FA004D259C /* Category.plist */,
 				75F6966D1E0792730056BAD2 /* URLInterface.plist */,
 				752417BF1DF9474000123517 /* Image.png */,
 				755B4ACD1E05A9FD009EEA64 /* NavigationBackImage@2x.png */,
@@ -2514,7 +2511,6 @@
 				042198021DFFE87D0061175F /* markeListCell.xib in Resources */,
 				04853FB61E03852200D90459 /* LICENSE in Resources */,
 				757A7E581DF6B13F00399B10 /* Cart_CellStatusButton_Selected@3x.png in Resources */,
-				757F31F91E03C6FA004D259C /* Category.plist in Resources */,
 				75F6966E1E0792730056BAD2 /* URLInterface.plist in Resources */,
 				50FC5FCD1E07C4C500F62097 /* CTAssetsPicker.strings in Resources */,
 				50FC5FF51E07C9AD00F62097 /* LICENSE in Resources */,

@@ -145,8 +145,7 @@ static NSString *recommendedProductKey = @"fishtree";
 /**
  *  购物车数量加减
  */
-- (void)requestForModifyCartNumber:(URLModuleKeyType)operateType nums:(int)nums goods_order_id:(int)goods_order_id;
-
+- (void)requesetForModifyCartNums:(int)nums goods_order_id:(int)goods_order_id;
 
 /**
  *  处理订单

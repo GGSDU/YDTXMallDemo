@@ -96,6 +96,12 @@
 }
 
 #pragma mark - getter/setter
+- (void)setUpdateNumberBlock:(UpdateNumberBlock)updateNumberBlock
+{
+    _updateNumberBlock = updateNumberBlock;
+    self.adjustNumberView.updateNumberBlock = _updateNumberBlock;
+}
+
 - (void)setCartProductModel:(CartProductModel *)cartProductModel
 {
     _cartProductModel = cartProductModel;

@@ -29,7 +29,7 @@ static NSString *completeString = @"完成";
 @property (nonatomic,strong) UIBarButtonItem *rightBarButtonItem;
 
 
-@property (nonatomic,strong) NSMutableArray *cartOriginalNumberArray;
+@property (nonatomic,strong) NSMutableDictionary *cartOriginalNumberDictionary;
 @property (nonatomic,strong) NSMutableArray *cartProductModelArray;
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) CartCellOperationView *cartCellOperationView;
@@ -57,6 +57,11 @@ static NSString *completeString = @"完成";
 - (void)viewWillAppear:(BOOL)animated
 {
     [self addKeyboardNotification];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self checkAndRequestForModifyCartNumber];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -119,7 +124,7 @@ static NSString *completeString = @"完成";
         
         
         [self.cartProductModelArray removeObjectsInArray:selectCellArray];
-        [self initOperateCellIndexPathDicDataWithParam:NO];
+        [self synchronizeOperateCellIndexPathDicDataWithParam:NO];
         
         if (self.cartProductModelArray.count == 0) {
             
@@ -142,7 +147,7 @@ static NSString *completeString = @"完成";
     NSLog(@"here to do something after selecte all choose button");
     [self setALLCellSelectedStatus:allChooseButton.selected];
     
-    [self initOperateCellIndexPathDicDataWithParam:allChooseButton.selected];
+    [self synchronizeOperateCellIndexPathDicDataWithParam:allChooseButton.selected];
     [self updateCartCellOperationViewPrice];
     
 }
@@ -174,6 +179,12 @@ static NSString *completeString = @"完成";
     
     CartProductModel *cartProductModel = (CartProductModel *)self.cartProductModelArray[indexPath.section];
     
+    __weak typeof(cartProductModel) weakSelf = cartProductModel;
+    cartListCell.updateNumberBlock = ^(int number) {
+        NSLog(@"here to do in block");
+        weakSelf.nums = number;
+        [self updateCartCellOperationViewPrice];
+    };
     
     [[NetWorkService shareInstance] requestForCurrentQuantityWithGoodsModelId:cartProductModel.goods_model_id responseBlock:^(int quantity) {
 
@@ -220,11 +231,12 @@ static NSString *completeString = @"完成";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - private methods - data
+#pragma mark - private methods - get data
 - (float)getCurrentSelectedCellAllPrice
 {
     float totalPrice = 0.0f;
     for (CartProductModel *cartProductModel in [self getCurrentSelectedCellModelArray]) {
+
         totalPrice += cartProductModel.price * cartProductModel.nums;
     }
     return totalPrice;
@@ -254,8 +266,28 @@ static NSString *completeString = @"完成";
     return mutableArray;
 }
 
-- (void)initOperateCellIndexPathDicDataWithParam:(BOOL)selected
+- (int)getOriginNumberWithGoods_order_id:(int)goods_order_id
 {
+    NSString *number = [self.cartOriginalNumberDictionary objectForKey:[NSString stringWithFormat:@"%d",goods_order_id]];
+    return number.intValue;
+}
+
+#pragma mark - init data
+- (void)initCartOriginalNumberDictionaryData {
+    
+    if (self.cartOriginalNumberDictionary.count != self.cartProductModelArray.count) {
+        [self.cartOriginalNumberDictionary removeAllObjects];
+    }
+    
+    for (CartProductModel *model in self.cartProductModelArray) {
+        
+        NSString *key = [NSString stringWithFormat:@"%d",model.goods_order_id];
+        NSString *number = [NSString stringWithFormat:@"%d",model.nums];
+        [self.cartOriginalNumberDictionary setObject:number forKey:key];
+    }
+}
+
+- (void)synchronizeOperateCellIndexPathDicDataWithParam:(BOOL)selected {
     if (self.operateCellIndexPathDic.count != self.cartProductModelArray.count) {
         [self.operateCellIndexPathDic removeAllObjects];
     }
@@ -267,12 +299,21 @@ static NSString *completeString = @"完成";
     }
 }
 
+#pragma mark - getter
+- (NSMutableDictionary *)cartOriginalNumberDictionary
+{
+    if (_cartOriginalNumberDictionary == nil) {
+        _cartOriginalNumberDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    return _cartOriginalNumberDictionary;
+}
+
 - (NSMutableDictionary *)operateCellIndexPathDic
 {
     if (_operateCellIndexPathDic == nil) {
         _operateCellIndexPathDic = [[NSMutableDictionary alloc] initWithCapacity:self.cartProductModelArray.count];
         
-        [self initOperateCellIndexPathDicDataWithParam:NO];
+        [self synchronizeOperateCellIndexPathDicDataWithParam:NO];
     }
 
     return _operateCellIndexPathDic;
@@ -282,8 +323,28 @@ static NSString *completeString = @"完成";
 {
     if (_cartProductModelArray == nil) {
         _cartProductModelArray = [[NSMutableArray alloc] initWithCapacity:0];
+        
     }
     return _cartProductModelArray;
+}
+
+#pragma mark - request
+
+- (void)checkAndRequestForModifyCartNumber
+{
+    
+    for (CartProductModel *model in self.cartProductModelArray) {
+        
+        int originNumber = [self getOriginNumberWithGoods_order_id:model.goods_order_id];
+        int increase = model.nums - originNumber;
+        
+        NSLog(@"good_order_id : %d",model.goods_order_id);
+        NSLog(@"%d = %d - %d",increase,model.nums,originNumber);
+        if (increase == 0) continue;
+        
+        [[NetWorkService shareInstance] requesetForModifyCartNums:increase goods_order_id:model.goods_order_id];
+    }
+    
 }
 
 - (void)requestToDeleteCartListWithArray:(NSArray *)array
@@ -303,6 +364,8 @@ static NSString *completeString = @"完成";
         if (responsecartProductModelArray && responsecartProductModelArray.count > 0) {
             
             [self.cartProductModelArray addObjectsFromArray:responsecartProductModelArray];
+            [self initCartOriginalNumberDictionaryData];
+            
             [self customRightBarButtonItemWithTitle:editString];
             [self creatUI];
             
@@ -314,7 +377,7 @@ static NSString *completeString = @"完成";
 }
 
 
-#pragma mark - private methods - view
+#pragma mark - private methods - update view
 - (void)updateCartCellOperationView
 {
     [self updateCartCellOperationViewAllButton];

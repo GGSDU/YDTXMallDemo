@@ -304,18 +304,27 @@ static NetWorkService *instance = nil;
 /**
  *  购物车数量操作
  */
-- (void)requestForModifyCartNumber:(URLModuleKeyType)operateType nums:(int)nums goods_order_id:(int)goods_order_id
+- (void)requesetForModifyCartNums:(int)nums goods_order_id:(int)goods_order_id
 {
+    URLModuleKeyType operateType = URLModuleKeyTypeCartNumberIncrease;
+    NSString *numsValue = [NSString stringWithFormat:@"%d",nums];
+    if (nums < 0) {
+        operateType = URLModuleKeyTypeCartNumberDecrease;
+        numsValue = [NSString stringWithFormat:@"%d",abs(nums)];
+    }
+    
+    
     NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
-    [param setObject:[NSNumber numberWithInt:nums] forKey:@"nums"];
     [param setObject:[NSNumber numberWithInt:goods_order_id] forKey:@"goods_order_id"];
-
+    [param setObject:numsValue forKey:@"nums"];
     
     [self requestForDataByURLModuleKey:operateType requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-
+        
+        NSLog(@"购物车数量加减");
+        NSLog(@"%@",responseObject);
+        
     }];
 }
-
 
 /**
  *  商品型号数据
