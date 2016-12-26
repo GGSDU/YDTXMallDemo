@@ -20,9 +20,7 @@
 @interface CartListCell : UITableViewCell
 
 @property (nonatomic,assign) id<CartListCellDelegate>delegate;
-
 @property (nonatomic,strong) CartProductModel *cartProductModel;
-
 @property (nonatomic,assign) int productNumber;
 
 @property (nonatomic,strong) UIButton *cellSelectButton;
@@ -30,6 +28,11 @@
 @property (nonatomic,copy) UpdateNumberBlock updateNumberBlock;
 
 
+@property (nonatomic,assign) BOOL enabled;
+@property (nonatomic,assign) BOOL edited;
+
+
 - (void)updateCellStatusButtonSelected:(BOOL)selected;
+
 
 @end

@@ -28,14 +28,20 @@ static NSString *completeString = @"完成";
 
 @property (nonatomic,strong) UIBarButtonItem *rightBarButtonItem;
 
+// 无效数据
+@property (nonatomic,strong) NSMutableArray *invalidCartProductModelArray;
 
+// 有效数据
 @property (nonatomic,strong) NSMutableDictionary *cartOriginalNumberDictionary;
 @property (nonatomic,strong) NSMutableArray *cartProductModelArray;
-@property (nonatomic,strong) UITableView *tableView;
-@property (nonatomic,strong) CartCellOperationView *cartCellOperationView;
 
 // 用于记录cell选中状态
 @property (nonatomic,strong) NSMutableDictionary *operateCellIndexPathDic;
+
+
+@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) CartCellOperationView *cartCellOperationView;
+
 
 @property (nonatomic,strong) UIButton *tempButton;
 
@@ -75,9 +81,11 @@ static NSString *completeString = @"完成";
     if ([aSender.title isEqualToString:editString]) {
         aSender.title = completeString;
         [self.cartCellOperationView updateOperationButtonTitle:@"删除"];
+        [self setAllCellEditedStatus:YES];
     } else if ([aSender.title isEqualToString:completeString]) {
         aSender.title = editString;
         [self.cartCellOperationView updateOperationButtonTitle:@"结算"];
+        [self setAllCellEditedStatus:NO];
     }
 }
 
@@ -96,17 +104,25 @@ static NSString *completeString = @"完成";
 {
     NSLog(@"here to start settle account button");
     NSArray *selectCellArray = [self getCurrentSelectedCellModelArray];
-    float totalPrice = [self getCurrentSelectedCellAllPrice];
     
-    MarketCheakOrderInfoViewController *marketCheckOrderInfoVC = [MarketCheakOrderInfoViewController new];
-    marketCheckOrderInfoVC.totalPrice = totalPrice;
-    [marketCheckOrderInfoVC updateCheckVCWithDataArr:selectCellArray];
-    [self.navigationController pushViewController:marketCheckOrderInfoVC animated:YES];
-    
-    for (CartProductModel *model in self.cartProductModelArray) {
-        NSLog(@"num = %d",model.nums);
-    }
-    
+    NSArray *selectOrderArray = [self getCurrentSelectedGoodsOrderIDArray];
+    [[NetWorkService shareInstance] requestForCheckQuantityBeforeSettleAccountWithGoodsOrderIdArray:selectOrderArray emptyQuantity:^(NSArray *emptyGoodOrderIdArray) {
+        
+        [SXPublicTool showAlertControllerWithTitle:nil meassage:@"你有宝贝失效了" cancelTitle:@"知道了" cancelHandler:^(UIAlertAction * _Nullable action) {
+            
+            
+            
+        } confirmTitle:nil confirmHandler:nil];
+       
+        
+    } fullQuantity:^{
+        
+        float totalPrice = [self getCurrentSelectedCellAllPrice];
+        MarketCheakOrderInfoViewController *marketCheckOrderInfoVC = [MarketCheakOrderInfoViewController new];
+        marketCheckOrderInfoVC.totalPrice = totalPrice;
+        [marketCheckOrderInfoVC updateCheckVCWithDataArr:selectCellArray];
+        [self.navigationController pushViewController:marketCheckOrderInfoVC animated:YES];
+    }];
 }
 
 - (void)cartCellOperationView:(CartCellOperationView *)cartCellOperationView didSelectedDeleteListButton:(UIButton *)deleteListButton
@@ -167,18 +183,17 @@ static NSString *completeString = @"完成";
 #pragma mark - tableVeiw delegate & datasource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CartProductModel *cartProductModel = (CartProductModel *)self.cartProductModelArray[indexPath.section];
     static NSString *identifier = @"CartListCell";
     CartListCell *cartListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cartListCell == nil) {
         cartListCell = [[CartListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cartListCell.delegate = self;
+        cartListCell.enabled = YES;
         //        [cartListCell mas_makeConstraints:^(MASConstraintMaker *make) {
         //            make.height.mas_equalTo(135);
         //        }];
     }
-    
-    
-    CartProductModel *cartProductModel = (CartProductModel *)self.cartProductModelArray[indexPath.section];
     
     __weak typeof(cartProductModel) weakSelf = cartProductModel;
     cartListCell.updateNumberBlock = ^(int number) {
@@ -186,18 +201,32 @@ static NSString *completeString = @"完成";
         weakSelf.nums = number;
         [self updateCartCellOperationViewPrice];
     };
+    cartListCell.cartProductModel = cartProductModel;
     
     [[NetWorkService shareInstance] requestForCurrentQuantityWithGoodsModelId:cartProductModel.goods_model_id responseBlock:^(int quantity) {
 
         cartProductModel.quantity = quantity;
         NSLog(@"%@",cartProductModel.objectDictionary);
         
-        cartListCell.cartProductModel = cartProductModel;
+        if (cartProductModel.quantity <= 0) {
+            // 失效，库存小于0
+            cartListCell.enabled = NO;
+            cartListCell.edited = NO;
+            
+            // 失效商品全部移到后面
+            
+            
+        } else if(cartProductModel.nums < 1) {
+            // 购物车数量小于1
+            cartProductModel.nums = 1;
+        } else if (cartProductModel.nums > cartProductModel.quantity) {
+            // 购物车数量大于最大库存
+            cartProductModel.nums = cartProductModel.quantity;
+        }
     }];
     
     NSNumber *boolObject = [self.operateCellIndexPathDic objectForKey:[NSNumber numberWithInteger:indexPath.section]];
     [cartListCell updateCellStatusButtonSelected:boolObject.boolValue];
-
     
     return cartListCell;
 }
@@ -231,7 +260,10 @@ static NSString *completeString = @"完成";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
+    CartProductModel *model = self.cartProductModelArray[indexPath.section];
+    MarketDetailViewController *vc = [[MarketDetailViewController alloc] init];
+    vc.goods_id = [NSString stringWithFormat:@"%d",model.goods_id];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - private methods - get data
@@ -243,6 +275,17 @@ static NSString *completeString = @"完成";
         totalPrice += cartProductModel.price * cartProductModel.nums;
     }
     return totalPrice;
+}
+
+- (NSMutableArray *)getCurrentSelectedGoodsOrderIDArray
+{
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithCapacity:0];
+    for (CartProductModel *model in [self getCurrentSelectedCellModelArray]) {
+        id value = [NSNumber numberWithInt:model.goods_order_id];
+//        id value = [NSString stringWithFormat:@"%d",model.goods_order_id];
+        [mutableArray addObject:value];
+    }
+    return mutableArray;
 }
 
 //return the CartProductModel array
@@ -331,6 +374,14 @@ static NSString *completeString = @"完成";
     return _cartProductModelArray;
 }
 
+- (NSMutableArray *)invalidCartProductModelArray
+{
+    if (_invalidCartProductModelArray == nil) {
+        _invalidCartProductModelArray = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    return _invalidCartProductModelArray;
+}
+
 #pragma mark - request
 
 - (void)checkAndRequestForModifyCartNumber
@@ -401,6 +452,15 @@ static NSString *completeString = @"完成";
 {
     float totalPrice = [self getCurrentSelectedCellAllPrice];
     [self.cartCellOperationView updateTotalPrice:totalPrice];
+}
+
+- (void)setAllCellEditedStatus:(BOOL)edited
+{
+    for (int i = 0; i < self.tableView.visibleCells.count; i++) {
+        // 1.update current visible cells‘s view（not all cell）
+        CartListCell *cartListCell = (CartListCell *)self.tableView.visibleCells[i];
+        cartListCell.edited = edited;
+    }
 }
 
 - (void)setALLCellSelectedStatus:(BOOL)selected

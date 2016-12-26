@@ -35,6 +35,7 @@ typedef enum : NSUInteger {
     URLModuleKeyTypeCheckGoodsQuantity,     // 检查库存
     URLModuleKeyTypeCartNumberIncrease,     // 购物车数量相加
     URLModuleKeyTypeCartNumberDecrease,     // 购物车数量相减
+    URLModuleKeyTypeCartSettleAccountCheck, // 购物车结算库存检查
 
     URLModuleKeyTypeOrderList,              // 订单列表
     URLModuleKeyTypeOrderDetail,            // 订单详情
@@ -140,12 +141,17 @@ static NSString *recommendedProductKey = @"fishtree";
 /**
  *  删除购物车列表
  */
-- (void)requestForDeleteCartListWithGoodsOrderIdArray:(NSArray *)goods_order_id_Array;
+- (void)requestForDeleteCartListWithGoodsOrderIdArray:(nonnull NSArray *)goods_order_id_Array;
 
 /**
  *  购物车数量加减
  */
 - (void)requesetForModifyCartNums:(int)nums goods_order_id:(int)goods_order_id;
+
+/**
+ *  购物车结算库存检查
+ */
+- (void)requestForCheckQuantityBeforeSettleAccountWithGoodsOrderIdArray:(nonnull NSArray *)goods_order_id emptyQuantity:(nullable void(^)(NSArray *emptyGoodOrderIdArray))emptyQuantityBlock fullQuantity:(nullable void(^)())fullQuantityBlock;
 
 /**
  *  处理订单

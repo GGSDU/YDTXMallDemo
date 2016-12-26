@@ -327,6 +327,36 @@ static NetWorkService *instance = nil;
 }
 
 /**
+ *  购物车结算库存检查
+ */
+- (void)requestForCheckQuantityBeforeSettleAccountWithGoodsOrderIdArray:(NSArray *)goods_order_id  emptyQuantity:(nullable void (^)(NSArray *))emptyQuantityBlock fullQuantity:(nullable void (^)())fullQuantityBlock
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:goods_order_id forKey:@"goods_order_id"];
+    
+    NSLog(@"param %@",param);
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeCartSettleAccountCheck requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+       
+        NSLog(@"结算之前检查库存");
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSLog(@"%@",responseDic);
+        NSNumber *status = [responseDic objectForKey:@"status"];
+        
+        if (status.integerValue == 200) {
+            //  库存不足
+            NSMutableArray *goods_order_id_array = [[NSMutableArray alloc] initWithCapacity:0];
+            NSArray *array = [responseDic objectForKey:@"data"];
+            for (NSDictionary *dic in array) {
+                [goods_order_id_array addObject:dic[@"id"]];
+            }
+            emptyQuantityBlock(goods_order_id_array);
+        } else {
+            fullQuantityBlock();
+        }
+    }];
+}
+
+/**
  *  商品型号数据
  */
 -(void)requestForMarketGoodsModelDataWithGoodsId:(NSString *)goods_id responseBlock:(nullable void(^)(NSArray *marketProductModelArray))responseBlock{
@@ -487,6 +517,11 @@ static NetWorkService *instance = nil;
         {
             requestInfoDictionary = [self.urlDictionary objectForKey:@"CartNumberDecrease"];
 
+        }
+            break;
+        case URLModuleKeyTypeCartSettleAccountCheck:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"CartSettleAccountCheck"];
         }
             break;
         case URLModuleKeyTypeOrderList:

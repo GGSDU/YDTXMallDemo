@@ -98,6 +98,8 @@ static NSString *watchMoreIdentifier = @"watchMore";
 - (void)searchBarItemClicked:(UIBarButtonItem *)aSender
 {
     NSLog(@"点击了搜索");
+    SearchViewController *vc = [[SearchViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)cartBarItemClicked:(UIBarButtonItem *)aSender{
