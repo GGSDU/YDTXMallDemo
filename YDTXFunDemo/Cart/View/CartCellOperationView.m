@@ -10,7 +10,6 @@
 
 @interface CartCellOperationView ()
 
-@property (nonatomic,strong) UIButton *allChooseButton;
 @property (nonatomic,strong) UILabel *totalPriceLabel;
 @property (nonatomic,strong) UIButton *operationButton;
 
@@ -30,11 +29,6 @@
 }
 
 #pragma mark - public methods
-- (BOOL)allChooseButtonSelectedStatus
-{
-    return _allChooseButton.selected;
-}
-
 - (void)updateOperationButtonTitle:(NSString *)title
 {
     [_operationButton setTitle:title forState:UIControlStateNormal];

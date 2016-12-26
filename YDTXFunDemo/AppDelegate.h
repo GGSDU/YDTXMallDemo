@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) NSMutableDictionary *urlDictionary;
 
 @end
 

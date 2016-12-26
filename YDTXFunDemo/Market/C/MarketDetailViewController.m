@@ -13,11 +13,10 @@
 #import "CartViewController.h"
 #import "SDCycleDispalyView.h"
 #import "marketDetailModel.h"
-@interface MarketDetailViewController ()<UITableViewDataSource,UITableViewDelegate,reMoveAnimationDelegate>
+@interface MarketDetailViewController ()<UIWebViewDelegate,NetWorkServiceDelegate>
 
-@property(strong,nonatomic)UITableView *tableView ;
-
-@property(strong,nonatomic)MarketMaskView *maskView;
+@property (strong,nonatomic) UIScrollView *baseScrollerView;
+@property (strong,nonatomic) UIWebView *DetailWebView;
 
 @property(strong,nonatomic)NSMutableArray *marketDetailDataArr;
 
@@ -28,6 +27,8 @@
 @property(strong,nonatomic)UILabel *vipPriceLabel;           //会员价
 @property(strong,nonatomic)UILabel *stockLabel;              //库存
 @property(strong,nonatomic)UILabel *salesLabel;              //销售量
+
+@property(copy,nonatomic)NSString *goods_imgUrl;
 
 
 @end
@@ -40,6 +41,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 @implementation MarketDetailViewController
 
 //lazy
+
 -(NSMutableArray *)marketDetailDataArr{
     if (!_marketDetailDataArr) {
         _marketDetailDataArr = [NSMutableArray array];
@@ -51,24 +53,11 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     [super viewDidLoad];
     [self setUI];
     [self setBasic];
-//    [self setRefresh];
     [self loadMarketDetialData];
 }
 
 
--(void)setRefresh{
 
-    [self.tableView.tableHeaderView addSubview:[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMarketDetialData)]];
-    
-    
-    self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    
-    // 进入刷新状态 自动触发loadNewData
-    [self.tableView.mj_header beginRefreshing];
-
-
-
-}
 -(void)setBasic{
     
     //nav标题  商品详情
@@ -78,28 +67,31 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     self.navigationItem.rightBarButtonItem = rightBarItem;
     
-    //基本设置
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    // 注册
+  
+    [NetWorkService shareInstance].delegate = self;
     
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MarketDetailCell class]) bundle:nil] forCellReuseIdentifier:kMarketDetialCellId];
     
     
 
 }
 -(void)setUI{
-    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-  
-    self.tableView = tableView;
-    [self.view addSubview:tableView];
+    
+    UIScrollView *baseScrollerView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    
+    
+    _baseScrollerView = baseScrollerView;
+    baseScrollerView.backgroundColor = [UIColor whiteColor];
+    baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, 3000);
+    [self.view addSubview:baseScrollerView];
+    
+    
     
     
 //头部底层view
     UIView *headBaseView  =[[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, YDTXScreenW + 200)];
     
     headBaseView.backgroundColor = [UIColor whiteColor];
-   tableView.tableHeaderView = headBaseView;
+    [_baseScrollerView addSubview:headBaseView];
 //轮播
     SDCycleDispalyView *bannerView  =[[SDCycleDispalyView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, YDTXScreenW )];
     
@@ -159,7 +151,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     stockLabel.numberOfLines = 1;
     stockLabel.font = [UIFont systemFontOfSize:12];
     stockLabel.textColor = [UIColor colorForHex:@"3f3f3f"];
-    stockLabel.text = @"商家库存1000件";
+    stockLabel.text = @"商家库存xxx件";
     self.stockLabel = stockLabel;
     [headBaseView addSubview:stockLabel];
     [stockLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -275,6 +267,39 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     }];
     
     
+    // 商品详情Label
+    UILabel *detailLabel = [[UILabel alloc] init];
+    detailLabel.textColor = [UIColor blackColor];
+    detailLabel.font = [UIFont systemFontOfSize:18];
+    detailLabel.text = @"商品详情";
+    detailLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [baseScrollerView addSubview:detailLabel];
+    [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(baseScrollerView).offset(15);
+        make.top.equalTo(headBaseView.mas_bottom).offset(20);
+    }];
+    
+    
+    
+    
+    
+    //webView
+
+    UIWebView *DetailWebView  = [[UIWebView alloc]initWithFrame:CGRectMake(0, 630, YDTXScreenW , 2000)];
+    DetailWebView.scrollView.scrollEnabled = NO;
+    DetailWebView.delegate = self;
+    _DetailWebView = DetailWebView;
+    [baseScrollerView addSubview:DetailWebView];
+//    [DetailWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(YDTXScreenW, YDTXScreenH));
+//        
+//        make.leading.equalTo(baseScrollerView);
+//        make.trailing.equalTo(baseScrollerView);
+//        make.top.equalTo(detailLabel.mas_bottom).offset(10);
+////        make.bottom.equalTo(baseScrollerView);
+//    }];
+    
+    
     
     
 //底部的悬浮view
@@ -336,8 +361,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     }];
     
     
-    
-    
+ 
     
     
     
@@ -357,33 +381,14 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
 }
 -(void)jionItemInShopCar{
-
     
-    
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [self.view.layer setTransform:[self firstTransform]];
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            
-            [self.view.layer setTransform:[self secondTransform]];
-//            显示maskView
- 
-            MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
-            self.maskView =maskView;
-            maskView.delegate = self;
-            [[UIApplication sharedApplication].keyWindow addSubview:maskView];
-            
-            
-          
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-    }];
+    MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
+    maskView.goods_id =  self.goods_id;
+    maskView.goods_Name =_goodsTitleLabel.text ;
+    maskView.imageUrl = [SXPublicTool getImageURLByURLString:_goods_imgUrl];
+    [self.view addSubview:maskView];
+    [maskView showWithTransformAnimation];
+    [maskView updateUIWithGoodsId:self.goods_id];
 
 
 }
@@ -392,68 +397,12 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 
     NSLog(@"-buyItNow-");
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [self.view.layer setTransform:[self firstTransform]];
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            
-            [self.view.layer setTransform:[self secondTransform]];
-            //            显示maskView
-            
-            MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
-            self.maskView =maskView;
-            maskView.delegate = self;
-            [[UIApplication sharedApplication].keyWindow addSubview:maskView];
-            
-            
-            
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-    }];
-    
+      
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-}
-
-#pragma mark - Table view data source
-
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    
-    NSLog(@"--1--%lu",(unsigned long)self.marketDetailDataArr.count);
-    return self.marketDetailDataArr.count;
-    
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-     NSLog(@"--2--%lu",(unsigned long)self.marketDetailDataArr.count);
-    return self.marketDetailDataArr.count;
-}
-
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    marketDetailModel *model = self.marketDetailDataArr[indexPath.row];
-    MarketDetailCell *marketDetailCell = [tableView dequeueReusableCellWithIdentifier:kMarketDetialCellId];
-    marketDetailCell.marketDetailModel = model;
-   
-    return marketDetailCell;
-
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 600;
-
 }
 
 #pragma mark --load Data Method
@@ -462,106 +411,43 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 -(void)loadMarketDetialData{
 
     /*
-     *  http://test.m.yundiaoke.cn/api/goods/detail/goods_id/37/userid/8
-     *  请求方式：get
      *  参数：goods_id（商品的id）,userid(用户id)
      *
      */
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"goods_id"] = @(self.goods_id);
-    params[@"userid"]  = @8;
-    NSString *Url = @"http://test.m.yundiaoke.cn/api/goods/detail";
-    
-    [[NetWorkService shareInstance] GET:Url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSString *userid = @"8";
+    [[NetWorkService shareInstance] requestForMarketGoodsDetailDataWithGoodsId:self.goods_id UserId:userid responseBlock:^(NSArray *marketGoodsDetailModelArray) {
         
-        NSLog(@"market Detail Info-->:%@",responseObject);
-    
-        if ([responseObject[@"status"] integerValue] == 200) {
-            
-            
-            self.marketDetailDataArr = [marketDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-            
-            marketDetailModel *model = self.marketDetailDataArr[0];
-            
-            //轮播
-            self.cycleView.currentMiddleImageViewIndex = 0;
-            self.cycleView.imageUrls = model.images_url;
-            [self.cycleView updateImageViewsAndTitleLabel];
-            //商品名
-            self.goodsTitleLabel.text = model.name;
-            //原价
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",model.price];
-            //会员价
-            self.vipPriceLabel.text = [NSString stringWithFormat:@"会员价：￥%.2f",model.pay];
-            //库存
-            self.stockLabel.text = [NSString stringWithFormat:@"商家库存：%d件",model.quantity];
-            //销量
-            self.salesLabel.text = [NSString stringWithFormat:@"月销%d件",model.total_num];
-            
-            [self.tableView reloadData];
-        }else if([responseObject[@"status"] integerValue] == 400){
+        [self.marketDetailDataArr addObjectsFromArray:marketGoodsDetailModelArray];
+                    marketDetailModel *model = self.marketDetailDataArr[0];
+                    //轮播
+                    self.cycleView.currentMiddleImageViewIndex = 0;
+                    self.cycleView.imageUrls = model.images_url;
+                    [self.cycleView updateImageViewsAndTitleLabel];
+                    _goods_imgUrl = model.images_url[0];
+                    //商品名
+                    self.goodsTitleLabel.text = model.name;
+                    //原价
+                    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",model.price];
+                    //会员价
+                    self.vipPriceLabel.text = [NSString stringWithFormat:@"会员价：￥%.2f",model.pay];
+                    //库存
+                    self.stockLabel.text = [NSString stringWithFormat:@"商家库存：%d件",model.quantity];
+                    //销量
+                    self.salesLabel.text = [NSString stringWithFormat:@"月销%d件",model.total_num];
         
-        }else if([responseObject[@"status"] integerValue] == 401){
-            
-        }else if([responseObject[@"status"] integerValue] == 403){
-            
-        }
-
-
+                    //htmlstring
+                    //处理url
         
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        
-        
+                    model.content = [model.content stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
+                   NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{max-width:%f !important;}</style></head>%@",YDTXScreenW - 5,model.content];
+                    
+                    [_DetailWebView loadHTMLString:htmlString baseURL:nil];
         
     }];
-    
-    
-    
-
-
 
 }
 
 
-#pragma mark - tableView  headerView
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-// 15 15
-    UIView *headView = [[UIView alloc]init];
-    headView.backgroundColor = [UIColor whiteColor];
-    
-    
-    UILabel *label = [[UILabel alloc] init];
-    label.textColor = [UIColor blackColor];
-    label.font = [UIFont systemFontOfSize:15];
-    label.text = @"商品详情";
-    label.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [headView addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(headView).offset(15);
-        make.centerY.equalTo(headView);
-    }];
-    
-
-    
-    
-    
-    return headView;
-}
-
-//头部的高度
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    
-    return 40;
-    
-    
-    
-}
 
 
 #pragma mark -JumpToCartVcMethod
@@ -574,53 +460,25 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 }
 
 
-#pragma mark - TranslationAnimation
-- (CATransform3D)firstTransform{
-    CATransform3D t1 = CATransform3DIdentity;
-    t1.m34 = 1.0/-900;
-    //带点缩小的效果
-    t1 = CATransform3DScale(t1, 0.95, 0.95, 1);
-    //绕x轴旋转
-    t1 = CATransform3DRotate(t1, 15.0 * M_PI/180.0, 1, 0, 0);
-    return t1;
+#pragma mark --DetailWebViewDelegate
+
+-(void)webViewDidFinishLoad:(UIWebView*)webView{
+    //处理webView 的高度
+    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
+    CGRect newFrame = webView.frame;
+    newFrame.size.height = actualSize.height;
+    webView.frame = newFrame;
+    //处理scrollerView的滚动距离
+#pragma warning -- 650 是估计距离  需要精确计算
+    _baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, newFrame.size.height + 650);
     
 }
 
-- (CATransform3D)secondTransform{
-    
-    CATransform3D t2 = CATransform3DIdentity;
-    t2.m34 = [self firstTransform].m34;
-    //向上移
-    t2 = CATransform3DTranslate(t2, 0, self.view.frame.size.height * (-0.08), 0);
-    //第二次缩小
-    t2 = CATransform3DScale(t2, 0.85, 0.75, 1);
-    return t2;
+#pragma mark --networkServiceDelegate
+-(void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message{
+
+    [RHNotiTool NotiShowWithTitle:@"网络跑丢了~" Time:1.0];
 }
-#pragma mark - MarketMaskDelegate
--(void)removeMarketVCAnimation{
 
-    [self.maskView removeFromSuperview];
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [self.view.layer setTransform:[self firstTransform]];
-       
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            //变为初始值
-            [self.view.layer setTransform:CATransform3DIdentity];
-            
-        } completion:^(BOOL finished) {
-            
-       
-        }];
-        
-    }];
-    
-
-
-
-}
 
 @end

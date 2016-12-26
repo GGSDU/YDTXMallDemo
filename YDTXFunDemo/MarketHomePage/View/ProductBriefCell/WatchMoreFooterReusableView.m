@@ -6,15 +6,15 @@
 //  Copyright © 2016 Story5. All rights reserved.
 //
 
-#import "WatchMoreCell.h"
+#import "WatchMoreFooterReusableView.h"
 
-@interface WatchMoreCell ()
+@interface WatchMoreFooterReusableView ()
 
 @property (nonatomic,strong) UIButton *watchMoreButton;
 
 @end
 
-@implementation WatchMoreCell
+@implementation WatchMoreFooterReusableView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -40,14 +40,13 @@
         [_watchMoreButton setTitle:@"查看更多" forState:UIControlStateNormal];
         [_watchMoreButton setTitleColor:RGB(65, 65, 65) forState:UIControlStateNormal];
         [_watchMoreButton addTarget:self action:@selector(clickWatchMoreButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_watchMoreButton];
+        [self addSubview:_watchMoreButton];
     }
     
     NSLog(@"*******%@",NSStringFromCGRect(self.frame));
-    NSLog(@"*******%@",NSStringFromCGRect(self.contentView.frame));
     [_watchMoreButton mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.edges.equalTo(self.contentView);
+        make.edges.equalTo(self);
     }];
 }
 

@@ -29,7 +29,7 @@
     return resURL;
 }
 
-+ (NSURL *)getImageURLByURLString:(NSString *)urlString
++ (NSString *)getImageURLStringByURLString:(NSString *)urlString
 {
     NSString *website = @"test.m.yundiaoke.cn";
     NSString *imageUrlString = urlString;
@@ -40,6 +40,12 @@
     } else {
         imageUrlString = [NSString stringWithFormat:@"http://%@%@",website,imageUrlString];
     }
+    return imageUrlString;
+}
+
++ (NSURL *)getImageURLByURLString:(NSString *)urlString
+{
+    NSString *imageUrlString = [SXPublicTool getImageURLStringByURLString:urlString];
     
     NSURL *url = [NSURL URLWithString:imageUrlString];
     
@@ -87,12 +93,20 @@
                       confirmHandler:(void (^)(UIAlertAction * _Nullable))confirmHandler
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    //cancel
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:cancelHandler];
-    [alert addAction:cancelAction];
-    //confirm
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmTitle style:UIAlertActionStyleDefault handler:confirmHandler];
-    [alert addAction:confirmAction];
+    
+    if (cancelTitle || cancelHandler) {
+        //cancel
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:cancelHandler];
+        [alert addAction:cancelAction];
+    }
+    
+    if (confirmHandler || confirmHandler) {
+        //confirm
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:confirmTitle style:UIAlertActionStyleDefault handler:confirmHandler];
+        [alert addAction:confirmAction];
+    }
+    
+    
     //present
     UIWindow *window = [SXPublicTool keyWindow];
     [window.rootViewController presentViewController:alert animated:YES completion:nil];

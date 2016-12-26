@@ -22,7 +22,7 @@
 
 @property (nonatomic,assign) id<CartCellOperationViewDelegate>delegate;
 
-- (BOOL)allChooseButtonSelectedStatus;
+@property (nonatomic,strong) UIButton *allChooseButton;
 - (void)updateOperationButtonTitle:(NSString *)title;
 - (void)updateTotalPrice:(float)price;
 

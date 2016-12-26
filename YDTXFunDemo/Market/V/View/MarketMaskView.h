@@ -9,17 +9,18 @@
 #import <UIKit/UIKit.h>
 
 
-@protocol reMoveAnimationDelegate <NSObject>
-
--(void)removeMarketVCAnimation;
-
-@end
-
 @interface MarketMaskView : UIView
 
+@property (copy,nonatomic)NSString *goods_id;
+@property (copy,nonatomic)NSString *goods_Name;
+@property (copy,nonatomic)NSURL *imageUrl;
 
-@property(weak,nonatomic)id<reMoveAnimationDelegate> delegate;
+//带有旋转动画的初始化方法
+-(void)showWithTransformAnimation;
 
--(void)creatWithImgUrl:(NSString *)ImgUrl Title:(NSString *)title Price:(NSString *)price DataArray:(NSArray *)dataArr BtnTitle:(NSString *)btnTitle;
+//带有还原动画的消失方法
+//-(void)dismissWithTransformAnimation;
+
+-(void)updateUIWithGoodsId:(NSString *)goods_id;
 
 @end

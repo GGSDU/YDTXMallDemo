@@ -8,69 +8,25 @@
 
 #import "ViewController.h"
 
-#import "SXAdjustNumberView.h"
 #import "CartViewController.h"
 #import "ShopMarketController.h"
 
-//
 #import "MeViewController.h"
-#import "AddSpotMessageViewController.h"
+
 
 //
-#import "MarketListViewController.h"
+#import "MarketCategoryListViewController.h"
 #import "MarketCheakOrderInfoViewController.h"
-
-
-//#import "PartnerViewController.h"
+#import "PartnerViewController.h"
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        NSLog(@"%s",__func__);
-    }
-    return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    NSLog(@"%s",__func__);
-}
-
-- (void)setI:(int)i
-{
-    _i = i;
-    NSLog(@"%s",__func__);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%s",__func__);
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor redColor];
     
@@ -123,20 +79,12 @@
         }
             
             break;
-        case 5:
-        {
-            [aSender setTitle:@"添加活动信息" forState:UIControlStateNormal];
-            
-            AddSpotMessageViewController *meVc = [[AddSpotMessageViewController alloc]initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:meVc animated:YES];
-        }
-            
-            break;
+ 
             
         //商品列表
         case 6:
         {
-            MarketListViewController *markListVC = [[MarketListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
+            MarketCategoryListViewController *markListVC = [[MarketCategoryListViewController alloc]initWithCollectionViewLayout:[UICollectionViewLayout new]];
             [self.navigationController pushViewController:markListVC animated:YES];
         
         }
@@ -154,8 +102,8 @@
         //合伙人
             case 8:
         {
-//            PartnerViewController *partnerVC = [PartnerViewController new];
-//            [self.navigationController pushViewController:partnerVC animated:YES];
+            PartnerViewController *partnerVC = [PartnerViewController new];
+            [self.navigationController pushViewController:partnerVC animated:YES];
         }
             break;
             
@@ -163,15 +111,5 @@
             break;
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-
 
 @end

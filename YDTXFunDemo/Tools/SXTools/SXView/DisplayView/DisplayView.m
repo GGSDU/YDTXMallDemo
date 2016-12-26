@@ -60,8 +60,9 @@
            
             make.top.equalTo(self.mas_top);
             make.left.equalTo(self.mas_left);
-            make.size.mas_equalTo(CGSizeMake(175, 175));
             make.right.equalTo(self.mas_right);
+            make.height.equalTo(self.mas_width);
+//            make.size.mas_equalTo(CGSizeMake(175, 175));
         }];
     }
     return _imageView;
@@ -73,7 +74,7 @@
         _infoLabel = [[UILabel alloc] init];
         _infoLabel.numberOfLines = 2;
         _infoLabel.font = [UIFont systemFontOfSize:15];
-        _infoLabel.adjustsFontSizeToFitWidth = YES;
+//        _infoLabel.adjustsFontSizeToFitWidth = YES;
         _infoLabel.textColor = RGB(46, 46, 46);
         [self addSubview:_infoLabel];
         
@@ -136,6 +137,7 @@
             make.top.equalTo(self.priceLabel.mas_bottom).offset(12);
             make.left.equalTo(self).offset(12);
             make.bottom.equalTo(self).offset(-12);
+//            make.height.mas_equalTo(36);
         }];
     }
     return _saleLabel;

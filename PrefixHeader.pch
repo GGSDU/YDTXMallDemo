@@ -26,13 +26,27 @@
 #import "SVProgressHUD.h"
 
 // 自定义
-#import "SXPublicTool.h"
-#import "NetWorkService.h"
-
+#import "AllModel.h"
 #import "ProductModel.h"
 
+
+#import "SXPublicTool.h"
+#import "NetWorkService.h"
+#import "RHNotiTool.h"
+
 #import "UIColor+Hex.h"
+
+#import "NSObject+Property.h"
+
 #import "UIView+Category.h"
+
+#import "SXAdjustNumberView.h"
+
+#import "ShopMarketController.h"
+#import "SearchViewController.h"
+#import "MarketDetailViewController.h"
+
+#define USER_ID 72
 
 #define StandardBackgroundColor RGB(238, 238, 238)
 

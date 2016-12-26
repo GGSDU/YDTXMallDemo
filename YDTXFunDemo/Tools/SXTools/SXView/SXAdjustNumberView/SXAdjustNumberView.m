@@ -39,15 +39,19 @@
 #pragma mark - getter/setter
 - (void)setMaxValue:(NSInteger)maxValue
 {
-    NSAssert(maxValue >= _minValue, @"maxValue must >= minValue");
     _maxValue = maxValue;
+    
+    if (_minValue > _maxValue) {
+        
+        if (self.quantityLowBlock) {
+            self.quantityLowBlock();
+        }
+    }
+    
 }
 
 - (void)setNumber:(int)number
 {
-    NSAssert(number >= _minValue, @"number must >= %ld",_minValue);
-    NSCAssert1(number <= _maxValue, @"number must <= %ld",_maxValue);
-    
     _number = number;
     
     _numberTextField.text = [NSString stringWithFormat:@"%d",_number];

@@ -21,15 +21,10 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     ViewController *rootViewController = [[ViewController alloc] init];
-    rootViewController.i = 1;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     
     [nc.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBackImage"] forBarMetrics:UIBarMetricsDefault];
     nc.navigationBar.translucent = YES;
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"URLInterface" ofType:@"plist"];
-    self.urlDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
-    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = nc;

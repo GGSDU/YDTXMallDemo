@@ -10,9 +10,19 @@
 #import "marketDetailModel.h"
 
 
+
+@protocol marketDetailCellDelegate <NSObject>
+
+-(void)updateCellHeightWithHeight:(CGFloat)height;
+
+@end
+
 @interface MarketDetailCell : UITableViewCell
 
 @property(strong,nonatomic)marketDetailModel *marketDetailModel;
+
+@property(weak,nonatomic)id <marketDetailCellDelegate> delegate;
+
 
 
 

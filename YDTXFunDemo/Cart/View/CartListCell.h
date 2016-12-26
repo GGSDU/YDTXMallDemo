@@ -12,20 +12,27 @@
 
 @protocol CartListCellDelegate <NSObject>
 
-- (void)cartListCell:(CartListCell *)cartListCell didSelectedCell:(ProductModel *)productModel;
+- (void)cartListCell:(CartListCell *)cartListCell didSelectedCell:(CartProductModel *)cartProductModel;
+
 
 @end
 
 @interface CartListCell : UITableViewCell
 
 @property (nonatomic,assign) id<CartListCellDelegate>delegate;
-
-@property (nonatomic,strong) ProductModel *productModel;
-
+@property (nonatomic,strong) CartProductModel *cartProductModel;
 @property (nonatomic,assign) int productNumber;
 
 @property (nonatomic,strong) UIButton *cellSelectButton;
+@property (nonatomic,strong) SXAdjustNumberView *adjustNumberView;
+@property (nonatomic,copy) UpdateNumberBlock updateNumberBlock;
+
+
+@property (nonatomic,assign) BOOL enabled;
+@property (nonatomic,assign) BOOL edited;
+
 
 - (void)updateCellStatusButtonSelected:(BOOL)selected;
+
 
 @end

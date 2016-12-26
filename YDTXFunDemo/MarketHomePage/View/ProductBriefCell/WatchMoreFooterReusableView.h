@@ -10,7 +10,7 @@
 
 typedef void(^WatchMoreHandler)(UIButton *aSender);
 
-@interface WatchMoreCell : UICollectionViewCell
+@interface WatchMoreFooterReusableView : UICollectionReusableView
 
 @property (nonatomic,copy) WatchMoreHandler watchMoreHandler;
 

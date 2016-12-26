@@ -2,16 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ResponseStatus</key>
+	<key>HomeBanner</key>
 	<dict>
-		<key>200</key>
-		<string>成功</string>
-		<key>400</key>
-		<string>失败</string>
-		<key>401</key>
-		<string>数据不合法</string>
-		<key>403</key>
-		<string>非法参数</string>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goods/shopBanr</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
 	</dict>
 	<key>ShopCategory</key>
 	<dict>
@@ -36,21 +32,21 @@
 			<string>图标</string>
 		</dict>
 	</dict>
-	<key>CategoryList</key>
+	<key>HomeListAggregatedData</key>
 	<dict>
 		<key>RequestURL</key>
-		<string>http://test.m.yundiaoke.cn/api/goods/classList</string>
+		<string>http://test.m.yundiaoke.cn/api/goods/index</string>
 		<key>RequestMethod</key>
 		<string>GET</string>
 		<key>RequestParam</key>
-		<dict>
-			<key>id</key>
-			<string>分类id</string>
-			<key>page</key>
-			<string>页数</string>
-		</dict>
+		<dict/>
 		<key>ResponseParam</key>
 		<dict>
+			<key>ShopFlag</key>
+			<array>
+				<string>shopping</string>
+				<string>fishtree</string>
+			</array>
 			<key>id</key>
 			<string>数据id</string>
 			<key>pid</key>
@@ -69,21 +65,21 @@
 			<string>分类名称</string>
 		</dict>
 	</dict>
-	<key>ShopMarketHomeListAggregatedData</key>
+	<key>CategoryList</key>
 	<dict>
 		<key>RequestURL</key>
-		<string>http://test.m.yundiaoke.cn/api/goods/index</string>
+		<string>http://test.m.yundiaoke.cn/api/goods/classList</string>
 		<key>RequestMethod</key>
 		<string>GET</string>
 		<key>RequestParam</key>
-		<dict/>
+		<dict>
+			<key>id</key>
+			<string>分类id</string>
+			<key>page</key>
+			<string>页数</string>
+		</dict>
 		<key>ResponseParam</key>
 		<dict>
-			<key>ShopFlag</key>
-			<array>
-				<string>shopping</string>
-				<string>fishtree</string>
-			</array>
 			<key>id</key>
 			<string>数据id</string>
 			<key>pid</key>
@@ -160,35 +156,97 @@
 			<string>商品型号</string>
 		</dict>
 	</dict>
-	<key>AddAddress</key>
+	<key>CartList</key>
 	<dict>
 		<key>RequestURL</key>
-		<string>http://test.m.yundiaoke.cn/api/user/createRess</string>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/orderList</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+		<key>RequestParam</key>
+		<dict/>
+		<key>ResponseParam</key>
+		<dict/>
+	</dict>
+	<key>DeleteCartList</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/orderCart</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+		<key>RequestParam</key>
+		<dict/>
+		<key>ResponseParam</key>
+		<dict/>
+	</dict>
+	<key>CheckGoodsQuantity</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/checkGoodsModel</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>CartNumberIncrease</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/cartNumInc</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>CartNumberDecrease</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/cartNumDec</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>CartSettleAccountCheck</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/totalOrderCheck</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>OrderList</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/ordermyList</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>OrderDetail</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/orderDetail</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>CommitOrder</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/submitOrder</string>
 		<key>RequestMethod</key>
 		<string>POST</string>
 		<key>RequestParam</key>
 		<dict>
 			<key>user_id</key>
-			<string>当前用户ID</string>
-			<key>user_name</key>
-			<string>收货人名字</string>
-			<key>mobile</key>
-			<string>收货人电话</string>
-			<key>prov</key>
-			<string>省份</string>
-			<key>city</key>
-			<string>城市</string>
-			<key>area</key>
-			<string>区</string>
-			<key>address</key>
- 			<string>详细地址</string>
-			<key>zcode</key>
- 			<string>邮编</string>
-			<key>status</key>
-			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
+			<string>用户id</string>
 		</dict>
 		<key>ResponseParam</key>
 		<dict/>
+	</dict>
+	<key>CancelOrder</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/orderCancel</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
+	<key>DeleteOrder</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/ordermyDel</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
 	</dict>
 	<key>AddressList</key>
 	<dict>
@@ -216,12 +274,42 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
+	</dict>
+	<key>AddAddress</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/user/createRess</string>
+		<key>RequestMethod</key>
+		<string>POST</string>
+		<key>RequestParam</key>
+		<dict>
+			<key>user_id</key>
+			<string>当前用户ID</string>
+			<key>user_name</key>
+			<string>收货人名字</string>
+			<key>mobile</key>
+			<string>收货人电话</string>
+			<key>prov</key>
+			<string>省份</string>
+			<key>city</key>
+			<string>城市</string>
+			<key>area</key>
+			<string>区</string>
+			<key>address</key>
+			<string>详细地址</string>
+			<key>zcode</key>
+			<string>邮编</string>
+			<key>status</key>
+			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
+		</dict>
+		<key>ResponseParam</key>
+		<dict/>
 	</dict>
 	<key>ModifyAddressShowInfo</key>
 	<dict>
@@ -249,9 +337,9 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
@@ -266,8 +354,6 @@
 		<dict>
 			<key>adres_id</key>
 			<string>数据id</string>
-			<key>adres_id</key>
-			<string>数据id</string>
 			<key>user_name</key>
 			<string>收货人名字</string>
 			<key>mobile</key>
@@ -279,16 +365,16 @@
 			<key>area</key>
 			<string>区</string>
 			<key>address</key>
- 			<string>详细地址</string>
+			<string>详细地址</string>
 			<key>zcode</key>
- 			<string>邮编</string>
+			<string>邮编</string>
 			<key>status</key>
 			<string>是否设为默认收货地址，默认为0，1为设置该地址为默认地址</string>
 		</dict>
 		<key>ResponseParam</key>
 		<dict/>
 	</dict>
-	<key>deleteAddress</key>
+	<key>DeleteAddress</key>
 	<dict>
 		<key>RequestURL</key>
 		<string>http://test.m.yundiaoke.cn/api/user/delAddress</string>
