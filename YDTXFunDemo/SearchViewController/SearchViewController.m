@@ -8,9 +8,11 @@
 
 #import "SearchViewController.h"
 
-@interface SearchViewController ()
+@interface SearchViewController ()<UISearchBarDelegate>
 
 @property (nonatomic,strong) UISearchBar *searchBar;
+
+@property (nonatomic,strong) NSMutableArray *resultArray;
 
 @end
 
@@ -28,11 +30,17 @@
 
 - (void)createSearchBar
 {
-    CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+    float originX = 15;
+    float height = 30;
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(originX, 0, CGRectGetWidth(self.view.bounds) - originX, height)];
+    self.searchBar.searchBarStyle = UISearchBarStyleDefault;
+    self.searchBar.showsCancelButton = YES;
+    self.searchBar.placeholder = @"输入商品名称";
+    self.searchBar.delegate = self;
+    self.navigationItem.titleView = self.searchBar;
     
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, navigationBarFrame.origin.y + (navigationBarFrame.size.height - 30) / 2, self.view.frame.size.width - 30, 30)];
-    [self.view addSubview:self.searchBar];
+    self.navigationItem.hidesBackButton = YES;
 }
 
 @end
