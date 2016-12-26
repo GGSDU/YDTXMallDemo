@@ -14,7 +14,7 @@
 
 @property (strong,nonatomic)CategoryWebView *categoryWebView;
 @property (strong,nonatomic)UIButton *selectBtn;
-@property (strong,nonatomic)UIButton *payBtn;
+
 
 @property (strong,nonatomic)NSMutableArray *categoryDataArr;
 @end
@@ -79,34 +79,20 @@
     self.selectBtn = btn;
 
     NSLog(@"tag===>:%ld",(long)btn.tag);
+    //处理底部的 payView
     
-    [self setPayViewWithBtnTag:btn.tag];
+    if (_delegate &&[_delegate respondsToSelector:@selector(setPayViewStatusWithBtnTag:)]) {
+        
+        [_delegate setPayViewStatusWithBtnTag:btn.tag];
+        
+    }
+    //更新合伙人协议
     [self loadPartnerRightsExplainDataWithType:btn.tag];
 
 }
 
--(void)setPayViewWithBtnTag:(NSInteger)tag{
 
-    if (tag == 6) {
-        _payBtn = [[UIButton alloc]init];
-        [_payBtn setTitle:@"立即参与" forState:UIControlStateNormal];
-        [_payBtn setBackgroundColor:RGB(254, 148, 2)];
-        _payBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-        [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.superview addSubview:_payBtn];
-        [_payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.superview);
-            make.right.equalTo(self.superview);
-            make.bottom.equalTo(self.superview);
-            make.height.mas_equalTo(50);
-        }];
-        
-    }else{
-        [_payBtn removeFromSuperview];
-        return;
-    }
 
-}
 
 #pragma mark --loadDataMethod
 //加载合伙人权益说明
@@ -125,11 +111,7 @@
 //        NSLog(@"--合伙人权益--：%@",responseObject);
         
         if ([responseObject[@"status"] integerValue] == 200) {
-            
-            
-//            self.categoryDataArr = [PartnerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             NSString *htmlStr = responseObject[@"data"][@"right"];
-//            PartnerModel *model = self.categoryDataArr[0];
             [self SendDelegateWithHtmlString:htmlStr];
             
           

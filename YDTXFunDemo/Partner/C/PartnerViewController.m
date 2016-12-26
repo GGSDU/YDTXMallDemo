@@ -9,13 +9,17 @@
 #import "PartnerViewController.h"
 #import "CategoryView.h"
 #import "CategoryWebView.h"
+
+
+
+#import "PartnerCommitInfoViewController.h"
 @interface PartnerViewController ()<CategoryViewDelegate>
 
 @property (strong ,nonatomic) UIScrollView *topScrollerView;
 
 @property (strong,nonatomic)CategoryView *categoryView;
 @property (strong,nonatomic)CategoryWebView *categoryWebView;
-
+@property (strong,nonatomic)UIButton *payBtn;
 @end
 
 @implementation PartnerViewController
@@ -60,8 +64,8 @@
   
 //categoryView
     _categoryView = [[CategoryView alloc]init];
-    _categoryView.backgroundColor = [UIColor redColor];
-    _categoryWebView.delegate = self;
+    _categoryView.backgroundColor = [UIColor whiteColor];
+    _categoryView.delegate = self;
     [self.view addSubview:_categoryView];
     [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_topScrollerView.mas_bottom);
@@ -121,7 +125,7 @@
     
 //webview
     _categoryWebView = [[CategoryWebView alloc]init];
-    _categoryWebView.backgroundColor = [UIColor orangeColor];
+//    _categoryWebView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_categoryWebView];
     [_categoryWebView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -129,6 +133,22 @@
         make.top.equalTo(DetailInfoTitle.mas_bottom);
         make.right.equalTo(self.view);
         make.bottom.equalTo(self.view);
+    }];
+
+    
+    
+    _payBtn = [[UIButton alloc]init];
+    [_payBtn setTitle:@"立即参与" forState:UIControlStateNormal];
+    [_payBtn setBackgroundColor:RGB(254, 148, 2)];
+    _payBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_payBtn addTarget:self action:@selector(JionYunClient) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_payBtn];
+    [_payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.height.mas_equalTo(50);
     }];
 
     
@@ -146,18 +166,44 @@
 
 
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -- self--Method
 
-#pragma mark--CategoryDelegateMethod
--(void)updateWebViewInfoWithHtmlString:(NSString *)htmlString{
+-(void)JionYunClient{
 
-    NSString *correctStr = [htmlString stringByReplacingOccurrencesOfString:@"src=\"" withString:@"src=\"http://m.yundiaoke.cn"];
-    [_categoryWebView loadHTMLString:correctStr baseURL:nil];
+    NSLog(@"--购买成为云享客--");
+    
+    PartnerCommitInfoViewController *vc= [PartnerCommitInfoViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 
 }
+
+
+
+
+#pragma mark--CategoryDelegateMethod
+
+-(void)setPayViewStatusWithBtnTag:(NSInteger)btnTag
+{
+    if (btnTag == 6) {
+        _payBtn.hidden = NO;
+    }else{
+        _payBtn.hidden = YES;
+    }
+}
+
+
+
+-(void)updateWebViewInfoWithHtmlString:(NSString *)htmlString{
+    
+    [_categoryWebView loadDataWhitHTMLString:htmlString];
+}
+
 
 @end

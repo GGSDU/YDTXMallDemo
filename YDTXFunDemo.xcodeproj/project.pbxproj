@@ -131,6 +131,7 @@
 		0485405A1E0A6A7600D90459 /* marketProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540591E0A6A7600D90459 /* marketProductModel.m */; };
 		0485405E1E0B6B1B00D90459 /* MarketGoodsModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485405C1E0B6B1B00D90459 /* MarketGoodsModelCell.m */; };
 		0485405F1E0B6B1B00D90459 /* MarketGoodsModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0485405D1E0B6B1B00D90459 /* MarketGoodsModelCell.xib */; };
+		048540621E10FFD600D90459 /* PartnerCommitInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540611E10FFD600D90459 /* PartnerCommitInfoViewController.m */; };
 		50CE5AE31E03B60200EAB012 /* AddDetailMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */; };
 		50CE5AE41E03B60200EAB012 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50CE5A621E03B60200EAB012 /* Address.plist */; };
 		50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A641E03B60200EAB012 /* SGLocationPickerSheetView.m */; };
@@ -542,6 +543,8 @@
 		0485405B1E0B6B1B00D90459 /* MarketGoodsModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketGoodsModelCell.h; sourceTree = "<group>"; };
 		0485405C1E0B6B1B00D90459 /* MarketGoodsModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketGoodsModelCell.m; sourceTree = "<group>"; };
 		0485405D1E0B6B1B00D90459 /* MarketGoodsModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketGoodsModelCell.xib; sourceTree = "<group>"; };
+		048540601E10FFD600D90459 /* PartnerCommitInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerCommitInfoViewController.h; sourceTree = "<group>"; };
+		048540611E10FFD600D90459 /* PartnerCommitInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerCommitInfoViewController.m; sourceTree = "<group>"; };
 		50CE5A5E1E03B60200EAB012 /* AddDetailMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageViewController.h; sourceTree = "<group>"; };
 		50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageViewController.m; sourceTree = "<group>"; };
 		50CE5A621E03B60200EAB012 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -976,6 +979,8 @@
 			children = (
 				048540461E08D4B800D90459 /* PartnerViewController.h */,
 				048540471E08D4B800D90459 /* PartnerViewController.m */,
+				048540601E10FFD600D90459 /* PartnerCommitInfoViewController.h */,
+				048540611E10FFD600D90459 /* PartnerCommitInfoViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2770,6 +2775,7 @@
 				04853FBB1E03852200D90459 /* MJPropertyType.m in Sources */,
 				048540011E077C5300D90459 /* DisplayView.m in Sources */,
 				7589EF3F1E098A480066D302 /* CartDefaultView.m in Sources */,
+				048540621E10FFD600D90459 /* PartnerCommitInfoViewController.m in Sources */,
 				04853FB01E03852200D90459 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				042198FB1E029EFA0061175F /* MJRefreshAutoFooter.m in Sources */,
 				50FC5FBA1E07C4C500F62097 /* CTAssetScrollView.m in Sources */,

@@ -7,13 +7,17 @@
 //
 
 #import "CategoryWebView.h"
-
 @implementation CategoryWebView
 
--(void)showWithHtmlString:(NSString *)htmlString{
+-(void)loadDataWhitHTMLString:(NSString *)string{
 
 
+    [self loadHTMLString:string baseURL:nil];
+    
 
 }
+
+
+
 
 @end

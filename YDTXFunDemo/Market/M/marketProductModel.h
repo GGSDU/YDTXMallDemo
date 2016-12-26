@@ -26,6 +26,13 @@
 
 @property(copy,nonatomic)NSString *model;
 
+@property(assign,nonatomic)float pay;
+
+
+
+/****************private*****************/
+
+
 
 
 

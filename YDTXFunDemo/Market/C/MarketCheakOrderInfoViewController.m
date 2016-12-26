@@ -211,9 +211,7 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     
         NSLog(@"未选择支付方式");
        
-        SVProgressHUD.minimumDismissTimeInterval = 1.0f;
-        SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
-        [SVProgressHUD showErrorWithStatus:@"请选择支付方式"];
+        [RHNotiTool NotiShowErrorWithTitle:@"请选择支付方式" Time:1.0];
     
     }
     

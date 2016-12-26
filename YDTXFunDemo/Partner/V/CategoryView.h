@@ -11,9 +11,15 @@
 
 @protocol CategoryViewDelegate <NSObject>
 
+-(void)setPayViewStatusWithBtnTag:(NSInteger)btnTag;
+
 -(void)updateWebViewInfoWithHtmlString:(NSString *)htmlString;
 
 @end
+
+
+
+
 
 @interface CategoryView : UIView
 
