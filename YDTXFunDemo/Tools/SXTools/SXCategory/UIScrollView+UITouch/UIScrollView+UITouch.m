@@ -19,24 +19,24 @@
  *  -[UIKBBlurredKeyView candidateList]: unrecognized selector sent to instance 0x15e19760
  *  Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[UIKBBlurredKeyView candidateList]: unrecognized selector sent to instance 0x15e19760'
  */
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    [[self nextResponder] touchesBegan:touches withEvent:event];
-    [super touchesBegan:touches withEvent:event];
-}
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-        
-    [[self nextResponder] touchesMoved:touches withEvent:event];
-    [super touchesMoved:touches withEvent:event];
-    
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-        
-    [[self nextResponder] touchesEnded:touches withEvent:event];
-    [super touchesEnded:touches withEvent:event];
-}
+//
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    
+//    [[self nextResponder] touchesBegan:touches withEvent:event];
+//    [super touchesBegan:touches withEvent:event];
+//}
+//
+//-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+//        
+//    [[self nextResponder] touchesMoved:touches withEvent:event];
+//    [super touchesMoved:touches withEvent:event];
+//    
+//}
+//
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+//        
+//    [[self nextResponder] touchesEnded:touches withEvent:event];
+//    [super touchesEnded:touches withEvent:event];
+//}
 
 @end

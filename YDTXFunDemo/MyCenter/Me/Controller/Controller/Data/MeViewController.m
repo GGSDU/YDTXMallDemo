@@ -15,20 +15,23 @@
 #import "MyModel.h"
 
 #import "MeHeadImageViewTableViewCell.h"
-#import "ManagerMyMessage.h"
+
+
 
 //
+#import "ManagerMyMessage.h"
 #import "ReceiveTableViewController.h"
 #import "OrderViewController.h"
 #import "CouponViewController.h"
 #import "EquityTableViewController.h"
 
+#import "ManagerMyMessageTableViewCell.h"
 
 
 //#define headPhoto @"http://m.yundiaoke.cn"
 
 
-@interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,ManagerMyMessageDelegate>{
+@interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,ManagerMyMessageTabelViewCellDelegate>{
     NSArray *buttonName;
     NSArray *collectionName;
     NSArray *ButtonName;
@@ -435,16 +438,14 @@
             return cell;
             
         }  if (indexPath.section==1) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            ManagerMyMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
             if (!cell) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+                cell = [[ManagerMyMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
 
             }
+            cell.delegate = self;
             
-            ManagerMyMessage *manager = [[ManagerMyMessage alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 100*HeightScale)];
-            manager.delegate = self;
-            
-            [cell.contentView addSubview:manager];
+
             
             return cell;
         }  if (indexPath.section == 2) {
@@ -475,9 +476,8 @@
     }
     
 }
-
 #pragma mark --管理我的订单信息的代理---
-- (void)didClickBtn:(UIButton *)button tag:(NSInteger)tag managerview:(UIView *)view {
+- (void)didClickBtn:(UIButton *)button tag:(NSInteger)tag manageCellView:(ManagerMyMessageTableViewCell *)view {
     if (tag == 10) {
         
         OrderViewController *orderGoodsVC = [[OrderViewController alloc]init];
@@ -490,21 +490,22 @@
         receiveVC.isMe = NO; //ture is mycenter ，false is market
         [self.navigationController pushViewController:receiveVC animated:YES];
         
-
-
+        
+        
     } else if (tag == 12) {
         CouponViewController *couponVC = [[CouponViewController alloc]init];
         [self.navigationController pushViewController:couponVC animated:YES];
-    
+        
     } else if (tag == 13) {
         EquityTableViewController *equityVC = [[EquityTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
         
         [self.navigationController pushViewController:equityVC animated:YES];
-
+        
     }
     
-      NSLog(@"button title and tag is :%@,%ld",button.titleLabel.text,tag);
+    NSLog(@"button title and tag is :%@,%ld",button.titleLabel.text,tag);
 }
+
 #pragma mark ---------------清除缓存代码-----------------
 
 - (float)clearCache{

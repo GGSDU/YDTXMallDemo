@@ -12,12 +12,15 @@
 #import "CartViewController.h"
 #import "ShopMarketController.h"
 
+//
 #import "MeViewController.h"
-
+#import "AddSpotMessageViewController.h"
 
 //
 #import "MarketListViewController.h"
 #import "MarketCheakOrderInfoViewController.h"
+
+
 //#import "PartnerViewController.h"
 @interface ViewController ()
 
@@ -120,7 +123,15 @@
         }
             
             break;
- 
+        case 5:
+        {
+            [aSender setTitle:@"添加活动信息" forState:UIControlStateNormal];
+            
+            AddSpotMessageViewController *meVc = [[AddSpotMessageViewController alloc]initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:meVc animated:YES];
+        }
+            
+            break;
             
         //商品列表
         case 6:

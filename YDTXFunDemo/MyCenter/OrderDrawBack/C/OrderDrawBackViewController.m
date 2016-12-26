@@ -147,8 +147,38 @@
     return _imageView;
 }
 
+#pragma mark  提交申请
+- (void) creatFloatBtnView {
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, ScreenHeight-49, ScreenWidth, 49);
+    [btn setTitle:@"提交申请" forState:UIControlStateNormal];
+    [btn setBackgroundColor:RGB(251, 128, 10)];
+    btn.tag = 10;
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:btn];
+    
+    
+}
+- (void) btnAction:(UIButton *) sender {
+    
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self creatFloatBtnView];
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[[UIApplication sharedApplication].keyWindow viewWithTag:10] removeFromSuperview];
+    
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -223,6 +223,9 @@
 		50FC5FF81E07C9AD00F62097 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC5FF01E07C9AD00F62097 /* NSLayoutConstraint+PureLayout.m */; };
 		50FC5FF91E07C9AD00F62097 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 50FC5FF41E07C9AD00F62097 /* README.md */; };
 		50FC5FFA1E07D5B700F62097 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048540031E077E1500D90459 /* AssetsLibrary.framework */; };
+		50FC60011E07EAB300F62097 /* AddSpotMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC60001E07EAB300F62097 /* AddSpotMessageViewController.m */; };
+		50FC60041E07F21F00F62097 /* SpotFeatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC60031E07F21F00F62097 /* SpotFeatureView.m */; };
+		50FC60BE1E08C65A00F62097 /* ManagerMyMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC60BD1E08C65A00F62097 /* ManagerMyMessageTableViewCell.m */; };
 		750BE7E11E0288CA009BF466 /* ShopMarketController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750BE7CF1E0288CA009BF466 /* ShopMarketController.m */; };
 		752417C01DF9474000123517 /* Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 752417BF1DF9474000123517 /* Image.png */; };
 		755B4AAF1E059DAF009EEA64 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B4AA11E059DAF009EEA64 /* FMDatabase.m */; };
@@ -738,6 +741,12 @@
 		50FC5FF21E07C9AD00F62097 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
 		50FC5FF31E07C9AD00F62097 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
 		50FC5FF41E07C9AD00F62097 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		50FC5FFF1E07EAB300F62097 /* AddSpotMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSpotMessageViewController.h; sourceTree = "<group>"; };
+		50FC60001E07EAB300F62097 /* AddSpotMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSpotMessageViewController.m; sourceTree = "<group>"; };
+		50FC60021E07F21F00F62097 /* SpotFeatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotFeatureView.h; sourceTree = "<group>"; };
+		50FC60031E07F21F00F62097 /* SpotFeatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotFeatureView.m; sourceTree = "<group>"; };
+		50FC60BC1E08C65A00F62097 /* ManagerMyMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerMyMessageTableViewCell.h; sourceTree = "<group>"; };
+		50FC60BD1E08C65A00F62097 /* ManagerMyMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerMyMessageTableViewCell.m; sourceTree = "<group>"; };
 		750BE7CE1E0288CA009BF466 /* ShopMarketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMarketController.h; sourceTree = "<group>"; };
 		750BE7CF1E0288CA009BF466 /* ShopMarketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMarketController.m; sourceTree = "<group>"; };
 		752417401DF8FD0100123517 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -1420,6 +1429,7 @@
 				50CE5A991E03B60200EAB012 /* Me */,
 				50CE5ABC1E03B60200EAB012 /* OrderGoods */,
 				50CE5B1B1E03D23C00EAB012 /* OrderDrawBack */,
+				50FC5FFB1E07EA9B00F62097 /* AddSpotMessage */,
 				50CE5ADE1E03B60200EAB012 /* Tools */,
 			);
 			path = MyCenter;
@@ -1727,6 +1737,8 @@
 				50CE5AB61E03B60200EAB012 /* MyCollentTableViewCell.m */,
 				50CE5AB71E03B60200EAB012 /* MyTableViewCell.h */,
 				50CE5AB81E03B60200EAB012 /* MyTableViewCell.m */,
+				50FC60BC1E08C65A00F62097 /* ManagerMyMessageTableViewCell.h */,
+				50FC60BD1E08C65A00F62097 /* ManagerMyMessageTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2010,6 +2022,41 @@
 				50FC5FF31E07C9AD00F62097 /* PureLayoutDefines.h */,
 			);
 			path = PureLayout;
+			sourceTree = "<group>";
+		};
+		50FC5FFB1E07EA9B00F62097 /* AddSpotMessage */ = {
+			isa = PBXGroup;
+			children = (
+				50FC5FFC1E07EA9B00F62097 /* C */,
+				50FC5FFD1E07EA9B00F62097 /* M */,
+				50FC5FFE1E07EA9B00F62097 /* V */,
+			);
+			path = AddSpotMessage;
+			sourceTree = "<group>";
+		};
+		50FC5FFC1E07EA9B00F62097 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				50FC5FFF1E07EAB300F62097 /* AddSpotMessageViewController.h */,
+				50FC60001E07EAB300F62097 /* AddSpotMessageViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		50FC5FFD1E07EA9B00F62097 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		50FC5FFE1E07EA9B00F62097 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				50FC60021E07F21F00F62097 /* SpotFeatureView.h */,
+				50FC60031E07F21F00F62097 /* SpotFeatureView.m */,
+			);
+			path = V;
 			sourceTree = "<group>";
 		};
 		750BE7CD1E0288CA009BF466 /* Controller */ = {
@@ -2530,6 +2577,7 @@
 				042198FE1E029EFA0061175F /* MJRefreshFooter.m in Sources */,
 				04853FB31E03852200D90459 /* UIProgressView+AFNetworking.m in Sources */,
 				04853FC61E03852200D90459 /* SDWebImageCompat.m in Sources */,
+				50FC60BE1E08C65A00F62097 /* ManagerMyMessageTableViewCell.m in Sources */,
 				50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */,
 				755B4AB21E059DAF009EEA64 /* FMDatabaseQueue.m in Sources */,
 				50CE5AF41E03B60200EAB012 /* LogisticsTableViewController.m in Sources */,
@@ -2612,6 +2660,7 @@
 				756EE9731DFFD71300D1B89D /* ProductModel.m in Sources */,
 				04853FD31E03852200D90459 /* README.md in Sources */,
 				50CE5AF61E03B60200EAB012 /* LogisticsHeaderView.m in Sources */,
+				50FC60041E07F21F00F62097 /* SpotFeatureView.m in Sources */,
 				50CE5AF31E03B60200EAB012 /* EquityTableViewCell.m in Sources */,
 				50CE5B121E03B60200EAB012 /* OrderTableViewCell.m in Sources */,
 				04853FB41E03852200D90459 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -2686,6 +2735,7 @@
 				04853FC51E03852200D90459 /* SDImageCache.m in Sources */,
 				50FC5FBD1E07C4C500F62097 /* CTAssetsGridSelectedView.m in Sources */,
 				50CE5AFC1E03B60200EAB012 /* MyCollectionModel.m in Sources */,
+				50FC60011E07EAB300F62097 /* AddSpotMessageViewController.m in Sources */,
 				042199071E029EFA0061175F /* MJRefreshNormalHeader.m in Sources */,
 				04853FA81E03852200D90459 /* AFURLRequestSerialization.m in Sources */,
 				50CE5AEB1E03B60200EAB012 /* AddressListModel.m in Sources */,
