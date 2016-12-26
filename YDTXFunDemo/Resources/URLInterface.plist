@@ -199,6 +199,13 @@
 		<key>RequestMethod</key>
 		<string>GET</string>
 	</dict>
+	<key>CartSettleAccountCheck</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goodsOrder/totalOrderCheck</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
 	<key>OrderList</key>
 	<dict>
 		<key>RequestURL</key>
