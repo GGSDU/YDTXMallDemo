@@ -36,7 +36,7 @@
             </constraints>
             <size key="customSize" width="123" height="50"/>
             <connections>
-                <outlet property="modelBtn" destination="tDy-mA-0oH" id="MzU-9h-D7U"/>
+                <outlet property="modelBtn" destination="tDy-mA-0oH" id="Jqb-j4-beA"/>
             </connections>
             <point key="canvasLocation" x="-77.5" y="126"/>
         </collectionViewCell>

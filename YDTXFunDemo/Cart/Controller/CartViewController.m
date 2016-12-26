@@ -177,6 +177,7 @@ static NSString *completeString = @"完成";
     
     [self updateCartCellOperationViewAllButton];
     [self updateCartCellOperationViewPrice];
+    
 }
 
 #pragma mark - tableVeiw delegate & datasource
@@ -263,7 +264,6 @@ static NSString *completeString = @"完成";
     MarketDetailViewController *vc = [[MarketDetailViewController alloc] init];
     vc.goods_id = [NSString stringWithFormat:@"%d",model.goods_id];
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 #pragma mark - private methods - get data

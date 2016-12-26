@@ -12,7 +12,8 @@
 @interface MarketMaskView : UIView
 
 @property (copy,nonatomic)NSString *goods_id;
-
+@property (copy,nonatomic)NSString *goods_Name;
+@property (copy,nonatomic)NSURL *imageUrl;
 
 //带有旋转动画的初始化方法
 -(void)showWithTransformAnimation;

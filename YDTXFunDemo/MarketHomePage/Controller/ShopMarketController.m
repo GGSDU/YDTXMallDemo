@@ -18,6 +18,7 @@
 
 #import "MarketCategoryListViewController.h"
 #import "MarketDetailViewController.h"
+#import "PartnerViewController.h"
 
 #define SectionAddCount 2
 
@@ -111,6 +112,11 @@ static NSString *watchMoreIdentifier = @"watchMore";
 - (void)bannerCell:(BannerCell *)bannerCell didSelectedAtIndex:(NSInteger)index
 {
     NSLog(@"%@",self.bannerArray[index]);
+    
+    BannerModel *bannerModel = self.bannerArray[index];
+    PartnerViewController *partnerVC = [PartnerViewController new];
+    [self.navigationController pushViewController:partnerVC animated:YES];
+    
 }
 
 
