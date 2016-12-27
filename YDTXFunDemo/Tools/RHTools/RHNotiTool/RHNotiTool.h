@@ -18,4 +18,6 @@
 
 +(void)NotiShowSuccessWithTitle:(NSString *)notiString Time:(NSTimeInterval)time;
 
+
++(void)dismiss;
 @end
