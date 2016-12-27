@@ -356,18 +356,30 @@ static NSString *kmodelCellId = @"modelCell";
         CGFloat totalPrice = num* _currentProductModel.price;
         
         NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
-        paramsDic[@"user_id"] = @"37";
-        paramsDic[@"goods_id"] = _goods_id;
-        paramsDic[@"goods_model_id"] = _currentProductModel.ID;
+//        paramsDic[@"user_id"] = @"65";
+//        paramsDic[@"goods_id"] = _goods_id;
+//        paramsDic[@"goods_model_id"] = _currentProductModel.ID;
+//        //        paramsDic[@"cou_id"] = @"3";
+//        paramsDic[@"goods_name"] = _goods_Name;
+//        paramsDic[@"price"] = @(_currentProductModel.price);
+//        paramsDic[@"total_price"] = @(totalPrice);
+//        paramsDic[@"nums"] = @(num);
+//        paramsDic[@"courier"] = @"申通";
+//        paramsDic[@"status"] = @"0";
+//        paramsDic[@"address_id"] = @"如东";
+//        
+        
+        paramsDic[@"user_id"] = @"65";
+        paramsDic[@"goods_id"] = @"35";
+        paramsDic[@"goods_model_id"] = @"36";
         //        paramsDic[@"cou_id"] = @"3";
-        paramsDic[@"goods_name"] = _goods_Name;
-        paramsDic[@"price"] = @(_currentProductModel.price);
-        paramsDic[@"total_price"] = @(totalPrice);
-        paramsDic[@"nums"] = @(num);
+        paramsDic[@"goods_name"] = @"ydk";
+        paramsDic[@"price"] = @"100.00";
+        paramsDic[@"total_price"] = @"200";
+        paramsDic[@"nums"] = @(2);
         paramsDic[@"courier"] = @"申通";
         paramsDic[@"status"] = @"0";
         paramsDic[@"address_id"] = @"如东";
-        
         
         //
         [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];

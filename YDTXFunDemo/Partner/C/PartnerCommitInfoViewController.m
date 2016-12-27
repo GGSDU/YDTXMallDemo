@@ -7,15 +7,16 @@
 //
 
 #import "PartnerCommitInfoViewController.h"
-
-@interface PartnerCommitInfoViewController ()<UIScrollViewDelegate>
+#import "PayWayView.h"
+@interface PartnerCommitInfoViewController ()<UIScrollViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
 @property(strong,nonatomic)UIScrollView *baseScrollerView;
 @property(strong,nonatomic)UITextField *nameTF;
 @property(strong,nonatomic)UITextField *PersonIDTF;
 @property(strong,nonatomic)UITextField *phoneNumTF;
-
-
+@property(strong,nonatomic)UIButton *SexBtn;
+@property(strong,nonatomic)UIButton *payBtn;
+@property(strong,nonatomic)PayWayView *payView;
 
 
 @end
@@ -41,7 +42,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     _baseScrollerView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
-    _baseScrollerView.backgroundColor = [UIColor yellowColor];
+    _baseScrollerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_baseScrollerView];
     
     
@@ -90,14 +91,10 @@
     
     //设置左边添加的图片
     //文本框左视图
-    UIView *leftView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 55, 45)];
-    leftView.backgroundColor = [UIColor clearColor];
     //添加图片
     UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 45, 45)];
-    headView.image = [UIImage imageNamed:@"姓名"];
-    [leftView addSubview:headView];
-    
-    _nameTF.leftView = leftView;
+    headView.image = [UIImage imageNamed:@"Name_icon"];
+    _nameTF.leftView = headView;
     _nameTF.leftViewMode = UITextFieldViewModeAlways;
     
     
@@ -139,18 +136,13 @@
         make.height.equalTo(@45);
     }];
     
-    self.PersonIDTF = _PersonIDTF;
-    self.PersonIDTF.delegate = self;
+    
+    _PersonIDTF.delegate = self;
     //设置左边添加的图片
     //文本框左视图
-    UIView *IDleftView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 55, 45)];
-    leftView.backgroundColor = [UIColor clearColor];
-    //添加图片
     UIImageView *IDheadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 45, 45)];
-    IDheadView.image = [UIImage imageNamed:@"身份证"];
-    [IDleftView addSubview:IDheadView];
-    
-    _PersonIDTF.leftView = IDleftView;
+    IDheadView.image = [UIImage imageNamed:@"PersonID_icon"];
+    _PersonIDTF.leftView = IDheadView;
     _PersonIDTF.leftViewMode = UITextFieldViewModeAlways;
     
     
@@ -196,23 +188,85 @@
     }];
     
     
-    self.phoneNumTF.delegate = self;
+    _phoneNumTF.delegate = self;
     //设置左边添加的图片
-    //文本框左视图
-    UIView *phoneleftView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 55, 45)];
-    leftView.backgroundColor = [UIColor clearColor];
     //添加图片
     UIImageView *phoneheadView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 45, 45)];
-    phoneheadView.image = [UIImage imageNamed:@"手机号"];
-    [phoneleftView addSubview:phoneheadView];
-    
-    _phoneNumTF.leftView = phoneleftView;
+    phoneheadView.image = [UIImage imageNamed:@"PhoneNum_icon"];
+    _phoneNumTF.leftView = phoneheadView;
     _phoneNumTF.leftViewMode = UITextFieldViewModeAlways;
     
 
     
+    //性别Label
+    
+    UILabel *SexLabel = [[UILabel alloc]init];
+    SexLabel.font = [UIFont systemFontOfSize:15];
+    SexLabel.textColor = [UIColor colorWithRed:0.639 green:0.667 blue:0.690 alpha:1.000];
+    SexLabel.text = @"性别";
+    
+    [_baseScrollerView addSubview:SexLabel];
+    
+    [SexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_phoneNumTF.mas_bottom).offset(20 * HeightScale);
+        make.leading.equalTo(self.view).offset(20*WidthScale);
+        
+    }];
     
     
+    //性别Btn
+    _SexBtn = [[UIButton alloc]init];
+    _SexBtn.layer.borderWidth = 1;
+    _SexBtn.layer.borderColor = [UIColor colorWithRed:0.867 green:0.875 blue:0.882 alpha:1.000].CGColor;
+    _SexBtn.layer.masksToBounds = YES;
+    _SexBtn.layer.cornerRadius = 5;
+    [_SexBtn setTitle:@"男" forState:UIControlStateNormal];
+    [_SexBtn setTitleColor:[UIColor colorWithRed:0.639 green:0.667 blue:0.690 alpha:1.000] forState:UIControlStateNormal];
+    [_SexBtn setImage:[UIImage imageNamed:@"arrow_icon"] forState:UIControlStateNormal];
+    [_SexBtn addTarget:self action:@selector(chooseSexInfo) forControlEvents:UIControlEventTouchUpInside];
+    [_SexBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 55, 0, 0)];
+    [_SexBtn setTitleEdgeInsets:UIEdgeInsetsMake(0,-80, 0, 0)];
+    [_baseScrollerView addSubview:_SexBtn];
+    [_SexBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(SexLabel.mas_bottom).offset(20*HeightScale);
+        make.leading.equalTo(self.view).offset(20*WidthScale);
+        make.width.mas_equalTo(100);
+    }];
+    
+    
+    //支付页
+    _payView = [[PayWayView alloc]init];
+    _payView.layer.borderWidth = 1;
+    _payView.layer.borderColor = [UIColor colorWithRed:0.867 green:0.875 blue:0.882 alpha:1.000].CGColor;
+    _payView.layer.masksToBounds = YES;
+    _payView.layer.cornerRadius = 5;
+    [_baseScrollerView addSubview:_payView];
+    [_payView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_SexBtn.mas_bottom).offset(40*HeightScale);
+        make.leading.equalTo(self.view).offset(20);
+        make.trailing.equalTo(self.view).offset(-20);
+        make.size.mas_equalTo(CGSizeMake(YDTXScreenW- 40, 88));
+    }];
+    
+    //支付按钮
+    _payBtn = [[UIButton alloc]init];
+    [_payBtn setTitle:@"立即参与" forState:UIControlStateNormal];
+    [_payBtn setBackgroundColor:RGB(254, 148, 2)];
+    _payBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_payBtn addTarget:self action:@selector(JionYun) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_payBtn];
+    [_payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.height.mas_equalTo(50);
+    }];
+
+    
+    
+    
+    _baseScrollerView.contentSize = CGSizeMake(YDTXScreenW, YDTXScreenH +50);
     
 }
 
@@ -221,5 +275,33 @@
     
 }
 
+
+-(void)chooseSexInfo{
+
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"请选择性别！" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男",@"女", nil];
+    [sheet showInView:self.view];
+
+}
+
+-(void)JionYun{
+
+
+
+}
+#pragma system --ationSheet --delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"下标：%ld",buttonIndex);
+    
+    if (buttonIndex == 0) {
+        
+        [_SexBtn setTitle:@"男" forState:UIControlStateNormal];
+    }else if (buttonIndex == 1){
+    
+        [_SexBtn setTitle:@"女" forState:UIControlStateNormal];
+    }
+    
+    
+}
 
 @end
