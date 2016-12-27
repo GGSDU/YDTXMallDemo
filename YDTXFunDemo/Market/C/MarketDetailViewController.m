@@ -386,6 +386,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     maskView.goods_id =  self.goods_id;
     maskView.goods_Name =_goodsTitleLabel.text ;
     maskView.imageUrl = [SXPublicTool getImageURLByURLString:_goods_imgUrl];
+    maskView.BtnID = 0;
     [self.view addSubview:maskView];
     [maskView showWithTransformAnimation];
     [maskView updateUIWithGoodsId:self.goods_id];
@@ -396,8 +397,15 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 -(void)buyItNow{
 
     NSLog(@"-buyItNow-");
+    MarketMaskView *maskView = [[MarketMaskView alloc]initWithFrame:self.view.bounds];
+    maskView.goods_id =  self.goods_id;
+    maskView.goods_Name =_goodsTitleLabel.text ;
+    maskView.imageUrl = [SXPublicTool getImageURLByURLString:_goods_imgUrl];
+    maskView.BtnID = 1;
+    [self.view addSubview:maskView];
+    [maskView showWithTransformAnimation];
+    [maskView updateUIWithGoodsId:self.goods_id];
     
-      
 }
 
 - (void)didReceiveMemoryWarning {

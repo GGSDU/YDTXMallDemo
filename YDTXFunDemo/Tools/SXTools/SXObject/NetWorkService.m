@@ -403,7 +403,7 @@ static NetWorkService *instance = nil;
             switch (statusType) {
                 case 4: //加入购物车成功
                 {
-                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                    [RHNotiTool NotiShowSuccessWithTitle:@"加入购物车成功" Time:1.0];
                 }
                     
                     break;
@@ -433,7 +433,7 @@ static NetWorkService *instance = nil;
                 case 0: //未付款
                 {
                      NSLog(@"未付款");
-//                    [RHNotiTool NotiShowWithTitle:@"加入购物车成功" Time:1.0];
+                    [RHNotiTool NotiShowSuccessWithTitle:@"立即购买" Time:1.0];
                 }
                     
                     break;

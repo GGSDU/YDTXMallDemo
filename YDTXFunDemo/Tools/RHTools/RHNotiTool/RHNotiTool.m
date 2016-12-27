@@ -14,7 +14,25 @@
 
     SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
     SVProgressHUD.minimumDismissTimeInterval = time;
+    [SVProgressHUD showWithStatus:notiString];
+}
+
++(void)NotiShowErrorWithTitle:(NSString *)notiString Time:(NSTimeInterval)time{
+    SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+    SVProgressHUD.minimumDismissTimeInterval = time;
     [SVProgressHUD showErrorWithStatus:notiString];
+
+
+}
+
+
++(void)NotiShowSuccessWithTitle:(NSString *)notiString Time:(NSTimeInterval)time{
+
+    SVProgressHUD.defaultStyle = SVProgressHUDStyleDark;
+    SVProgressHUD.minimumDismissTimeInterval = time;
+    [SVProgressHUD showSuccessWithStatus:notiString];
+
+
 }
 
 @end
