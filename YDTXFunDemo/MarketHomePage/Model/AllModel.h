@@ -19,4 +19,8 @@
 #import "marketDetailModel.h"
 #import "marketProductModel.h"
 
+
+
+#import "AddressListModel.h"
+
 #endif /* AllModel_h */

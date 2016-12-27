@@ -9,10 +9,11 @@
 #import "MarketCheakOrderInfoViewController.h"
 #import "MarketCheckOrderCell.h"
 #import "PayWayView.h"
-
+#import "ReceiveTableViewCell.h"
 @interface MarketCheakOrderInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(strong,nonatomic)UITableView *tableView;
+@property(strong,nonatomic)UIView *HeaderBaseView;
 @property(strong,nonatomic)NSMutableArray *OrderDataArr;
 @property(strong,nonatomic)UILabel *settleAccountLabel;
 
@@ -43,7 +44,106 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
     [self setBasic];
     
     [self setUIWithTotalPrice:_totalPrice];
+    
+    [self updateAddressInfo];
 }
+
+-(void)updateAddressInfo{
+
+
+    [[NetWorkService shareInstance]requestForDefaultAddressWithUser_id:@"65" responseBlock:^(Boolean hasDefault,AddressListModel *addressListModel) {
+        
+        
+        NSLog(@"---%hhu",hasDefault);
+        if (hasDefault == YES) {
+            
+            
+            //收货地址  作为tableView的头部
+            _HeaderBaseView = [[UIView alloc]init];
+            _HeaderBaseView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
+           
+            UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"market_CheckOrder_AddressBackground"]];
+            [_HeaderBaseView addSubview:imgView];
+
+            [_HeaderBaseView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(YDTXScreenW, imgView.frame.size.height+30));
+            }];
+            
+            
+            [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(_HeaderBaseView);
+                make.right.equalTo(_HeaderBaseView);
+                make.centerY.equalTo(_HeaderBaseView);
+            }];
+            
+            
+            
+
+            
+            //作为tableView的头部
+            _tableView.backgroundColor = [UIColor redColor];
+//            self.tableView.tableHeaderView = _HeaderBaseView;
+//            [_tableView.tableHeaderView addSubview:_HeaderBaseView];
+            [_tableView.tableHeaderView layoutIfNeeded];
+            
+
+        }else if (hasDefault == 0){
+        
+            //收货地址  作为tableView的头部
+            _HeaderBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 65)];
+            _HeaderBaseView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
+            
+            //作为tableView的头部
+            self.tableView.tableHeaderView = _HeaderBaseView;
+            
+            //收货地址View   //手势
+            UIView *addressView = [[UIView alloc]init];
+            addressView.backgroundColor = [UIColor whiteColor];
+            [_HeaderBaseView addSubview:addressView];
+            [addressView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(_HeaderBaseView);
+                make.height.mas_equalTo(45);
+                make.leading.equalTo(_HeaderBaseView);
+                make.trailing.equalTo(_HeaderBaseView);
+            }];
+            
+            UITapGestureRecognizer *JumpToAddressListGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(JumpToAddressList)];
+            [addressView addGestureRecognizer:JumpToAddressListGes];
+            
+            
+            
+            
+            //➕imageView
+            UIImageView *plusImgView = [[UIImageView alloc]init];
+            plusImgView.image =[UIImage imageNamed:@"maket_checkGoods_addAddressbtn"];
+            [addressView addSubview:plusImgView];
+            [plusImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(addressView);
+                make.leading.equalTo(addressView).offset(15);
+                
+            }];
+            
+            //添加新地址
+            UILabel *addNewAddressLabel = [[UILabel alloc]init];
+            addNewAddressLabel.text = @"添加新地址";
+            addNewAddressLabel.font = [UIFont systemFontOfSize:15];
+            addNewAddressLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
+            [addressView addSubview:addNewAddressLabel];
+            [addNewAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(plusImgView);
+                make.leading.equalTo(plusImgView.mas_trailing).offset(10);
+            }];
+            
+
+        
+        
+        }
+    }];
+    
+
+}
+
+
 
 -(void)setBasic{
     
@@ -77,50 +177,50 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
 
     
     
-//收货地址  作为tableView的头部
-    UIView *HeaderBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 65)];
-    HeaderBaseView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
-    
-    //作为tableView的头部
-    self.tableView.tableHeaderView = HeaderBaseView;
-
-    //收货地址View   //手势
-    UIView *addressView = [[UIView alloc]init];
-    addressView.backgroundColor = [UIColor whiteColor];
-    [HeaderBaseView addSubview:addressView];
-    [addressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(HeaderBaseView);
-        make.height.mas_equalTo(45);
-        make.leading.equalTo(HeaderBaseView);
-        make.trailing.equalTo(HeaderBaseView);
-    }];
-    
-    UITapGestureRecognizer *JumpToAddressListGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(JumpToAddressList)];
-    [addressView addGestureRecognizer:JumpToAddressListGes];
-    
-    
-    
-    
-    //➕imageView
-    UIImageView *plusImgView = [[UIImageView alloc]init];
-    plusImgView.image =[UIImage imageNamed:@"maket_checkGoods_addAddressbtn"];
-    [addressView addSubview:plusImgView];
-    [plusImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(addressView);
-        make.leading.equalTo(addressView).offset(15);
-        
-    }];
-    
-    //添加新地址
-    UILabel *addNewAddressLabel = [[UILabel alloc]init];
-    addNewAddressLabel.text = @"添加新地址";
-    addNewAddressLabel.font = [UIFont systemFontOfSize:15];
-    addNewAddressLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
-    [addressView addSubview:addNewAddressLabel];
-    [addNewAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(plusImgView);
-        make.leading.equalTo(plusImgView.mas_trailing).offset(10);
-    }];
+////收货地址  作为tableView的头部
+//    _HeaderBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 65)];
+//    _HeaderBaseView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
+//    
+//    //作为tableView的头部
+//    self.tableView.tableHeaderView = _HeaderBaseView;
+//
+//    //收货地址View   //手势
+//    UIView *addressView = [[UIView alloc]init];
+//    addressView.backgroundColor = [UIColor whiteColor];
+//    [_HeaderBaseView addSubview:addressView];
+//    [addressView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_HeaderBaseView);
+//        make.height.mas_equalTo(45);
+//        make.leading.equalTo(_HeaderBaseView);
+//        make.trailing.equalTo(_HeaderBaseView);
+//    }];
+//    
+//    UITapGestureRecognizer *JumpToAddressListGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(JumpToAddressList)];
+//    [addressView addGestureRecognizer:JumpToAddressListGes];
+//    
+//    
+//    
+//    
+//    //➕imageView
+//    UIImageView *plusImgView = [[UIImageView alloc]init];
+//    plusImgView.image =[UIImage imageNamed:@"maket_checkGoods_addAddressbtn"];
+//    [addressView addSubview:plusImgView];
+//    [plusImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(addressView);
+//        make.leading.equalTo(addressView).offset(15);
+//        
+//    }];
+//    
+//    //添加新地址
+//    UILabel *addNewAddressLabel = [[UILabel alloc]init];
+//    addNewAddressLabel.text = @"添加新地址";
+//    addNewAddressLabel.font = [UIFont systemFontOfSize:15];
+//    addNewAddressLabel.textColor = [UIColor colorForHex:@"3e3e3e"];
+//    [addressView addSubview:addNewAddressLabel];
+//    [addNewAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(plusImgView);
+//        make.leading.equalTo(plusImgView.mas_trailing).offset(10);
+//    }];
     
     
 //底部结算View

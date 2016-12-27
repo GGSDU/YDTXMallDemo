@@ -457,6 +457,62 @@ static NetWorkService *instance = nil;
 
 }
 
+
+
+
+/**
+ *  查询是否含有默认收货地址
+ */
+-(void)requestForDefaultAddressWithUser_id:(NSString *)user_id responseBlock:(nullable void (^)(Boolean hasDefault,AddressListModel *addressListModel))responseBlock{
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"user_id"] = user_id;
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeAddressList requestParam:params responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"----地址-->%@",responseObject);
+        
+        if ([responseObject[@"status"] integerValue] == 200) {
+            
+            //字典转模型
+            NSArray* defaultAddressArray = [AddressListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            for (AddressListModel *model in defaultAddressArray) {
+                
+                switch ([model.status integerValue]) {
+                    case 1:
+                        responseBlock(YES,model);
+                        break;
+                        
+                    default:
+                        
+                        break;
+                }
+                
+               
+            }
+            
+        }else if ([responseObject[@"status"] integerValue] == 400){  //失败
+            
+            [RHNotiTool NotiShowErrorWithTitle:@"失败" Time:0.8];
+            
+        }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
+            
+            
+            
+        }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
+            
+            
+        }
+        
+        
+        
+    }];
+
+
+
+
+}
+
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey
 {

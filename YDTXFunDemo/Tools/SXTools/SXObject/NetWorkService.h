@@ -159,6 +159,14 @@ static NSString *recommendedProductKey = @"fishtree";
 -(void)requestForDealGoodsOrderWithParamsDic:(NSMutableDictionary *)paramsDic;
 
 
+
+/**
+ *  查询是否含有默认收货地址
+ */
+-(void)requestForDefaultAddressWithUser_id:(NSString *)user_id responseBlock:(nullable void (^)(Boolean hasDefault,AddressListModel *addressListModel))responseBlock;
+
+
+
 #pragma mark - get info form 'URLInterface.plist' file
 - (NSDictionary *)getRequestInfoDictionaryByURLModuleKey:(URLModuleKeyType)urlModuleKey;
 

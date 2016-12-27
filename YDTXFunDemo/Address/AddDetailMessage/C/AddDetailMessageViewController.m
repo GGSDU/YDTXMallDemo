@@ -17,7 +17,7 @@
 
 @property (nonatomic, assign) BOOL isDefaultStatus;//是否是默认地址
 
-//@property (nonatomic, strong) SGLocationPickerView *PickerView;//地址选择器
+@property (nonatomic, strong) SGLocationPickerView *PickerView;//地址选择器
 
 @property (nonatomic, strong) NSDictionary *dic;//数据源
 

@@ -191,6 +191,8 @@
     return self;
 }
 
+
+
 - (void)editImgV:(UITapGestureRecognizer *)tap {
     
     if (_delegate && [_delegate respondsToSelector:@selector(didClickedEdit:addressID:status:)]) {

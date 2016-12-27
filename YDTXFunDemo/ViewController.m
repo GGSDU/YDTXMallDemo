@@ -11,8 +11,8 @@
 #import "CartViewController.h"
 #import "ShopMarketController.h"
 
-//#import "MeViewController.h"
-
+#import "AddDetailMessageViewController.h"
+#import "ReceiveTableViewController.h"
 
 //
 #import "MarketCategoryListViewController.h"
@@ -66,6 +66,8 @@
             break;
         case 1:
         {
+            ReceiveTableViewController *vc = [ReceiveTableViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
             
         }
             break;
@@ -74,8 +76,8 @@
         {
             [aSender setTitle:@"舒通" forState:UIControlStateNormal];
             
-//            MeViewController *meVc = [[MeViewController alloc]init];
-//            [self.navigationController pushViewController:meVc animated:YES];
+            AddDetailMessageViewController *vc = [AddDetailMessageViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             
             break;
