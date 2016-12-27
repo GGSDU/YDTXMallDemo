@@ -193,7 +193,7 @@
     {
         if (_shakeAnimation) { [self shakeAnimationMethod]; }
         PPLog(@"已超过最大数量%ld",_maxValue);
-        [RHNotiTool NotiShowErrorWithTitle:@"数量超过范围~" Time:0.8];
+        [RHNotiTool NotiShowWithTitle:@"数量超过范围~" Time:0.8];
     }
 }
 

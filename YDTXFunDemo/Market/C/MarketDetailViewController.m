@@ -27,7 +27,6 @@
 @property(strong,nonatomic)UILabel *vipPriceLabel;           //会员价
 @property(strong,nonatomic)UILabel *stockLabel;              //库存
 @property(strong,nonatomic)UILabel *salesLabel;              //销售量
-@property(strong,nonatomic)UIButton *collectBtn;             //收藏
 
 @property(copy,nonatomic)NSString *goods_imgUrl;
 
@@ -286,8 +285,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     
     //webView
 
-    UIWebView *DetailWebView  = [[UIWebView alloc]initWithFrame:CGRectMake(0, 630, YDTXScreenW , 1200)];
-    DetailWebView.backgroundColor = [UIColor clearColor];
+    UIWebView *DetailWebView  = [[UIWebView alloc]initWithFrame:CGRectMake(0, 630, YDTXScreenW , 2000)];
     DetailWebView.scrollView.scrollEnabled = NO;
     DetailWebView.delegate = self;
     _DetailWebView = DetailWebView;
@@ -318,16 +316,15 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     CGFloat toolBtnWidth = YDTXScreenW/3;
     
     //收藏btn
-    _collectBtn = [[UIButton alloc]init];
-    [_collectBtn setBackgroundColor:[UIColor whiteColor]];
-    [_collectBtn setImage:[UIImage imageNamed:@"collection_icon"] forState:UIControlStateNormal];
-    [_collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
-    [_collectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    _collectBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [_collectBtn addTarget:self action:@selector(collectIt) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *collectBtn = [[UIButton alloc]init];
+    [collectBtn setBackgroundColor:[UIColor whiteColor]];
+    [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+    [collectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    collectBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [collectBtn addTarget:self action:@selector(collectIt) forControlEvents:UIControlEventTouchUpInside];
     
-    [toolView addSubview:_collectBtn];
-    [_collectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [toolView addSubview:collectBtn];
+    [collectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(toolView);
         make.top.equalTo(toolView);
         make.bottom.equalTo(toolView);
@@ -342,7 +339,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
     [jionShopCarBtn addTarget:self action:@selector(jionItemInShopCar) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:jionShopCarBtn];
     [jionShopCarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(_collectBtn.mas_trailing);
+        make.leading.equalTo(collectBtn.mas_trailing);
         make.top.equalTo(toolView);
         make.bottom.equalTo(toolView);
         make.width.equalTo(@(toolBtnWidth));
@@ -372,7 +369,7 @@ static NSString *kMarketDetialCellId = @"marketDetailCell";
 #pragma mark - Method
 -(void)showDescribeVC{
 
-    NSLog(@"-ShowDescribeVC--正品保障--");
+    NSLog(@"-ShowDescribeVC-");
     
     
     

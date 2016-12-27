@@ -116,7 +116,7 @@ static NSString *kmodelCellId = @"modelCell";
     
 //imageView
     _ImgView = [[UIImageView alloc]init];
-    _ImgView.backgroundColor = [UIColor whiteColor];
+    _ImgView.backgroundColor = [UIColor redColor];
     _ImgView.layer.borderWidth = 2;
     _ImgView.layer.borderColor = [UIColor whiteColor].CGColor;
     _ImgView.layer.cornerRadius = 5;
@@ -547,13 +547,11 @@ static NSString *kmodelCellId = @"modelCell";
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
-//        [self.superview.layer setTransform:[self firstTransform]];
-        [self.superview.layer setTransform:CATransform3DIdentity];
+        [self.superview.layer setTransform:[self firstTransform]];
         
     } completion:^(BOOL finished) {
             //变为初始值
-//            [self.superview.layer setTransform:CATransform3DIdentity];
-
+            [self.superview.layer setTransform:CATransform3DIdentity];
         
     }];
 
@@ -583,16 +581,5 @@ static NSString *kmodelCellId = @"modelCell";
     return t2;
 }
 
-
-- (CATransform3D)lastTransform{
-    CATransform3D t1 = CATransform3DIdentity;
-    t1.m34 = 1.0/-900;
-    //带点缩小的效果
-//    t1 = CATransform3DScale(t1, 0.95, 0.95, 1);
-    //绕x轴旋转
-    t1 = CATransform3DRotate(t1, -15.0 * M_PI/180.0, 1, 0, 0);
-    return t1;
-    
-}
 
 @end

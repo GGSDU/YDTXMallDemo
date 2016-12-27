@@ -35,10 +35,4 @@
 
 }
 
-
-+(void)dismiss{
-
-    [SVProgressHUD dismiss];
-}
-
 @end
