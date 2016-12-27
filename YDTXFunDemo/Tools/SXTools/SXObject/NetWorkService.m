@@ -81,6 +81,38 @@ static NetWorkService *instance = nil;
 }
 
 /**
+ *  搜索
+ */
+- (void)requestForSearchProductWithKeyword:(NSString *)keyWord page:(int)page responseBlock:(void(^)(NSArray *))responseBlock failedBlock:(void(^)())failedBlock
+{
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [param setObject:keyWord forKey:@"keyword"];
+    [param setObject:[NSString stringWithFormat:@"%d",page] forKey:@"page"];
+    
+    [self requestForDataByURLModuleKey:URLModuleKeyTypeSearch requestParam:param responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSNumber *status = [responseDic objectForKey:@"status"];
+        if (status.integerValue == 200) {
+            
+            NSMutableArray *responseModelArray = [[NSMutableArray alloc] initWithCapacity:0];
+            
+            NSArray *responseArray = [responseDic objectForKey:@"data"];
+            for (NSDictionary *modelDic in responseArray) {
+                
+                ProductBriefModel *model = [[ProductBriefModel alloc] init];
+                [model setValuesForKeysWithDictionary:modelDic];
+                [responseModelArray addObject:model];
+            }
+            
+            responseBlock(responseModelArray);
+        } else {
+            failedBlock();
+        }
+    }];
+}
+
+/**
  *  商城轮播图
  */
 - (void)requestForHomeBannerWithResponseBlock:(void (^)(NSArray *))responseBlock
@@ -462,6 +494,11 @@ static NetWorkService *instance = nil;
 {
     NSDictionary *requestInfoDictionary = nil;
     switch (urlModuleKey) {
+        case URLModuleKeyTypeSearch:
+        {
+            requestInfoDictionary = [self.urlDictionary objectForKey:@"Search"];
+        }
+            break;
         case URLModuleKeyTypeBanner:
         {
             requestInfoDictionary = [self.urlDictionary objectForKey:@"HomeBanner"];

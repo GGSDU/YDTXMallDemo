@@ -30,7 +30,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor redColor];
     
-    CGSize size = CGSizeMake(40, 20);
+    CGSize size = CGSizeMake(80, 40);
     float originX = 20;
     float originY = 80;
     float gap = 20;

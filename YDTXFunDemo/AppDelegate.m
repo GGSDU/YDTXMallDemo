@@ -29,6 +29,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = nc;
     [self.window makeKeyAndVisible];
+    
+    
+    if ([[SXSqliteTool shareInstance] openDataBaseWithName:@"YDTX"]) {
+        NSLog(@"打开数据库成功");
+    } else {
+        NSLog(@"打开数据库失败");
+    }
         
     return YES;
 }
