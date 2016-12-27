@@ -108,6 +108,12 @@ static NetWorkService *instance = nil;
             responseBlock(responseModelArray);
         } else {
             failedBlock();
+            /***********/
+//            [RHNotiTool NotiShowWithTitle:@"没有更多数据了" Time:1.0];
+//            if (_delegate &&[_delegate respondsToSelector:@selector(mj_footerNoMoreData)]) {
+//                [_delegate mj_footerNoMoreData];
+//            }
+            /**********/
         }
     }];
 }

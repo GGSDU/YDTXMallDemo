@@ -10,9 +10,9 @@
 
 #import "SearchHeaderReusableView.h"
 #import "HistoryCollectionViewCell.h"
+#import "MarketDetailViewController.h"
 
-
-@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,NetWorkServiceDelegate>
 
 // 搜索栏
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -210,6 +210,15 @@ static NSString *productIdentifier = @"productCell";
             _keyword = searchText;
             [self startSearchWithKeyword:_keyword page:_page];
         }
+    } else {
+        ProductBriefModel *model = _resultArray[indexPath.row];
+        
+        //跳转详情页
+        MarketDetailViewController *vc = [MarketDetailViewController new];
+        vc.goods_id = model.ID;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
     }
 }
 
@@ -355,6 +364,54 @@ static NSString *productIdentifier = @"productCell";
     [self.collectionView registerClass:[HistoryCollectionViewCell class] forCellWithReuseIdentifier:historyIdentifier];
     
     [self.collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:productIdentifier];
+    
+    
+//设置代理  处理一些问题（1.没有更多数据 2.刷新成功或者失败都要停止刷新）  有问题！TnT
+//    [NetWorkService shareInstance].delegate = self;
+
+    // 展示header  下拉触发loadNewData
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    //头部透明度 随着collectionView的滚动自动影藏或显示
+    self.collectionView.mj_header.automaticallyChangeAlpha = YES;
+    
+#pragma warning --- 一般设置完让他直接出发下拉刷新  但是老哥你这是替换数据源   所以一开始不是搜索列表的时候不能刷新 不然会蹦
+    // 进入刷新状态 自动触发loadNewData
+//    [self.collectionView.mj_header beginRefreshing];
+    
+    // 设置footer
+    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }
+#pragma mark -- 上拉下拉加载
+-(void)loadNewData{
+
+    
+    [self startSearchWithKeyword:_keyword page:1];
+
+}
+-(void)loadMoreData{
+    _page ++;
+    NSLog(@"---页数：%d",_page);
+    [self startSearchWithKeyword:_keyword page:_page];
+
+}
+
+
+#pragma mark - networkServiceDelegate  刷新成功后让他停止刷新   还有一些细节待处理  明天说~
+- (void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message
+{
+    
+    [self.collectionView.mj_header endRefreshing];
+    [self.collectionView.mj_footer endRefreshing];
+    self.page -=1;
+    [RHNotiTool NotiShowWithTitle:@"网络跑丢了~" Time:1.0];
+    
+}
+
+-(void)mj_footerNoMoreData{
+    
+    [self.collectionView.mj_footer endRefreshingWithNoMoreData];
+    
+}
+
 
 @end
