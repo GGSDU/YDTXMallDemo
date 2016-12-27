@@ -365,7 +365,7 @@ static NetWorkService *instance = nil;
     params[@"id"] = goods_id;
     
     [self requestForDataByURLModuleKey:URLModuleKeyTypeProductDetailModel requestParam:params responseBlock:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"productModelData-->:%@--id:%@",responseObject,goods_id);
+        NSLog(@"productModelData商品型号-->:%@--id:%@",responseObject,goods_id);
         if ([responseObject[@"status"] integerValue] == 200) {
             
             //字典转模型
@@ -373,15 +373,15 @@ static NetWorkService *instance = nil;
             responseBlock(marketProductModelArray);
         }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             
-            [RHNotiTool NotiShowWithTitle:@"获取商品规格失败" Time:1.0];
+            [RHNotiTool NotiShowErrorWithTitle:@"获取商品规格失败" Time:1.0];
             
         }else if ([responseObject[@"status"] integerValue] == 401){ //数据不合法
             
-            [RHNotiTool NotiShowWithTitle:@"获取商品规格失败" Time:1.0];
+            [RHNotiTool NotiShowErrorWithTitle:@"获取商品规格失败" Time:1.0];
             
         }else if ([responseObject[@"status"] integerValue] == 403){ //非法参数
             
-            [RHNotiTool NotiShowWithTitle:@"获取商品规格失败" Time:1.0];
+            [RHNotiTool NotiShowErrorWithTitle:@"获取商品规格失败" Time:1.0];
         }
         
     }];

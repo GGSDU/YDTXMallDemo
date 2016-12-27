@@ -115,8 +115,6 @@
 		048540011E077C5300D90459 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FF61E077C5300D90459 /* DisplayView.m */; };
 		048540021E077C5300D90459 /* SXAdjustNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04853FF91E077C5300D90459 /* SXAdjustNumberView.m */; };
 		048540041E077E1500D90459 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048540031E077E1500D90459 /* AssetsLibrary.framework */; };
-		0485403D1E08D3CA00D90459 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485402A1E08D3CA00D90459 /* Reachability.m */; };
-		0485403E1E08D3CA00D90459 /* SDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485402C1E08D3CA00D90459 /* SDReachability.m */; };
 		0485403F1E08D3CA00D90459 /* SDCycleDispalyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485402F1E08D3CA00D90459 /* SDCycleDispalyView.m */; };
 		048540401E08D3CA00D90459 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540311E08D3CA00D90459 /* Foundation+Log.m */; };
 		048540411E08D3CA00D90459 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540331E08D3CA00D90459 /* UIBarButtonItem+Extension.m */; };
@@ -132,6 +130,9 @@
 		0485405E1E0B6B1B00D90459 /* MarketGoodsModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485405C1E0B6B1B00D90459 /* MarketGoodsModelCell.m */; };
 		0485405F1E0B6B1B00D90459 /* MarketGoodsModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0485405D1E0B6B1B00D90459 /* MarketGoodsModelCell.xib */; };
 		048540621E10FFD600D90459 /* PartnerCommitInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540611E10FFD600D90459 /* PartnerCommitInfoViewController.m */; };
+		0485406D1E12119000D90459 /* YDTXPayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485406C1E12119000D90459 /* YDTXPayTool.m */; };
+		0485407A1E122F0C00D90459 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540771E122F0C00D90459 /* Reachability.m */; };
+		0485407B1E122F0C00D90459 /* SDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540791E122F0C00D90459 /* SDReachability.m */; };
 		50CE5AE31E03B60200EAB012 /* AddDetailMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */; };
 		50CE5AE41E03B60200EAB012 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50CE5A621E03B60200EAB012 /* Address.plist */; };
 		50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE5A641E03B60200EAB012 /* SGLocationPickerSheetView.m */; };
@@ -514,10 +515,6 @@
 		04853FF81E077C5300D90459 /* SXAdjustNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXAdjustNumberView.h; sourceTree = "<group>"; };
 		04853FF91E077C5300D90459 /* SXAdjustNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SXAdjustNumberView.m; sourceTree = "<group>"; };
 		048540031E077E1500D90459 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		048540291E08D3CA00D90459 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		0485402A1E08D3CA00D90459 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		0485402B1E08D3CA00D90459 /* SDReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDReachability.h; sourceTree = "<group>"; };
-		0485402C1E08D3CA00D90459 /* SDReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDReachability.m; sourceTree = "<group>"; };
 		0485402E1E08D3CA00D90459 /* SDCycleDispalyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleDispalyView.h; sourceTree = "<group>"; };
 		0485402F1E08D3CA00D90459 /* SDCycleDispalyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleDispalyView.m; sourceTree = "<group>"; };
 		048540311E08D3CA00D90459 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
@@ -546,6 +543,12 @@
 		0485405D1E0B6B1B00D90459 /* MarketGoodsModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketGoodsModelCell.xib; sourceTree = "<group>"; };
 		048540601E10FFD600D90459 /* PartnerCommitInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerCommitInfoViewController.h; sourceTree = "<group>"; };
 		048540611E10FFD600D90459 /* PartnerCommitInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerCommitInfoViewController.m; sourceTree = "<group>"; };
+		0485406B1E12119000D90459 /* YDTXPayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDTXPayTool.h; sourceTree = "<group>"; };
+		0485406C1E12119000D90459 /* YDTXPayTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDTXPayTool.m; sourceTree = "<group>"; };
+		048540761E122F0C00D90459 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		048540771E122F0C00D90459 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		048540781E122F0C00D90459 /* SDReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDReachability.h; sourceTree = "<group>"; };
+		048540791E122F0C00D90459 /* SDReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDReachability.m; sourceTree = "<group>"; };
 		50CE5A5E1E03B60200EAB012 /* AddDetailMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageViewController.h; sourceTree = "<group>"; };
 		50CE5A5F1E03B60200EAB012 /* AddDetailMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageViewController.m; sourceTree = "<group>"; };
 		50CE5A621E03B60200EAB012 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -1316,7 +1319,8 @@
 		04853FDD1E077C5300D90459 /* RHTools */ = {
 			isa = PBXGroup;
 			children = (
-				048540281E08D3CA00D90459 /* NetWork */,
+				048540751E122F0C00D90459 /* NetWork */,
+				0485406A1E12116F00D90459 /* payTool */,
 				0485402D1E08D3CA00D90459 /* RHBanner */,
 				048540301E08D3CA00D90459 /* RHCategory */,
 				0485403A1E08D3CA00D90459 /* RHNotiTool */,
@@ -1421,17 +1425,6 @@
 			path = SXAdjustNumberView;
 			sourceTree = "<group>";
 		};
-		048540281E08D3CA00D90459 /* NetWork */ = {
-			isa = PBXGroup;
-			children = (
-				048540291E08D3CA00D90459 /* Reachability.h */,
-				0485402A1E08D3CA00D90459 /* Reachability.m */,
-				0485402B1E08D3CA00D90459 /* SDReachability.h */,
-				0485402C1E08D3CA00D90459 /* SDReachability.m */,
-			);
-			path = NetWork;
-			sourceTree = "<group>";
-		};
 		0485402D1E08D3CA00D90459 /* RHBanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -1464,6 +1457,26 @@
 				0485403C1E08D3CA00D90459 /* RHNotiTool.m */,
 			);
 			path = RHNotiTool;
+			sourceTree = "<group>";
+		};
+		0485406A1E12116F00D90459 /* payTool */ = {
+			isa = PBXGroup;
+			children = (
+				0485406B1E12119000D90459 /* YDTXPayTool.h */,
+				0485406C1E12119000D90459 /* YDTXPayTool.m */,
+			);
+			path = payTool;
+			sourceTree = "<group>";
+		};
+		048540751E122F0C00D90459 /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				048540761E122F0C00D90459 /* Reachability.h */,
+				048540771E122F0C00D90459 /* Reachability.m */,
+				048540781E122F0C00D90459 /* SDReachability.h */,
+				048540791E122F0C00D90459 /* SDReachability.m */,
+			);
+			path = NetWork;
 			sourceTree = "<group>";
 		};
 		2BD8542BA1972E659741F877 /* Frameworks */ = {
@@ -2619,6 +2632,7 @@
 				50CE5AE51E03B60200EAB012 /* SGLocationPickerSheetView.m in Sources */,
 				755B4AB21E059DAF009EEA64 /* FMDatabaseQueue.m in Sources */,
 				50CE5AF41E03B60200EAB012 /* LogisticsTableViewController.m in Sources */,
+				0485407A1E122F0C00D90459 /* Reachability.m in Sources */,
 				50FC5FB51E07C4C500F62097 /* CTAssetCheckmark.m in Sources */,
 				50CE5AFA1E03B60200EAB012 /* MeGoodsModel.m in Sources */,
 				042198071DFFE87D0061175F /* PayWayView.m in Sources */,
@@ -2632,6 +2646,7 @@
 				50FC5FF81E07C9AD00F62097 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				04853FD51E03852200D90459 /* SVProgressAnimatedView.m in Sources */,
 				50CE5AE71E03B60200EAB012 /* SGLocationPickerView.m in Sources */,
+				0485406D1E12119000D90459 /* YDTXPayTool.m in Sources */,
 				50CE5B0D1E03B60200EAB012 /* OrderListModel.m in Sources */,
 				50CE5AFF1E03B60200EAB012 /* ManagerMyMessage.m in Sources */,
 				50CE5AF91E03B60200EAB012 /* MeActionModel.m in Sources */,
@@ -2646,13 +2661,11 @@
 				04853FC11E03852200D90459 /* README.md in Sources */,
 				50FC5FB91E07C4C500F62097 /* CTAssetPlayButton.m in Sources */,
 				50CE5B1A1E03C8C400EAB012 /* CouponModel.m in Sources */,
-				0485403D1E08D3CA00D90459 /* Reachability.m in Sources */,
 				04853FB81E03852200D90459 /* MJFoundation.m in Sources */,
 				50FC5FC11E07C4C500F62097 /* CTAssetsGridViewFooter.m in Sources */,
 				50CE5AEE1E03B60200EAB012 /* Coupon_UnUsedTableViewController.m in Sources */,
 				042198041DFFE87D0061175F /* MarketDetailCell.m in Sources */,
 				042197FE1DFFE87D0061175F /* MarketDetailViewController.m in Sources */,
-				0485403E1E08D3CA00D90459 /* SDReachability.m in Sources */,
 				042198FC1E029EFA0061175F /* MJRefreshBackFooter.m in Sources */,
 				50FC5FC81E07C4C500F62097 /* CTAssetsPickerNoAssetsView.m in Sources */,
 				042199321E03844A0061175F /* View+MASAdditions.m in Sources */,
@@ -2773,6 +2786,7 @@
 				04853FFD1E077C5300D90459 /* AutoScrollerView.m in Sources */,
 				50CE5AE91E03B60200EAB012 /* AddDetailMessageView.m in Sources */,
 				50FC5FAC1E07C4C500F62097 /* NSBundle+CTAssetsPickerController.m in Sources */,
+				0485407B1E122F0C00D90459 /* SDReachability.m in Sources */,
 				50CE5AEF1E03B60200EAB012 /* Coupon_UsedTableViewController.m in Sources */,
 				04853FD11E03852200D90459 /* UIView+WebCacheOperation.m in Sources */,
 				042199051E029EFA0061175F /* MJRefreshBackStateFooter.m in Sources */,
