@@ -11,7 +11,7 @@
 #import "CartViewController.h"
 #import "ShopMarketController.h"
 
-#import "MeViewController.h"
+//#import "MeViewController.h"
 
 
 //
@@ -74,8 +74,8 @@
         {
             [aSender setTitle:@"舒通" forState:UIControlStateNormal];
             
-            MeViewController *meVc = [[MeViewController alloc]init];
-            [self.navigationController pushViewController:meVc animated:YES];
+//            MeViewController *meVc = [[MeViewController alloc]init];
+//            [self.navigationController pushViewController:meVc animated:YES];
         }
             
             break;
