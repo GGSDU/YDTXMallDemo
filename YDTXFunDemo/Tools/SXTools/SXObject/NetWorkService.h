@@ -22,6 +22,7 @@ typedef enum : NSUInteger {
 } RequestMethod;
 
 typedef enum : NSUInteger {
+    URLModuleKeyTypeSearch,                 // 搜索
     URLModuleKeyTypeBanner,                 // 商城轮播图
     URLModuleKeyTypeShopCategory,           // 商城分类
     URLModuleKeyTypeHomeListAggregatedData, // 商城首页列表聚合数据
@@ -90,6 +91,11 @@ static NSString *recommendedProductKey = @"fishtree";
 - (void)requestForDataByURLModuleKey:(URLModuleKeyType)urlModuleKey
                         requestParam:(nullable NSDictionary *)requestParam
                        responseBlock:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))responseBlock;
+
+/**
+ *  搜索
+ */
+- (void)requestForSearchProductWithKeyword:(NSString *)keyWord page:(int)page responseBlock:(void(^)(NSArray *productBriefModelArray))responseBlock  failedBlock:(void(^)())failedBlock;
 
 /**
  *  商城轮播图

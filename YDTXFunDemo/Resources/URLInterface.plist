@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Search</key>
+	<dict>
+		<key>RequestURL</key>
+		<string>http://test.m.yundiaoke.cn/api/goods/searchGoods</string>
+		<key>RequestMethod</key>
+		<string>GET</string>
+	</dict>
 	<key>HomeBanner</key>
 	<dict>
 		<key>RequestURL</key>

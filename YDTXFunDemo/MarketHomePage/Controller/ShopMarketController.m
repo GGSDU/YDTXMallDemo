@@ -53,6 +53,8 @@ static NSString *watchMoreIdentifier = @"watchMore";
     self.view.backgroundColor = StandardBackgroundColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    [self initSqliteDataBase];
+    
     [self initData];
     
     [self customNavigationItem];
@@ -67,6 +69,11 @@ static NSString *watchMoreIdentifier = @"watchMore";
 }
 
 #pragma mark - init data
+- (void)initSqliteDataBase
+{
+    // 这里做数据库缓存操作
+}
+
 - (void)initData{
     
     // 轮播图

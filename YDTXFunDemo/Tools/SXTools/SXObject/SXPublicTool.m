@@ -13,7 +13,18 @@
 
 @implementation SXPublicTool
 
-#pragma mark - 
+#pragma mark -
++ (NSString *)documentPath
+{
+    NSArray *documentDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    //因为documentDirectory数组只有一个元素,所以取第一个或者最后一个都是一样的
+    NSString *myDocPath1 = [documentDirectory firstObject];
+    NSLog(@"documentPath : %@",myDocPath1);
+//    NSString *myDocPath2 = [documentDirectory lastObject];
+    return myDocPath1;
+//    return myDocPath2;
+}
+
 + (UIWindow *)keyWindow
 {
     return [UIApplication sharedApplication].keyWindow;

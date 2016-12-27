@@ -224,6 +224,8 @@
 		7589EF3B1E0940880066D302 /* defaultCart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7589EF391E0940880066D302 /* defaultCart@2x.png */; };
 		7589EF3C1E0940880066D302 /* defaultCart@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7589EF3A1E0940880066D302 /* defaultCart@3x.png */; };
 		7589EF3F1E098A480066D302 /* CartDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7589EF3E1E098A480066D302 /* CartDefaultView.m */; };
+		75977ACD1E1241890043084D /* SearchHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75977ACC1E1241890043084D /* SearchHeaderReusableView.m */; };
+		75977AD01E1242830043084D /* HistoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75977ACF1E1242830043084D /* HistoryCollectionViewCell.m */; };
 		75A7BF861E0D1B2B006FFED8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A7BF851E0D1B2B006FFED8 /* SearchViewController.m */; };
 		75B7F7EC1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7E81DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png */; };
 		75B7F7ED1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7E91DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png */; };
@@ -692,6 +694,10 @@
 		7589EF3A1E0940880066D302 /* defaultCart@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultCart@3x.png"; sourceTree = "<group>"; };
 		7589EF3D1E098A480066D302 /* CartDefaultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartDefaultView.h; sourceTree = "<group>"; };
 		7589EF3E1E098A480066D302 /* CartDefaultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartDefaultView.m; sourceTree = "<group>"; };
+		75977ACB1E1241890043084D /* SearchHeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHeaderReusableView.h; sourceTree = "<group>"; };
+		75977ACC1E1241890043084D /* SearchHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHeaderReusableView.m; sourceTree = "<group>"; };
+		75977ACE1E1242830043084D /* HistoryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCollectionViewCell.h; sourceTree = "<group>"; };
+		75977ACF1E1242830043084D /* HistoryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCollectionViewCell.m; sourceTree = "<group>"; };
 		75A7BF841E0D1B2B006FFED8 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		75A7BF851E0D1B2B006FFED8 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		75B7F7E81DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Disabled@2x.png"; sourceTree = "<group>"; };
@@ -1836,6 +1842,10 @@
 		75A7BF831E0D1AEF006FFED8 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
+				75977ACB1E1241890043084D /* SearchHeaderReusableView.h */,
+				75977ACC1E1241890043084D /* SearchHeaderReusableView.m */,
+				75977ACE1E1242830043084D /* HistoryCollectionViewCell.h */,
+				75977ACF1E1242830043084D /* HistoryCollectionViewCell.m */,
 				75A7BF841E0D1B2B006FFED8 /* SearchViewController.h */,
 				75A7BF851E0D1B2B006FFED8 /* SearchViewController.m */,
 			);
@@ -2083,6 +2093,7 @@
 				04853FC71E03852200D90459 /* SDWebImageDecoder.m in Sources */,
 				50FC5FC31E07C4C500F62097 /* CTAssetsNavigationController.m in Sources */,
 				04853FFF1E077C5300D90459 /* MZPageControl.m in Sources */,
+				75977ACD1E1241890043084D /* SearchHeaderReusableView.m in Sources */,
 				04853FCA1E03852200D90459 /* SDWebImageManager.m in Sources */,
 				0421980B1DFFE9170061175F /* UIColor+Hex.m in Sources */,
 				04853FCF1E03852200D90459 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -2202,6 +2213,7 @@
 				755B4AC51E059FB4009EEA64 /* FMTokenizers.m in Sources */,
 				755B4AB11E059DAF009EEA64 /* FMDatabasePool.m in Sources */,
 				048540001E077C5300D90459 /* MZPageScrollView.m in Sources */,
+				75977AD01E1242830043084D /* HistoryCollectionViewCell.m in Sources */,
 				50FC5FB81E07C4C500F62097 /* CTAssetItemViewController.m in Sources */,
 				755B4AB01E059DAF009EEA64 /* FMDatabaseAdditions.m in Sources */,
 				755B4AAF1E059DAF009EEA64 /* FMDatabase.m in Sources */,
