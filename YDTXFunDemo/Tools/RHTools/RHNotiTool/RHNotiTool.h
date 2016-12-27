@@ -13,5 +13,11 @@
 
 +(void)NotiShowWithTitle:(NSString *)notiString Time:(NSTimeInterval)time;
 
++(void)NotiShowErrorWithTitle:(NSString *)notiString Time:(NSTimeInterval)time;
 
+
++(void)NotiShowSuccessWithTitle:(NSString *)notiString Time:(NSTimeInterval)time;
+
+
++(void)dismiss;
 @end

@@ -10,6 +10,6 @@
 
 @interface CategoryWebView : UIWebView
 
--(void)showWithHtmlString:(NSString *)htmlString;
+-(void)loadDataWhitHTMLString:(NSString *)string;
 
 @end

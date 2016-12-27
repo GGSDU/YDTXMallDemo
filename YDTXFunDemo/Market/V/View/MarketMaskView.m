@@ -21,12 +21,14 @@
 
 /***/
 @property(strong,nonatomic)MarketGoodsModelCell *CurrentSelectCell;
+@property(strong,nonatomic)marketProductModel *currentProductModel;
+
 
 @property(strong,nonatomic)UIImageView *ImgView; //图片
 @property(strong,nonatomic)UILabel *goodsTitleLabel;//商品名称
 @property(strong,nonatomic)UILabel *priceLabel;//价格
 @property(strong,nonatomic)PPNumberButton *numberButton;//加减控件
-
+@property(strong,nonatomic)UIButton *bottomBtn;
 
 
 
@@ -114,7 +116,7 @@ static NSString *kmodelCellId = @"modelCell";
     
 //imageView
     _ImgView = [[UIImageView alloc]init];
-    _ImgView.backgroundColor = [UIColor redColor];
+    _ImgView.backgroundColor = [UIColor whiteColor];
     _ImgView.layer.borderWidth = 2;
     _ImgView.layer.borderColor = [UIColor whiteColor].CGColor;
     _ImgView.layer.cornerRadius = 5;
@@ -205,13 +207,26 @@ static NSString *kmodelCellId = @"modelCell";
     
 
 //加入购物车btn
-    UIButton *addToCartBtn = [[UIButton alloc]init];
-    [addToCartBtn setBackgroundColor:[UIColor orangeColor]];
-    addToCartBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [addToCartBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
-    [addToCartBtn addTarget:self action:@selector(addToCart) forControlEvents:UIControlEventTouchUpInside];
-    [_baseView addSubview:addToCartBtn];
-    [addToCartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    /*   */
+    _bottomBtn = [[UIButton alloc]init];
+   
+    _bottomBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    
+    if (_BtnID == 0) {
+        [_bottomBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:[UIColor colorForHex:@"fe9402"]];
+        [_bottomBtn addTarget:self action:@selector(addToCart) forControlEvents:UIControlEventTouchUpInside];
+    }else if (_BtnID == 1){
+        [_bottomBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:[UIColor colorForHex:@"ff5b02"]];
+        [_bottomBtn addTarget:self action:@selector(buyItNow) forControlEvents:UIControlEventTouchUpInside];
+    }
+   
+    
+    
+    
+    [_baseView addSubview:_bottomBtn];
+    [_bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_baseView);
         make.leading.equalTo(_baseView);
         make.trailing.equalTo(_baseView);
@@ -231,9 +246,7 @@ static NSString *kmodelCellId = @"modelCell";
     _numberButton.decreaseTitle = @"－";
     _numberButton.inputFieldFont = 14;
     
-    _numberButton.resultBlock = ^(NSString *num){
-        NSLog(@"%@",num);
-    };
+    
     
     [_baseView addSubview:_numberButton];
     [_numberButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -269,21 +282,38 @@ static NSString *kmodelCellId = @"modelCell";
          订单状态： -1为已取消，0为未付款 ，1为已付款， 2为待收货，3为退款，4为加入购物车
          */
         
+        NSLog(@"currentModel--->:%@",_currentProductModel.objectDictionary);
+        
+       
+       
+        
+        
+        NSInteger num = [_numberButton.currentNumber integerValue];
+        CGFloat totalPrice = num* _currentProductModel.price;
+        
         NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
         paramsDic[@"user_id"] = @"37";
         paramsDic[@"goods_id"] = _goods_id;
-        paramsDic[@"goods_model_id"] = @"33";
+        paramsDic[@"goods_model_id"] = _currentProductModel.ID;
 //        paramsDic[@"cou_id"] = @"3";
         paramsDic[@"goods_name"] = _goods_Name;
-//        paramsDic[@"price"] = _priceLabel.text in;
-        paramsDic[@"total_price"] = @"103.00";
-        paramsDic[@"nums"] = @"1";
+        paramsDic[@"price"] = @(_currentProductModel.price);
+        paramsDic[@"total_price"] = @(totalPrice);
+        paramsDic[@"nums"] = @(num);
         paramsDic[@"courier"] = @"申通";
         paramsDic[@"status"] = @"4";
         paramsDic[@"address_id"] = @"如东";
         
         
-         [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];
+//
+        [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];
+        
+        
+        [self disMiss];
+    }else{
+    
+        [RHNotiTool NotiShowErrorWithTitle:@"请选择商品型号" Time:1.0];
+    
     }
     
     
@@ -292,6 +322,76 @@ static NSString *kmodelCellId = @"modelCell";
 
 }
 
+
+-(void)buyItNow{
+
+
+    if (_CurrentSelectCell ) {
+        
+        /*
+         http://test.m.yundiaoke.cn/api/goodsOrder/submitOrder
+         请求方式：POST
+         参数：
+         User_id：用户id
+         Goods_id：商品Id
+         Goods_model_id：商品型号id
+         Cou_id：优惠券id
+         Goods_name：商品名称
+         Price：订单单价
+         Total_price：订单总价
+         Nums：购买数量
+         Courier：快递名称
+         Status：订单状态====>
+         address_id :收货地址
+         订单状态： -1为已取消，0为未付款 ，1为已付款， 2为待收货，3为退款，4为加入购物车
+         */
+        
+        NSLog(@"currentModel--->:%@",_currentProductModel.objectDictionary);
+        
+        
+        
+        
+        
+        NSInteger num = [_numberButton.currentNumber integerValue];
+        CGFloat totalPrice = num* _currentProductModel.price;
+        
+        NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
+//        paramsDic[@"user_id"] = @"65";
+//        paramsDic[@"goods_id"] = _goods_id;
+//        paramsDic[@"goods_model_id"] = _currentProductModel.ID;
+//        //        paramsDic[@"cou_id"] = @"3";
+//        paramsDic[@"goods_name"] = _goods_Name;
+//        paramsDic[@"price"] = @(_currentProductModel.price);
+//        paramsDic[@"total_price"] = @(totalPrice);
+//        paramsDic[@"nums"] = @(num);
+//        paramsDic[@"courier"] = @"申通";
+//        paramsDic[@"status"] = @"0";
+//        paramsDic[@"address_id"] = @"如东";
+//        
+        
+        paramsDic[@"user_id"] = @"65";
+        paramsDic[@"goods_id"] = @"35";
+        paramsDic[@"goods_model_id"] = @"36";
+        //        paramsDic[@"cou_id"] = @"3";
+        paramsDic[@"goods_name"] = @"ydk";
+        paramsDic[@"price"] = @"100.00";
+        paramsDic[@"total_price"] = @"200";
+        paramsDic[@"nums"] = @(2);
+        paramsDic[@"courier"] = @"申通";
+        paramsDic[@"status"] = @"0";
+        paramsDic[@"address_id"] = @"如东";
+        
+        //
+        [[NetWorkService shareInstance]requestForDealGoodsOrderWithParamsDic:paramsDic];
+        
+        
+        [self disMiss];
+
+    }else{
+    
+        [RHNotiTool NotiShowErrorWithTitle:@"请选择商品型号" Time:1.0];
+    }
+}
 
 
 #pragma 提供给外部的方法
@@ -313,33 +413,13 @@ static NSString *kmodelCellId = @"modelCell";
         [_modelCollectView reloadData];
     }];
     
+
     
     
     
 }
 
-#pragma 私有方法
--(void)creatModelBtnWithDataArray:(NSArray *)dataArray{
-    
-    
-    for (int i = 0;i < dataArray.count ; i++) {
-        
-        UIButton *modelBtn = [[UIButton alloc]init];
-        [modelBtn setBackgroundColor:RGB(250, 250, 250)];
-        [modelBtn setTitleColor:[UIColor colorForHex:@"#2e2e2e"] forState:UIControlStateNormal];
-        modelBtn.layer.cornerRadius = 5;
-        modelBtn.layer.masksToBounds = YES;
-        modelBtn.layer.borderWidth = 1;
-        modelBtn.layer.borderColor = RGB(211, 211, 211).CGColor;
-        modelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [modelBtn setTitle:@"xx" forState:UIControlStateNormal];
-        [_baseView addSubview:modelBtn];
-        //frame
-        
-    }
 
-
-}
 
 
 #pragma mark--modelCollectionView Method
@@ -389,7 +469,7 @@ static NSString *kmodelCellId = @"modelCell";
    MarketGoodsModelCell *cell = (MarketGoodsModelCell *)[collectionView cellForItemAtIndexPath:indexPath];
 
     marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
-    
+    _currentProductModel = marketProductModel;
     
     //选中了cell
     // 1.改变cell的边框和字体颜色
@@ -431,6 +511,7 @@ static NSString *kmodelCellId = @"modelCell";
         [_baseView removeFromSuperview];
         [_baseMaskView removeFromSuperview];
         [self removeFromSuperview];
+        
     }];
 }
 
@@ -466,11 +547,13 @@ static NSString *kmodelCellId = @"modelCell";
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
-        [self.superview.layer setTransform:[self firstTransform]];
+//        [self.superview.layer setTransform:[self firstTransform]];
+        [self.superview.layer setTransform:CATransform3DIdentity];
         
     } completion:^(BOOL finished) {
             //变为初始值
-            [self.superview.layer setTransform:CATransform3DIdentity];
+//            [self.superview.layer setTransform:CATransform3DIdentity];
+
         
     }];
 
@@ -500,5 +583,16 @@ static NSString *kmodelCellId = @"modelCell";
     return t2;
 }
 
+
+- (CATransform3D)lastTransform{
+    CATransform3D t1 = CATransform3DIdentity;
+    t1.m34 = 1.0/-900;
+    //带点缩小的效果
+//    t1 = CATransform3DScale(t1, 0.95, 0.95, 1);
+    //绕x轴旋转
+    t1 = CATransform3DRotate(t1, -15.0 * M_PI/180.0, 1, 0, 0);
+    return t1;
+    
+}
 
 @end

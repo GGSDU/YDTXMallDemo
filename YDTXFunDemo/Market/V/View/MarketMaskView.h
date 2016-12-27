@@ -15,6 +15,9 @@
 @property (copy,nonatomic)NSString *goods_Name;
 @property (copy,nonatomic)NSURL *imageUrl;
 
+
+@property(assign,nonatomic)NSInteger BtnID;
+
 //带有旋转动画的初始化方法
 -(void)showWithTransformAnimation;
 
