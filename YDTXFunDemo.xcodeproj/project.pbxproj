@@ -133,6 +133,15 @@
 		0485406D1E12119000D90459 /* YDTXPayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485406C1E12119000D90459 /* YDTXPayTool.m */; };
 		0485407A1E122F0C00D90459 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540771E122F0C00D90459 /* Reachability.m */; };
 		0485407B1E122F0C00D90459 /* SDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 048540791E122F0C00D90459 /* SDReachability.m */; };
+		048541BD1E12569C00D90459 /* AddDetailMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541AF1E12569C00D90459 /* AddDetailMessageViewController.m */; };
+		048541BE1E12569C00D90459 /* AddDetailMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541B21E12569C00D90459 /* AddDetailMessageView.m */; };
+		048541BF1E12569C00D90459 /* ReceiveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541B61E12569C00D90459 /* ReceiveTableViewController.m */; };
+		048541C01E12569C00D90459 /* AddressListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541B91E12569C00D90459 /* AddressListModel.m */; };
+		048541C11E12569C00D90459 /* ReceiveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541BC1E12569C00D90459 /* ReceiveTableViewCell.m */; };
+		048541C91E1257DE00D90459 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 048541C31E1257DE00D90459 /* Address.plist */; };
+		048541CA1E1257DE00D90459 /* SGLocationPickerSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541C51E1257DE00D90459 /* SGLocationPickerSheetView.m */; };
+		048541CB1E1257DE00D90459 /* SGLocationPickerSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048541C61E1257DE00D90459 /* SGLocationPickerSheetView.xib */; };
+		048541CC1E1257DE00D90459 /* SGLocationPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048541C81E1257DE00D90459 /* SGLocationPickerView.m */; };
 		50FC5FAC1E07C4C500F62097 /* NSBundle+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC5F4D1E07C4C500F62097 /* NSBundle+CTAssetsPickerController.m */; };
 		50FC5FAD1E07C4C500F62097 /* NSDateFormatter+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC5F4F1E07C4C500F62097 /* NSDateFormatter+CTAssetsPickerController.m */; };
 		50FC5FAE1E07C4C500F62097 /* NSIndexSet+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FC5F511E07C4C500F62097 /* NSIndexSet+CTAssetsPickerController.m */; };
@@ -492,6 +501,22 @@
 		048540771E122F0C00D90459 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		048540781E122F0C00D90459 /* SDReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDReachability.h; sourceTree = "<group>"; };
 		048540791E122F0C00D90459 /* SDReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDReachability.m; sourceTree = "<group>"; };
+		048541AE1E12569C00D90459 /* AddDetailMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageViewController.h; sourceTree = "<group>"; };
+		048541AF1E12569C00D90459 /* AddDetailMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageViewController.m; sourceTree = "<group>"; };
+		048541B11E12569C00D90459 /* AddDetailMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDetailMessageView.h; sourceTree = "<group>"; };
+		048541B21E12569C00D90459 /* AddDetailMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDetailMessageView.m; sourceTree = "<group>"; };
+		048541B51E12569C00D90459 /* ReceiveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveTableViewController.h; sourceTree = "<group>"; };
+		048541B61E12569C00D90459 /* ReceiveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveTableViewController.m; sourceTree = "<group>"; };
+		048541B81E12569C00D90459 /* AddressListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListModel.h; sourceTree = "<group>"; };
+		048541B91E12569C00D90459 /* AddressListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListModel.m; sourceTree = "<group>"; };
+		048541BB1E12569C00D90459 /* ReceiveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveTableViewCell.h; sourceTree = "<group>"; };
+		048541BC1E12569C00D90459 /* ReceiveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveTableViewCell.m; sourceTree = "<group>"; };
+		048541C31E1257DE00D90459 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		048541C41E1257DE00D90459 /* SGLocationPickerSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGLocationPickerSheetView.h; sourceTree = "<group>"; };
+		048541C51E1257DE00D90459 /* SGLocationPickerSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGLocationPickerSheetView.m; sourceTree = "<group>"; };
+		048541C61E1257DE00D90459 /* SGLocationPickerSheetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGLocationPickerSheetView.xib; sourceTree = "<group>"; };
+		048541C71E1257DE00D90459 /* SGLocationPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGLocationPickerView.h; sourceTree = "<group>"; };
+		048541C81E1257DE00D90459 /* SGLocationPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGLocationPickerView.m; sourceTree = "<group>"; };
 		50FC5F4A1E07C4C500F62097 /* CTAssetsPageViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPageViewController+Internal.h"; sourceTree = "<group>"; };
 		50FC5F4B1E07C4C500F62097 /* CTAssetsPickerController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPickerController+Internal.h"; sourceTree = "<group>"; };
 		50FC5F4C1E07C4C500F62097 /* NSBundle+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+CTAssetsPickerController.h"; sourceTree = "<group>"; };
@@ -1310,6 +1335,93 @@
 			path = NetWork;
 			sourceTree = "<group>";
 		};
+		048541AB1E12569B00D90459 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				048541C21E1257DE00D90459 /* Tools */,
+				048541AC1E12569C00D90459 /* AddDetailMessage */,
+				048541B31E12569C00D90459 /* ReceiviTable */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+		048541AC1E12569C00D90459 /* AddDetailMessage */ = {
+			isa = PBXGroup;
+			children = (
+				048541AD1E12569C00D90459 /* C */,
+				048541B01E12569C00D90459 /* V */,
+			);
+			path = AddDetailMessage;
+			sourceTree = "<group>";
+		};
+		048541AD1E12569C00D90459 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				048541AE1E12569C00D90459 /* AddDetailMessageViewController.h */,
+				048541AF1E12569C00D90459 /* AddDetailMessageViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		048541B01E12569C00D90459 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				048541B11E12569C00D90459 /* AddDetailMessageView.h */,
+				048541B21E12569C00D90459 /* AddDetailMessageView.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		048541B31E12569C00D90459 /* ReceiviTable */ = {
+			isa = PBXGroup;
+			children = (
+				048541B41E12569C00D90459 /* C */,
+				048541B71E12569C00D90459 /* M */,
+				048541BA1E12569C00D90459 /* V */,
+			);
+			path = ReceiviTable;
+			sourceTree = "<group>";
+		};
+		048541B41E12569C00D90459 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				048541B51E12569C00D90459 /* ReceiveTableViewController.h */,
+				048541B61E12569C00D90459 /* ReceiveTableViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		048541B71E12569C00D90459 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				048541B81E12569C00D90459 /* AddressListModel.h */,
+				048541B91E12569C00D90459 /* AddressListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		048541BA1E12569C00D90459 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				048541BB1E12569C00D90459 /* ReceiveTableViewCell.h */,
+				048541BC1E12569C00D90459 /* ReceiveTableViewCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		048541C21E1257DE00D90459 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				048541C31E1257DE00D90459 /* Address.plist */,
+				048541C41E1257DE00D90459 /* SGLocationPickerSheetView.h */,
+				048541C51E1257DE00D90459 /* SGLocationPickerSheetView.m */,
+				048541C61E1257DE00D90459 /* SGLocationPickerSheetView.xib */,
+				048541C71E1257DE00D90459 /* SGLocationPickerView.h */,
+				048541C81E1257DE00D90459 /* SGLocationPickerView.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		2BD8542BA1972E659741F877 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1618,6 +1730,7 @@
 				757A7E3B1DF687E600399B10 /* Cart */,
 				042197E01DFFE87D0061175F /* Market */,
 				0421980E1E00D82C0061175F /* Partner */,
+				048541AB1E12569B00D90459 /* Address */,
 				757A7E061DF6843300399B10 /* AppDelegate.h */,
 				757A7E071DF6843300399B10 /* AppDelegate.m */,
 				757A7E091DF6843300399B10 /* ViewController.h */,
@@ -1890,6 +2003,7 @@
 				75B7F7EF1DF6C6A3008F72A5 /* Cart_Decrease_Normal@3x.png in Resources */,
 				75B7F7EE1DF6C6A3008F72A5 /* Cart_Decrease_Normal@2x.png in Resources */,
 				7589EF3C1E0940880066D302 /* defaultCart@3x.png in Resources */,
+				048541CB1E1257DE00D90459 /* SGLocationPickerSheetView.xib in Resources */,
 				0485405F1E0B6B1B00D90459 /* MarketGoodsModelCell.xib in Resources */,
 				755B4ACB1E05A6E5009EEA64 /* Cart@2x.png in Resources */,
 				755B4AD01E05A9FD009EEA64 /* NavigationBackImage@3x.png in Resources */,
@@ -1907,6 +2021,7 @@
 				042198021DFFE87D0061175F /* markeListCell.xib in Resources */,
 				04853FB61E03852200D90459 /* LICENSE in Resources */,
 				757A7E581DF6B13F00399B10 /* Cart_CellStatusButton_Selected@3x.png in Resources */,
+				048541C91E1257DE00D90459 /* Address.plist in Resources */,
 				75F6966E1E0792730056BAD2 /* URLInterface.plist in Resources */,
 				50FC5FCD1E07C4C500F62097 /* CTAssetsPicker.strings in Resources */,
 				50FC5FF51E07C9AD00F62097 /* LICENSE in Resources */,
@@ -2002,6 +2117,7 @@
 				0421992A1E03844A0061175F /* MASCompositeConstraint.m in Sources */,
 				04853FCD1E03852200D90459 /* UIImage+GIF.m in Sources */,
 				042199041E029EFA0061175F /* MJRefreshBackNormalFooter.m in Sources */,
+				048541C11E12569C00D90459 /* ReceiveTableViewCell.m in Sources */,
 				0421992C1E03844A0061175F /* MASConstraintMaker.m in Sources */,
 				04853FC11E03852200D90459 /* README.md in Sources */,
 				50FC5FB91E07C4C500F62097 /* CTAssetPlayButton.m in Sources */,
@@ -2019,6 +2135,7 @@
 				042198C11E0282A30061175F /* marketListModel.m in Sources */,
 				048540401E08D3CA00D90459 /* Foundation+Log.m in Sources */,
 				04853FAE1E03852200D90459 /* AFImageDownloader.m in Sources */,
+				048541CA1E1257DE00D90459 /* SGLocationPickerSheetView.m in Sources */,
 				0485405A1E0A6A7600D90459 /* marketProductModel.m in Sources */,
 				04853FB71E03852200D90459 /* MJExtensionConst.m in Sources */,
 				50FC5FBB1E07C4C500F62097 /* CTAssetSelectionButton.m in Sources */,
@@ -2040,6 +2157,7 @@
 				04853FA91E03852200D90459 /* AFURLResponseSerialization.m in Sources */,
 				0485404E1E09250500D90459 /* CategoryWebView.m in Sources */,
 				04853FA51E03852200D90459 /* AFHTTPSessionManager.m in Sources */,
+				048541BF1E12569C00D90459 /* ReceiveTableViewController.m in Sources */,
 				0485405E1E0B6B1B00D90459 /* MarketGoodsModelCell.m in Sources */,
 				04853FDB1E03B26000D90459 /* marketDetailModel.m in Sources */,
 				50FC5FC01E07C4C500F62097 /* CTAssetsGridViewController.m in Sources */,
@@ -2064,6 +2182,8 @@
 				50FC5FC71E07C4C500F62097 /* CTAssetsPickerController.m in Sources */,
 				50FC5FF71E07C9AD00F62097 /* NSArray+PureLayout.m in Sources */,
 				757F31F71E03C6DC004D259C /* CategoryCell.m in Sources */,
+				048541CC1E1257DE00D90459 /* SGLocationPickerView.m in Sources */,
+				048541C01E12569C00D90459 /* AddressListModel.m in Sources */,
 				0485403F1E08D3CA00D90459 /* SDCycleDispalyView.m in Sources */,
 				042198BE1E0275760061175F /* Foundation+Log.m in Sources */,
 				04853FD41E03852200D90459 /* SVIndefiniteAnimatedView.m in Sources */,
@@ -2098,6 +2218,7 @@
 				04853FBF1E03852200D90459 /* NSObject+MJProperty.m in Sources */,
 				0421992D1E03844A0061175F /* MASLayoutConstraint.m in Sources */,
 				048540481E08D4B800D90459 /* PartnerViewController.m in Sources */,
+				048541BD1E12569C00D90459 /* AddDetailMessageViewController.m in Sources */,
 				04853FFD1E077C5300D90459 /* AutoScrollerView.m in Sources */,
 				50FC5FAC1E07C4C500F62097 /* NSBundle+CTAssetsPickerController.m in Sources */,
 				0485407B1E122F0C00D90459 /* SDReachability.m in Sources */,
@@ -2123,6 +2244,7 @@
 				04853FB51E03852200D90459 /* UIWebView+AFNetworking.m in Sources */,
 				042199021E029EFA0061175F /* MJRefreshAutoStateFooter.m in Sources */,
 				042199331E03844A0061175F /* ViewController+MASAdditions.m in Sources */,
+				048541BE1E12569C00D90459 /* AddDetailMessageView.m in Sources */,
 				75DB99C31E07B91C00E6998B /* UIScrollView+UITouch.m in Sources */,
 				756EE9621DFFD6A100D1B89D /* CartListCell.m in Sources */,
 			);
