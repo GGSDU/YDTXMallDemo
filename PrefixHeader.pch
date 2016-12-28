@@ -38,7 +38,6 @@
 #import "UIColor+Hex.h"
 
 #import "NSObject+Property.h"
-#import "UIScrollView+EmptyDataSet.h"
 
 #import "UIView+Category.h"
 

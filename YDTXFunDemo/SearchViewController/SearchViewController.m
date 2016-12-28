@@ -13,14 +13,14 @@
 #import "MarketDetailViewController.h"
 
 
-@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 // 搜索栏
 @property (nonatomic,strong) UISearchBar *searchBar;
 
 @property (nonatomic,assign) BOOL historyStatus;
 
-@property (nonatomic,copy) NSString *keyword;
+@property (nonatomic,copy) NSMutableString *keyword;
 @property (nonatomic,assign) int page;
 
 // 搜索历史
@@ -28,6 +28,9 @@
 // 搜索结果
 @property (nonatomic,strong) NSMutableArray *resultArray;
 @property (nonatomic,strong) UICollectionView *collectionView;
+
+// 搜索结果为空提示界面
+@property (nonatomic,strong) UILabel *searchEmptyTipLabel;
 
 @property (nonatomic,strong) MJRefreshNormalHeader *mj_header;
 @property (nonatomic,strong) MJRefreshBackNormalFooter *mj_footer;
@@ -46,13 +49,15 @@ static NSString *productIdentifier = @"productCell";
     self.view.backgroundColor = RGB(238, 238, 238);
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.hidesBackButton = YES;
-
+    
     
     [self initData];
     _page = 1;
     self.historyStatus = YES;
     
     [self createSearchBar];
+    
+    self.searchEmptyTipLabel.hidden = YES;
 }
 
 #pragma mark - init data
@@ -66,6 +71,53 @@ static NSString *productIdentifier = @"productCell";
     }
     
     return NO;
+}
+
+- (void)setHistoryStatus:(BOOL)historyStatus
+{
+    _historyStatus = historyStatus;
+    
+    
+    if (_historyStatus) {
+        self.searchEmptyTipLabel.hidden = YES;
+        
+        self.collectionView.mj_header = nil;
+        self.collectionView.mj_header = nil;
+    } else {
+        
+        self.searchEmptyTipLabel.hidden = NO;
+        
+        // 展示header  下拉触发loadNewData
+        self.collectionView.mj_header = self.mj_header;
+        
+        // 设置footer
+        self.collectionView.mj_footer = self.mj_footer;
+    }
+    
+
+    [self.collectionView reloadData];
+}
+
+- (NSMutableString *)keyword
+{
+    if (_keyword == nil) {
+        _keyword = [[NSMutableString alloc] initWithString:@""];
+    }
+    return _keyword;
+}
+
+- (void)updateKeyword:(NSString *)keyword
+{
+    if ([self.keyword isEqualToString:keyword]) {
+        return;
+    }
+    
+    if (self.resultArray && self.resultArray.count > 0) {
+        [self.resultArray removeAllObjects];
+    }
+    
+    [self.keyword setString:keyword];
+    
 }
 
 - (NSMutableArray *)historyArray {
@@ -109,39 +161,49 @@ static NSString *productIdentifier = @"productCell";
     }];
 }
 
-#pragma mark - private 
+#pragma mark - private
 - (void)startSearchWithKeyword:(NSString *)keyword page:(int)page
 {
     if (keyword == nil || keyword.length <= 0 || page <= 0) {
         return;
     }
+    NSLog(@"search\n keyword : %@\n page    : %d",keyword,page);
+    
+    self.historyStatus = NO;
+    
+    // 搜索历史
+    [[SXSqliteTool shareInstance] inDatabase:^(FMDatabase *db) {
+        
+        BOOL result = [db executeUpdate:@"insert into t_search_history(searchText) values(?)",self.keyword];
+        if (result) {
+            [self.historyArray addObject:self.keyword];
+            //                [self.collectionView reloadData];
+        }
+    }];
     
     [[NetWorkService shareInstance] requestForSearchProductWithKeyword:keyword page:page responseBlock:^(NSArray *productBriefModelArray) {
         
         [self.mj_header endRefreshing];
+        
         for (ProductBriefModel *model in productBriefModelArray) {
             if (![self isExistModel:model inArray:self.resultArray]) {
                 [self.resultArray addObject:model];
             }
         }
         
-        self.historyStatus = NO;
         self.collectionView.hidden = NO;
         [self.collectionView reloadData];
         
-        [[SXSqliteTool shareInstance] inDatabase:^(FMDatabase *db) {
-            
-            [db executeUpdate:@"insert into t_search_history(searchText) values(?)",_keyword];
-        }];
-
     } failedBlock:^(NSNumber *failedStauts) {
-       
+        
         [self.mj_footer endRefreshing];
+        
         if (failedStauts.integerValue == 400) {
-         
             [self.mj_footer endRefreshingWithNoMoreData];
-            
         }
+        
+        self.collectionView.hidden = YES;
+        [self.collectionView reloadData];
         
     }];
 }
@@ -158,9 +220,9 @@ static NSString *productIdentifier = @"productCell";
 
 // return NO to not become first responder
 //- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-//    
+//
 //    NSLog(@"%s",__func__);
-//    
+//
 //    return YES;
 //}
 
@@ -172,17 +234,18 @@ static NSString *productIdentifier = @"productCell";
 // return NO to not resign first responder
 //- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
 //    NSLog(@"%s",__func__);
-//    
+//
 //    return YES;
 //}
 
 // called when text ends editing
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    NSLog(@"%s",__func__);
-    [searchBar resignFirstResponder];
-    UIButton *cancelButton = [searchBar valueForKey:@"cancelButton"];
-    cancelButton.enabled = YES;
-}
+//- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+//    NSLog(@"%s",__func__);
+//    [searchBar resignFirstResponder];
+//
+//    UIButton *cancelButton = [searchBar valueForKey:@"cancelButton"];
+//    cancelButton.enabled = YES;
+//}
 
 // called before text changes
 //- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -190,20 +253,21 @@ static NSString *productIdentifier = @"productCell";
 //    return NO;
 //}
 
-// called when keyboard search button pressed
+// 搜索按钮点击时调用
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSLog(@"%s",__func__);
-    _keyword = searchBar.text;
-    if (_keyword.length > 0) {
-        [self startSearchWithKeyword:_keyword page:_page];
-    }
+    [self updateKeyword:searchBar.text];
+    NSLog(@"\n keyword : %@\n page    : %d",self.keyword,_page);
+    
+    [self startSearchWithKeyword:self.keyword page:_page];
+    
     [searchBar resignFirstResponder];
     
     UIButton *cancelButton = [searchBar valueForKey:@"cancelButton"];
     cancelButton.enabled = YES;
 }
 
-// called when cancel button pressed
+// 取消按钮点击时调用
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     NSLog(@"%s",__func__);
     
@@ -226,15 +290,26 @@ static NSString *productIdentifier = @"productCell";
     NSLog(@"history");
     if (self.historyStatus) {
         if (indexPath.row == self.historyArray.count) {
+            
             // 点击了清楚搜索记录
-            [self.historyArray removeAllObjects];
-            self.collectionView.hidden = YES;
+            [[SXSqliteTool shareInstance] inDatabase:^(FMDatabase *db) {
+                
+                BOOL result = [db executeUpdate:@"delete from t_search_history"];
+                
+                if (result) {
+                    NSLog(@"清除搜索记录成功");
+                    [self.historyArray removeAllObjects];
+                    [self.collectionView reloadData];
+                    self.collectionView.hidden = YES;
+                }
+            }];
+            
             
         } else {
             
             NSString *searchText = self.historyArray[indexPath.row];
-            _keyword = searchText;
-            [self startSearchWithKeyword:_keyword page:_page];
+            [self updateKeyword:searchText];
+            [self startSearchWithKeyword:self.keyword page:_page];
         }
     } else {
         ProductBriefModel *model = _resultArray[indexPath.row];
@@ -281,7 +356,7 @@ static NSString *productIdentifier = @"productCell";
     } else {
         
         ProductBriefCell *productBriefCell = [collectionView dequeueReusableCellWithReuseIdentifier:productIdentifier forIndexPath:indexPath];
-
+        
         ProductBriefModel *productBriefModel = self.resultArray[indexPath.row];
         
         [productBriefCell updateViewWithProductBriefModel:productBriefModel];
@@ -357,6 +432,24 @@ static NSString *productIdentifier = @"productCell";
 }
 
 #pragma mark - init UI
+- (UILabel *)searchEmptyTipLabel
+{
+    if (_searchEmptyTipLabel == nil) {
+        _searchEmptyTipLabel = [[UILabel alloc] init];
+        _searchEmptyTipLabel.adjustsFontSizeToFitWidth = YES;
+        _searchEmptyTipLabel.textAlignment = NSTextAlignmentCenter;
+        _searchEmptyTipLabel.textColor = RGB(145, 145, 145);
+        _searchEmptyTipLabel.text = @"没有搜索到您要的商品~";
+        [self.view insertSubview:_searchEmptyTipLabel atIndex:0];
+    }
+    [_searchEmptyTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+        //        make.center.equalTo(self.collectionView);
+    }];
+
+    return _searchEmptyTipLabel;
+}
+
 - (void)createSearchBar
 {
     float originX = 15;
@@ -371,7 +464,7 @@ static NSString *productIdentifier = @"productCell";
     
     UIButton *cancelBtn = [self.searchBar valueForKeyPath:@"cancelButton"];
     cancelBtn.enabled = YES;
-
+    
     
 }
 
@@ -390,46 +483,20 @@ static NSString *productIdentifier = @"productCell";
     [self.collectionView registerClass:[HistoryCollectionViewCell class] forCellWithReuseIdentifier:historyIdentifier];
     
     [self.collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:productIdentifier];
-    
-    // 添加空状态
-    self.collectionView.emptyDataSetSource = self;
-    self.collectionView.emptyDataSetDelegate = self;
 }
-
-#pragma mark - pull to update &&
-- (void)setHistoryStatus:(BOOL)historyStatus
-{
-    _historyStatus = historyStatus;
-    
-    
-    if (_historyStatus) {
-        self.collectionView.mj_header = nil;
-        self.collectionView.mj_header = nil;
-    } else {
-        
-        // 展示header  下拉触发loadNewData
-        self.collectionView.mj_header = self.mj_header;
-                
-        // 设置footer
-        self.collectionView.mj_footer = self.mj_footer;
-    }
-    
-    [self.collectionView reloadData];
-}
-
 
 #pragma mark -- 上拉下拉加载
 - (void)loadNewData{
     [self.mj_footer resetNoMoreData];
-    [self startSearchWithKeyword:_keyword page:1];
+    [self startSearchWithKeyword:self.keyword page:1];
 }
 
 - (void)loadMoreData{
     
     _page ++;
     NSLog(@"---页数：%d",_page);
-    [self startSearchWithKeyword:_keyword page:_page];
-
+    [self startSearchWithKeyword:self.keyword page:_page];
+    
 }
 
 
@@ -452,18 +519,5 @@ static NSString *productIdentifier = @"productCell";
     }
     return _mj_footer;
 }
-
-
-#pragma mark - DZNEmptyDataSetSource && DZNEmptyDataSetDelegate
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
-{
-    NSString *text = @"没有搜索到你要的商品";
-    
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
-                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
 
 @end
