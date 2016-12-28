@@ -226,6 +226,7 @@
 		7589EF3F1E098A480066D302 /* CartDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7589EF3E1E098A480066D302 /* CartDefaultView.m */; };
 		75977ACD1E1241890043084D /* SearchHeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75977ACC1E1241890043084D /* SearchHeaderReusableView.m */; };
 		75977AD01E1242830043084D /* HistoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75977ACF1E1242830043084D /* HistoryCollectionViewCell.m */; };
+		75977AD41E1353C70043084D /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 75977AD31E1353C70043084D /* UIScrollView+EmptyDataSet.m */; };
 		75A7BF861E0D1B2B006FFED8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A7BF851E0D1B2B006FFED8 /* SearchViewController.m */; };
 		75B7F7EC1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7E81DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png */; };
 		75B7F7ED1DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75B7F7E91DF6C6A3008F72A5 /* Cart_Decrease_Disabled@3x.png */; };
@@ -698,6 +699,8 @@
 		75977ACC1E1241890043084D /* SearchHeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHeaderReusableView.m; sourceTree = "<group>"; };
 		75977ACE1E1242830043084D /* HistoryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCollectionViewCell.h; sourceTree = "<group>"; };
 		75977ACF1E1242830043084D /* HistoryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCollectionViewCell.m; sourceTree = "<group>"; };
+		75977AD21E1353C70043084D /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		75977AD31E1353C70043084D /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		75A7BF841E0D1B2B006FFED8 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		75A7BF851E0D1B2B006FFED8 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		75B7F7E81DF6C6A3008F72A5 /* Cart_Decrease_Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cart_Decrease_Disabled@2x.png"; sourceTree = "<group>"; };
@@ -1839,6 +1842,15 @@
 			path = TheThirdPart;
 			sourceTree = "<group>";
 		};
+		75977AD11E1353C70043084D /* UIScrollView+EmptyDataSet */ = {
+			isa = PBXGroup;
+			children = (
+				75977AD21E1353C70043084D /* UIScrollView+EmptyDataSet.h */,
+				75977AD31E1353C70043084D /* UIScrollView+EmptyDataSet.m */,
+			);
+			path = "UIScrollView+EmptyDataSet";
+			sourceTree = "<group>";
+		};
 		75A7BF831E0D1AEF006FFED8 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1856,6 +1868,7 @@
 			isa = PBXGroup;
 			children = (
 				75DB99C41E08407F00E6998B /* NSObject+Property */,
+				75977AD11E1353C70043084D /* UIScrollView+EmptyDataSet */,
 				75DB99C01E07B91C00E6998B /* UIScrollView+UITouch */,
 			);
 			path = SXCategory;
@@ -2114,6 +2127,7 @@
 				50FC5FB51E07C4C500F62097 /* CTAssetCheckmark.m in Sources */,
 				042198071DFFE87D0061175F /* PayWayView.m in Sources */,
 				042199061E029EFA0061175F /* MJRefreshGifHeader.m in Sources */,
+				75977AD41E1353C70043084D /* UIScrollView+EmptyDataSet.m in Sources */,
 				50FC5FC61E07C4C500F62097 /* CTAssetsPickerAccessDeniedView.m in Sources */,
 				50FC5FCC1E07C4C500F62097 /* CTAssetThumbnailView.m in Sources */,
 				75A7BF861E0D1B2B006FFED8 /* SearchViewController.m in Sources */,

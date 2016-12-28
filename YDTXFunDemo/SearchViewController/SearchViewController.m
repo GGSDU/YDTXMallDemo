@@ -12,7 +12,7 @@
 #import "HistoryCollectionViewCell.h"
 #import "MarketDetailViewController.h"
 
-@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,NetWorkServiceDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,NetWorkServiceDelegate>
 
 // 搜索栏
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -383,6 +383,10 @@ static NSString *productIdentifier = @"productCell";
     [self.collectionView registerClass:[HistoryCollectionViewCell class] forCellWithReuseIdentifier:historyIdentifier];
     
     [self.collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:productIdentifier];
+    
+    // 添加空状态
+    self.collectionView.emptyDataSetSource = self;
+    self.collectionView.emptyDataSetDelegate = self;
 }
 
 #pragma mark - pull to update &&
@@ -461,6 +465,18 @@ static NSString *productIdentifier = @"productCell";
         _mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     }
     return _mj_footer;
+}
+
+
+#pragma mark - DZNEmptyDataSetSource && DZNEmptyDataSetDelegate
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"没有搜索到你要的商品";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
 
