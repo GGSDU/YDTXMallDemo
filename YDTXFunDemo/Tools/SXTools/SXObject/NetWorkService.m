@@ -83,7 +83,7 @@ static NetWorkService *instance = nil;
 /**
  *  搜索
  */
-- (void)requestForSearchProductWithKeyword:(NSString *)keyWord page:(int)page responseBlock:(void(^)(NSArray *))responseBlock failedBlock:(void(^)())failedBlock
+- (void)requestForSearchProductWithKeyword:(NSString *)keyWord page:(int)page responseBlock:(void(^)(NSArray *))responseBlock failedBlock:(void (^)(NSNumber *))failedBlock
 {
     NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
     [param setObject:keyWord forKey:@"keyword"];
@@ -107,13 +107,7 @@ static NetWorkService *instance = nil;
             
             responseBlock(responseModelArray);
         } else {
-            failedBlock();
-            /***********/
-//            [RHNotiTool NotiShowWithTitle:@"没有更多数据了" Time:1.0];
-//            if (_delegate &&[_delegate respondsToSelector:@selector(mj_footerNoMoreData)]) {
-//                [_delegate mj_footerNoMoreData];
-//            }
-            /**********/
+            failedBlock(status);
         }
     }];
 }

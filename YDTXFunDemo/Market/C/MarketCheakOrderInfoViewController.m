@@ -57,33 +57,22 @@ static NSString *kMarketCheckOrderCellId = @"MarketCheckOrderCell";
         NSLog(@"---%hhu",hasDefault);
         if (hasDefault == YES) {
             
-            
+
             //收货地址  作为tableView的头部
-            _HeaderBaseView = [[UIView alloc]init];
+            _HeaderBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YDTXScreenW, 120)];
             _HeaderBaseView.backgroundColor = [UIColor colorForHex:@"eeeeee"];
            
             UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"market_CheckOrder_AddressBackground"]];
             [_HeaderBaseView addSubview:imgView];
 
-            [_HeaderBaseView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(YDTXScreenW, imgView.frame.size.height+30));
-            }];
-            
-            
             [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(_HeaderBaseView);
                 make.right.equalTo(_HeaderBaseView);
                 make.centerY.equalTo(_HeaderBaseView);
             }];
-            
-            
-            
 
-            
             //作为tableView的头部
-            _tableView.backgroundColor = [UIColor redColor];
-//            self.tableView.tableHeaderView = _HeaderBaseView;
-//            [_tableView.tableHeaderView addSubview:_HeaderBaseView];
+            _tableView.tableHeaderView = _HeaderBaseView;
             [_tableView.tableHeaderView layoutIfNeeded];
             
 
