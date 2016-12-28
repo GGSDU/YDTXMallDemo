@@ -12,7 +12,7 @@
 #import "HistoryCollectionViewCell.h"
 #import "MarketDetailViewController.h"
 
-@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,NetWorkServiceDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 // 搜索栏
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -117,6 +117,7 @@ static NSString *productIdentifier = @"productCell";
     
     [[NetWorkService shareInstance] requestForSearchProductWithKeyword:keyword page:page responseBlock:^(NSArray *productBriefModelArray) {
         
+        [self.mj_header endRefreshing];
         for (ProductBriefModel *model in productBriefModelArray) {
             if (![self isExistModel:model inArray:self.resultArray]) {
                 [self.resultArray addObject:model];
@@ -132,9 +133,14 @@ static NSString *productIdentifier = @"productCell";
             [db executeUpdate:@"insert into t_search_history(searchText) values(?)",_keyword];
         }];
 
-    } failedBlock:^{
+    } failedBlock:^(NSNumber *failedStauts) {
        
-
+        [self.mj_footer endRefreshing];
+        if (failedStauts.integerValue == 400) {
+         
+            [self.mj_footer endRefreshingWithNoMoreData];
+            
+        }
         
     }];
 }
@@ -395,16 +401,10 @@ static NSString *productIdentifier = @"productCell";
         self.collectionView.mj_header = nil;
         self.collectionView.mj_header = nil;
     } else {
-        //设置代理  处理一些问题（1.没有更多数据 2.刷新成功或者失败都要停止刷新）  有问题！TnT
-        //    [NetWorkService shareInstance].delegate = self;
         
         // 展示header  下拉触发loadNewData
         self.collectionView.mj_header = self.mj_header;
-        
-#pragma warning --- 一般设置完让他直接出发下拉刷新  但是老哥你这是替换数据源   所以一开始不是搜索列表的时候不能刷新 不然会蹦
-        // 进入刷新状态 自动触发loadNewData
-        //    [self.collectionView.mj_header beginRefreshing];
-        
+                
         // 设置footer
         self.collectionView.mj_footer = self.mj_footer;
     }
@@ -415,7 +415,7 @@ static NSString *productIdentifier = @"productCell";
 
 #pragma mark -- 上拉下拉加载
 - (void)loadNewData{
-    
+    [self.mj_footer resetNoMoreData];
     [self startSearchWithKeyword:_keyword page:1];
 }
 
@@ -428,22 +428,7 @@ static NSString *productIdentifier = @"productCell";
 }
 
 
-#pragma mark - networkServiceDelegate  刷新成功后让他停止刷新   还有一些细节待处理  明天说~
-- (void)networkService:(NetWorkService *)networkService requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error message:(NSString *)message
-{
-    
-    [self.collectionView.mj_header endRefreshing];
-    [self.collectionView.mj_footer endRefreshing];
-    self.page -=1;
-    [RHNotiTool NotiShowWithTitle:@"网络跑丢了~" Time:1.0];
-    
-}
-
-- (void)mj_footerNoMoreData{
-    
-    [self.collectionView.mj_footer endRefreshingWithNoMoreData];
-    
-}
+#pragma mark --lazy
 
 - (MJRefreshNormalHeader *)mj_header
 {

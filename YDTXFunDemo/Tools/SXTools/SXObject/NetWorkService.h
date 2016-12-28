@@ -92,10 +92,12 @@ static NSString *recommendedProductKey = @"fishtree";
                         requestParam:(nullable NSDictionary *)requestParam
                        responseBlock:(nullable void (^)(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject))responseBlock;
 
+
+
 /**
  *  搜索
  */
-- (void)requestForSearchProductWithKeyword:(NSString *)keyWord page:(int)page responseBlock:(void(^)(NSArray *productBriefModelArray))responseBlock  failedBlock:(void(^)())failedBlock;
+- (void)requestForSearchProductWithKeyword:(NSString *)keyWord page:(int)page responseBlock:(void(^)(NSArray *productBriefModelArray))responseBlock  failedBlock:(void(^)(NSNumber *failedStauts))failedBlock;
 
 /**
  *  商城轮播图
