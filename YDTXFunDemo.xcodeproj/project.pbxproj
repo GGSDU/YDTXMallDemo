@@ -1552,11 +1552,11 @@
 		75977B1E1E137DE30043084D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				75977B641E137DE30043084D /* ShopMarketController */,
+				75977B5C1E137DE30043084D /* SearchViewController */,
 				75977B1F1E137DE30043084D /* CartViewController */,
 				75977B291E137DE30043084D /* MarketCategoryListViewController */,
 				75977B4E1E137DE30043084D /* PartnerViewController */,
-				75977B5C1E137DE30043084D /* SearchViewController */,
-				75977B641E137DE30043084D /* ShopMarketController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1564,9 +1564,9 @@
 		75977B1F1E137DE30043084D /* CartViewController */ = {
 			isa = PBXGroup;
 			children = (
+				75977B221E137DE30043084D /* View */,
 				75977B201E137DE30043084D /* CartViewController.h */,
 				75977B211E137DE30043084D /* CartViewController.m */,
-				75977B221E137DE30043084D /* View */,
 			);
 			path = CartViewController;
 			sourceTree = "<group>";
@@ -1706,9 +1706,9 @@
 		75977B5C1E137DE30043084D /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
+				75977B5F1E137DE30043084D /* View */,
 				75977B5D1E137DE30043084D /* SearchViewController.h */,
 				75977B5E1E137DE30043084D /* SearchViewController.m */,
-				75977B5F1E137DE30043084D /* View */,
 			);
 			path = SearchViewController;
 			sourceTree = "<group>";
@@ -1727,9 +1727,9 @@
 		75977B641E137DE30043084D /* ShopMarketController */ = {
 			isa = PBXGroup;
 			children = (
+				75977B671E137DE30043084D /* View */,
 				75977B651E137DE30043084D /* ShopMarketController.h */,
 				75977B661E137DE30043084D /* ShopMarketController.m */,
-				75977B671E137DE30043084D /* View */,
 			);
 			path = ShopMarketController;
 			sourceTree = "<group>";

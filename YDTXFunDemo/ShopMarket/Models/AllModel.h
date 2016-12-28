@@ -13,6 +13,7 @@
 #import "CategoryCell.h"
 #import "ProductBriefCell.h"
 
+#import "ProductModel.h"
 #import "CartProductModel.h"
 
 #import "MarketListModel.h"
