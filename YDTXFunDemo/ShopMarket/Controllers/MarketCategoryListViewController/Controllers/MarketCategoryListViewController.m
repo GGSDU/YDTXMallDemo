@@ -77,7 +77,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
 //    self.collectionView.showsVerticalScrollIndicator = NO;
     
     
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([markeListCell class]) bundle:nil] forCellWithReuseIdentifier:kmarketListCellId];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MarkeListCell class]) bundle:nil] forCellWithReuseIdentifier:kmarketListCellId];
    
     
     
@@ -126,8 +126,8 @@ static NSString * const kmarketListCellId = @"marketListCell";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    markeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmarketListCellId forIndexPath:indexPath];
-    marketListModel *model = self.marketListDataArr[indexPath.row];
+    MarkeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmarketListCellId forIndexPath:indexPath];
+    MarketListModel *model = self.marketListDataArr[indexPath.row];
     cell.markeListModel = model;
 
     
@@ -143,7 +143,7 @@ static NSString * const kmarketListCellId = @"marketListCell";
     
     NSLog(@"选中了cell");
     //选中cell  跳转到商品详情页
-    marketListModel *model = self.marketListDataArr[indexPath.row];
+    MarketListModel *model = self.marketListDataArr[indexPath.row];
     
     MarketDetailViewController *marketDetailVC = [MarketDetailViewController new];
     marketDetailVC.goods_id = model.ID;

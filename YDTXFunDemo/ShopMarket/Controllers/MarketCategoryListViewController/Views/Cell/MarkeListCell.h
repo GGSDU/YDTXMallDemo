@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "marketListModel.h"
 
-@interface markeListCell : UICollectionViewCell
+@interface MarkeListCell : UICollectionViewCell
 
-@property(strong,nonatomic)marketListModel *markeListModel;
-
+@property (nonatomic,strong) MarketListModel *markeListModel;
 
 @end

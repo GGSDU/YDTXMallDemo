@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Story5. All rights reserved.
 //
 
-#import "marketProductModel.h"
+#import "MarketProductModel.h"
 
-@implementation marketProductModel
+@implementation MarketProductModel
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName
 {

@@ -44,7 +44,7 @@
 //    [self.modelBtn setTitleColor:RGB(255, 114, 0) forState:UIControlStateSelected];
 }
 
--(void)setMarketProductModel:(marketProductModel *)marketProductModel{
+-(void)setMarketProductModel:(MarketProductModel *)marketProductModel{
     _marketProductModel = marketProductModel;
 
     

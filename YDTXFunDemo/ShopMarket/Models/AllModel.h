@@ -15,9 +15,9 @@
 
 #import "CartProductModel.h"
 
-#import "marketListModel.h"
-#import "marketDetailModel.h"
-#import "marketProductModel.h"
+#import "MarketListModel.h"
+#import "MarketDetailModel.h"
+#import "MarketProductModel.h"
 
 
 

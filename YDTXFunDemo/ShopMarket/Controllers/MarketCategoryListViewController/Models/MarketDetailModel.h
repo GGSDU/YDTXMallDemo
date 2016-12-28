@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface marketDetailModel : NSObject
+@interface MarketDetailModel : NSObject
 
 @property(assign,nonatomic) NSInteger ID;   //商品id
 @property(strong,nonatomic)NSArray *images_url;      //商品图片数组(轮播)

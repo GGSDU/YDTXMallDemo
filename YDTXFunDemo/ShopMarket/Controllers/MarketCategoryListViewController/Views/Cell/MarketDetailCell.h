@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "marketDetailModel.h"
+#import "MarketDetailModel.h"
 
 
 
@@ -19,7 +19,7 @@
 
 @interface MarketDetailCell : UITableViewCell
 
-@property(strong,nonatomic)marketDetailModel *marketDetailModel;
+@property (nonatomic,strong) MarketDetailModel *marketDetailModel;
 
 @property(weak,nonatomic)id <marketDetailCellDelegate> delegate;
 

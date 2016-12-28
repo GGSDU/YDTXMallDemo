@@ -6,9 +6,9 @@
 //  Copyright © 2016年 RookieHua. All rights reserved.
 //
 
-#import "markeListCell.h"
+#import "MarkeListCell.h"
 
-@interface markeListCell ()
+@interface MarkeListCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImgView;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation markeListCell
+@implementation MarkeListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -29,7 +29,7 @@
 
 
 
--(void)setMarkeListModel:(marketListModel *)markeListModel{
+-(void)setMarkeListModel:(MarketListModel *)markeListModel{
     
     _markeListModel = markeListModel;
     

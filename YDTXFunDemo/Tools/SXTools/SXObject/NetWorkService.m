@@ -215,7 +215,7 @@ static NetWorkService *instance = nil;
         if ([responseObject[@"status"] integerValue] == 200) {
             
             //字典转模型
-            NSArray* marketListModelArray = [marketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            NSArray* marketListModelArray = [MarketListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             responseBlock(marketListModelArray);
         }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             
@@ -249,7 +249,7 @@ static NetWorkService *instance = nil;
         if ([responseObject[@"status"] integerValue] == 200) {
             
             //字典转模型
-            NSArray* marketGoodsDetailModelArray = [marketDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            NSArray* marketGoodsDetailModelArray = [MarketDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             responseBlock(marketGoodsDetailModelArray);
         }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             
@@ -401,7 +401,7 @@ static NetWorkService *instance = nil;
         if ([responseObject[@"status"] integerValue] == 200) {
             
             //字典转模型
-            NSArray* marketProductModelArray = [marketProductModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            NSArray* marketProductModelArray = [MarketProductModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             responseBlock(marketProductModelArray);
         }else if ([responseObject[@"status"] integerValue] == 400){  //失败
             

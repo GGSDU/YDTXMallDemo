@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Story5. All rights reserved.
 //
 
-#import "marketCheckModel.h"
+#import "MarketCheckModel.h"
 
-@implementation marketCheckModel
+@implementation MarketCheckModel
 
 @end

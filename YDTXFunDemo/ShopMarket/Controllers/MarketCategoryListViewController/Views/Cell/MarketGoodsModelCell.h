@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "marketProductModel.h"
 
+#import "MarketProductModel.h"
 
 @interface MarketGoodsModelCell : UICollectionViewCell
 
 
-@property(strong,nonatomic)marketProductModel *marketProductModel;
+@property (nonatomic,strong) MarketProductModel *marketProductModel;
 
 @property (weak, nonatomic) IBOutlet UIButton *modelBtn;
 

@@ -36,7 +36,7 @@
 }
 
 
--(void)setMarketDetailModel:(marketDetailModel *)marketDetailModel{
+-(void)setMarketDetailModel:(MarketDetailModel *)marketDetailModel{
     _marketDetailModel = marketDetailModel;
 
     

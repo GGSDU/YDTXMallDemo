@@ -12,23 +12,23 @@
 #import "MarketGoodsModelCell.h"
 @interface MarketMaskView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property(strong,nonatomic)UIView *baseMaskView;//遮罩view
-@property(strong,nonatomic)UIView *baseView;//进行商品信息选择的baseView
-@property(strong,nonatomic)UICollectionView *modelCollectView;
+@property(strong,nonatomic) UIView *baseMaskView;//遮罩view
+@property(strong,nonatomic) UIView *baseView;//进行商品信息选择的baseView
+@property(strong,nonatomic) UICollectionView *modelCollectView;
 
 /** 数据数组*/
-@property(strong,nonatomic)NSMutableArray *modelDataArr;
+@property(strong,nonatomic) NSMutableArray *modelDataArr;
 
 /***/
-@property(strong,nonatomic)MarketGoodsModelCell *CurrentSelectCell;
-@property(strong,nonatomic)marketProductModel *currentProductModel;
+@property(strong,nonatomic) MarketGoodsModelCell *CurrentSelectCell;
+@property(strong,nonatomic) MarketProductModel *currentProductModel;
 
 
-@property(strong,nonatomic)UIImageView *ImgView; //图片
-@property(strong,nonatomic)UILabel *goodsTitleLabel;//商品名称
-@property(strong,nonatomic)UILabel *priceLabel;//价格
-@property(strong,nonatomic)PPNumberButton *numberButton;//加减控件
-@property(strong,nonatomic)UIButton *bottomBtn;
+@property(strong,nonatomic) UIImageView *ImgView; //图片
+@property(strong,nonatomic) UILabel *goodsTitleLabel;//商品名称
+@property(strong,nonatomic) UILabel *priceLabel;//价格
+@property(strong,nonatomic) PPNumberButton *numberButton;//加减控件
+@property(strong,nonatomic) UIButton *bottomBtn;
 
 
 
@@ -455,7 +455,7 @@ static NSString *kmodelCellId = @"modelCell";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
+    MarketProductModel *marketProductModel = _modelDataArr[indexPath.row];
     MarketGoodsModelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kmodelCellId forIndexPath:indexPath];
     cell.marketProductModel = marketProductModel;
     
@@ -468,7 +468,7 @@ static NSString *kmodelCellId = @"modelCell";
     
    MarketGoodsModelCell *cell = (MarketGoodsModelCell *)[collectionView cellForItemAtIndexPath:indexPath];
 
-    marketProductModel *marketProductModel = _modelDataArr[indexPath.row];
+    MarketProductModel *marketProductModel = _modelDataArr[indexPath.row];
     _currentProductModel = marketProductModel;
     
     //选中了cell

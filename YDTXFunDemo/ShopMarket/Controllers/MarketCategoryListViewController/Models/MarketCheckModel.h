@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface marketCheckModel : NSObject
+@interface MarketCheckModel : NSObject
 
 @property(assign)float price;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface marketProductModel : NSObject
+@interface MarketProductModel : NSObject
 
 /*
  Id：数据id
