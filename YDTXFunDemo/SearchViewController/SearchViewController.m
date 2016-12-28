@@ -28,6 +28,9 @@
 @property (nonatomic,strong) NSMutableArray *resultArray;
 @property (nonatomic,strong) UICollectionView *collectionView;
 
+@property (nonatomic,strong) MJRefreshNormalHeader *mj_header;
+@property (nonatomic,strong) MJRefreshBackNormalFooter *mj_footer;
+
 @end
 
 static NSString *historyHeaderIdentifier = @"historyHeader";
@@ -46,12 +49,24 @@ static NSString *productIdentifier = @"productCell";
     
     [self initData];
     _page = 1;
-    _historyStatus = YES;
+    self.historyStatus = YES;
     
     [self createSearchBar];
 }
 
 #pragma mark - init data
+- (BOOL)isExistModel:(ProductBriefModel *)model inArray:(NSArray *)array;
+{
+    for (ProductBriefModel *pModel in array) {
+        
+        if (pModel.ID == model.ID) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 - (NSMutableArray *)historyArray {
     if (_historyArray == nil) {
         _historyArray = [[NSMutableArray alloc] initWithCapacity:0];
@@ -96,15 +111,19 @@ static NSString *productIdentifier = @"productCell";
 #pragma mark - private 
 - (void)startSearchWithKeyword:(NSString *)keyword page:(int)page
 {
+    if (keyword == nil || keyword.length <= 0 || page <= 0) {
+        return;
+    }
+    
     [[NetWorkService shareInstance] requestForSearchProductWithKeyword:keyword page:page responseBlock:^(NSArray *productBriefModelArray) {
         
         for (ProductBriefModel *model in productBriefModelArray) {
-            if (![self.resultArray containsObject:model]) {
+            if (![self isExistModel:model inArray:self.resultArray]) {
                 [self.resultArray addObject:model];
             }
         }
         
-        _historyStatus = NO;
+        self.historyStatus = NO;
         self.collectionView.hidden = NO;
         [self.collectionView reloadData];
         
@@ -182,10 +201,10 @@ static NSString *productIdentifier = @"productCell";
     NSLog(@"%s",__func__);
     
     
-    if (_historyStatus) {
+    if (self.historyStatus) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        _historyStatus = YES;
+        self.historyStatus = YES;
         [self.collectionView reloadData];
     }
     
@@ -198,7 +217,7 @@ static NSString *productIdentifier = @"productCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"history");
-    if (_historyStatus) {
+    if (self.historyStatus) {
         if (indexPath.row == self.historyArray.count) {
             // 点击了清楚搜索记录
             [self.historyArray removeAllObjects];
@@ -224,7 +243,7 @@ static NSString *productIdentifier = @"productCell";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if (_historyStatus) {
+    if (self.historyStatus) {
         if (kind == UICollectionElementKindSectionHeader) {
             
             SearchHeaderReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:historyHeaderIdentifier forIndexPath:indexPath];
@@ -238,7 +257,7 @@ static NSString *productIdentifier = @"productCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = nil;
-    if (_historyStatus) {
+    if (self.historyStatus) {
         HistoryCollectionViewCell *historyCell = [collectionView dequeueReusableCellWithReuseIdentifier:historyIdentifier forIndexPath:indexPath];
         
         if (indexPath.row < self.historyArray.count) {
@@ -273,7 +292,7 @@ static NSString *productIdentifier = @"productCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger count = _historyStatus ? self.historyArray.count + 1: self.resultArray.count;
+    NSInteger count = self.historyStatus ? self.historyArray.count + 1: self.resultArray.count;
     return count;
 }
 
@@ -281,7 +300,7 @@ static NSString *productIdentifier = @"productCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     CGSize size = CGSizeZero;
-    if (_historyStatus) {
+    if (self.historyStatus) {
         size = CGSizeMake(collectionView.frame.size.width, 40);
     } else {
         float width = (collectionView.frame.size.width - 25) / 2;
@@ -294,7 +313,7 @@ static NSString *productIdentifier = @"productCell";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
     UIEdgeInsets edgeInsets = UIEdgeInsetsZero;
-    if (!_historyStatus) {
+    if (!self.historyStatus) {
         edgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     }
     
@@ -304,7 +323,7 @@ static NSString *productIdentifier = @"productCell";
 /** 每个cell垂直间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
-    if (_historyStatus) {
+    if (self.historyStatus) {
         return 1;
     } else {
         return 10;
@@ -315,7 +334,7 @@ static NSString *productIdentifier = @"productCell";
 /** 每个cell水平间距 */
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     
-    if (!_historyStatus) {
+    if (!self.historyStatus) {
         return 5;
     }
     return 0;
@@ -324,7 +343,7 @@ static NSString *productIdentifier = @"productCell";
 /** 每个头标题大小 */
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    if (_historyStatus) {
+    if (self.historyStatus) {
         return CGSizeMake(collectionView.bounds.size.width, 40);
     }
     return CGSizeZero;
@@ -364,31 +383,44 @@ static NSString *productIdentifier = @"productCell";
     [self.collectionView registerClass:[HistoryCollectionViewCell class] forCellWithReuseIdentifier:historyIdentifier];
     
     [self.collectionView registerClass:[ProductBriefCell class] forCellWithReuseIdentifier:productIdentifier];
-    
-    
-//设置代理  处理一些问题（1.没有更多数据 2.刷新成功或者失败都要停止刷新）  有问题！TnT
-//    [NetWorkService shareInstance].delegate = self;
-
-    // 展示header  下拉触发loadNewData
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    //头部透明度 随着collectionView的滚动自动影藏或显示
-    self.collectionView.mj_header.automaticallyChangeAlpha = YES;
-    
-#pragma warning --- 一般设置完让他直接出发下拉刷新  但是老哥你这是替换数据源   所以一开始不是搜索列表的时候不能刷新 不然会蹦
-    // 进入刷新状态 自动触发loadNewData
-//    [self.collectionView.mj_header beginRefreshing];
-    
-    // 设置footer
-    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }
-#pragma mark -- 上拉下拉加载
--(void)loadNewData{
 
+#pragma mark - pull to update &&
+- (void)setHistoryStatus:(BOOL)historyStatus
+{
+    _historyStatus = historyStatus;
+    
+    
+    if (_historyStatus) {
+        self.collectionView.mj_header = nil;
+        self.collectionView.mj_header = nil;
+    } else {
+        //设置代理  处理一些问题（1.没有更多数据 2.刷新成功或者失败都要停止刷新）  有问题！TnT
+        //    [NetWorkService shareInstance].delegate = self;
+        
+        // 展示header  下拉触发loadNewData
+        self.collectionView.mj_header = self.mj_header;
+        
+#pragma warning --- 一般设置完让他直接出发下拉刷新  但是老哥你这是替换数据源   所以一开始不是搜索列表的时候不能刷新 不然会蹦
+        // 进入刷新状态 自动触发loadNewData
+        //    [self.collectionView.mj_header beginRefreshing];
+        
+        // 设置footer
+        self.collectionView.mj_footer = self.mj_footer;
+    }
+    
+    [self.collectionView reloadData];
+}
+
+
+#pragma mark -- 上拉下拉加载
+- (void)loadNewData{
     
     [self startSearchWithKeyword:_keyword page:1];
-
 }
--(void)loadMoreData{
+
+- (void)loadMoreData{
+    
     _page ++;
     NSLog(@"---页数：%d",_page);
     [self startSearchWithKeyword:_keyword page:_page];
@@ -407,10 +439,28 @@ static NSString *productIdentifier = @"productCell";
     
 }
 
--(void)mj_footerNoMoreData{
+- (void)mj_footerNoMoreData{
     
     [self.collectionView.mj_footer endRefreshingWithNoMoreData];
     
+}
+
+- (MJRefreshNormalHeader *)mj_header
+{
+    if (_mj_header == nil) {
+        _mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+        //头部透明度 随着collectionView的滚动自动影藏或显示
+        _mj_header.automaticallyChangeAlpha = YES;
+    }
+    return _mj_header;
+}
+
+- (MJRefreshBackNormalFooter *)mj_footer
+{
+    if (_mj_footer == nil) {
+        _mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    }
+    return _mj_footer;
 }
 
 
